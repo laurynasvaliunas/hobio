@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "Hobio",
+    "slug": "hobio",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/hobio-logo.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "scheme": "hobio",
+    "splash": {
+      "image": "./assets/hobio-logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FBF6F3"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hobio.app",
+      "config": {
+        "googleMapsApiKey": "AIzaSyBErUpRHTRY6w-_35o2ageEYdjNjtgFLns"
+      },
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Hobio uses your location to show nearby groups on the map."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/hobio-logo.png",
+        "backgroundColor": "#D97758"
+      },
+      "package": "com.hobio.app",
+      "edgeToEdgeEnabled": true,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBv6ZUdZ-oTmE9lLwFhgPxxVuH_5P3Wdvw"
+        }
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Hobio uses your location to show nearby groups on the map."
+        }
+      ],
+      "expo-web-browser"
+    ]
+  }
+}

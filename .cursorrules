@@ -1,0 +1,643 @@
+# Hobio — Master Development Prompt (.cursorrules)
+
+---
+
+# Role & Context
+
+You are a Principal React Native Engineer, Backend Architect, and UX Designer building **Hobio** — a mobile-first platform that lets participants (adults & children) manage all their hobby groups from one place, and lets group organizers manage all their participants in one place.
+
+Think of it as **"one app to rule all your hobbies"** — football, basketball, dance, swimming, music lessons, martial arts, art classes, and more.
+
+---
+
+# 1. Tech Stack
+
+| Layer | Technology | Notes |
+|---|---|---|
+| **Framework** | React Native (Expo SDK 52+) | Managed workflow. Use `expo-dev-client` for native modules. |
+| **Language** | TypeScript (.ts, .tsx) | Strict mode. No `any` types. |
+| **Navigation** | Expo Router v4 (file-based) | All routes in `/app` directory. |
+| **Styling** | NativeWind v4 (Tailwind CSS) | Preferred for speed. Fallback: `StyleSheet.create()`. |
+| **Icons** | `lucide-react-native` | Consistent, modern icon set. |
+| **Backend** | Supabase | Auth, PostgreSQL DB, Realtime, Storage, Edge Functions. |
+| **State Management** | Zustand | Lightweight global stores for session, active group, etc. |
+| **Forms** | React Hook Form + Zod | Type-safe validation on every form. |
+| **Date/Time** | `date-fns` | Lightweight. Used for schedule logic. |
+| **Calendar** | `react-native-calendars` | For schedule views. |
+| **Maps** | `react-native-maps` | For location/venue display. |
+| **Notifications** | `expo-notifications` | Push notifications for reminders, announcements. |
+| **Animations** | `react-native-reanimated` | Micro-interactions, sheet transitions. |
+| **Bottom Sheets** | `@gorhom/bottom-sheet` | Standard bottom sheet component. |
+| **Image Handling** | `expo-image` | Performant image loading with caching. |
+| **Payments** | Stripe (via Supabase Edge Functions) | Future: in-app payment collection. |
+
+---
+
+# 2. User Roles & Permissions
+
+## 2.1 Roles
+
+| Role | Code | Description |
+|---|---|---|
+| **Organizer** | `organizer` | Creates & manages groups, schedules, tracks attendance, handles contracts. Can be a coach, instructor, studio owner, club admin. |
+| **Participant** | `participant` | An adult who joins groups for themselves. Sees their schedule, contracts, payments across all groups. |
+| **Parent/Guardian** | `parent` | Manages one or more children's memberships. Signs contracts on behalf of children. Single dashboard for all children's activities. |
+| **Child** | `child` | A dependent profile linked to a parent. Cannot log in independently. Displayed as participant within groups. |
+
+## 2.2 Permission Matrix
+
+| Action | Organizer | Participant | Parent |
+|---|---|---|---|
+| Create group | ✅ | ❌ | ❌ |
+| Edit group details | ✅ (own) | ❌ | ❌ |
+| Create schedule/session | ✅ (own) | ❌ | ❌ |
+| Mark attendance | ✅ (own) | ❌ | ❌ |
+| View own schedule | ✅ | ✅ | ✅ (children's) |
+| Join a group | ❌ | ✅ | ✅ (for children) |
+| Leave a group | ❌ | ✅ | ✅ (for children) |
+| View/sign contracts | ✅ (create) | ✅ (sign) | ✅ (sign for child) |
+| Send announcements | ✅ (own groups) | ❌ | ❌ |
+| View announcements | ✅ | ✅ | ✅ |
+| Manage child profiles | ❌ | ❌ | ✅ |
+
+---
+
+# 3. Core Domain Entities & Database Schema
+
+## 3.1 Entity Relationship Overview
+
+```
+profiles (user accounts)
+  ├── children (parent → child relationship)
+  ├── organizations (organizer creates)
+  │     └── groups (belongs to organization)
+  │           ├── group_members (participant/child joins)
+  │           ├── sessions (scheduled occurrences)
+  │           │     └── attendance (per session per member)
+  │           ├── contracts (group → member agreements)
+  │           └── announcements (group-wide messages)
+  └── locations (reusable venues)
+```
+
+## 3.2 Supabase Tables
+
+### `profiles`
+```sql
+CREATE TABLE profiles (
+  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  email TEXT NOT NULL UNIQUE,
+  full_name TEXT NOT NULL,
+  phone TEXT,
+  avatar_url TEXT,
+  role TEXT NOT NULL CHECK (role IN ('organizer', 'participant', 'parent')),
+  date_of_birth DATE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+### `children`
+```sql
+CREATE TABLE children (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  parent_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+  full_name TEXT NOT NULL,
+  date_of_birth DATE NOT NULL,
+  avatar_url TEXT,
+  medical_notes TEXT, -- allergies, conditions (encrypted at rest)
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+### `organizations`
+```sql
+CREATE TABLE organizations (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  owner_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  description TEXT,
+  logo_url TEXT,
+  sport_category TEXT NOT NULL, -- 'football', 'dance', 'basketball', 'swimming', 'music', 'martial_arts', 'art', 'other'
+  website TEXT,
+  phone TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+### `locations`
+```sql
+CREATE TABLE locations (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  organization_id UUID REFERENCES organizations(id) ON DELETE SET NULL,
+  name TEXT NOT NULL,           -- "Central Sports Hall"
+  address TEXT NOT NULL,
+  city TEXT NOT NULL,
+  latitude DOUBLE PRECISION,
+  longitude DOUBLE PRECISION,
+  notes TEXT,                   -- "Enter from the back gate"
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+### `groups`
+```sql
+CREATE TABLE groups (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  organization_id UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,            -- "U12 Football - Monday/Wednesday"
+  description TEXT,
+  age_group TEXT,                -- "8-12", "Adults", "All ages"
+  skill_level TEXT,              -- "beginner", "intermediate", "advanced", "all"
+  max_participants INT,
+  price_per_month DECIMAL(10,2),
+  price_per_session DECIMAL(10,2),
+  currency TEXT DEFAULT 'EUR',
+  location_id UUID REFERENCES locations(id),
+  color TEXT DEFAULT '#10B981',  -- group accent color for UI
+  is_active BOOLEAN DEFAULT TRUE,
+  invite_code TEXT UNIQUE,       -- 6-char code for easy joining
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+### `group_members`
+```sql
+CREATE TABLE group_members (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  group_id UUID NOT NULL REFERENCES groups(id) ON DELETE CASCADE,
+  profile_id UUID REFERENCES profiles(id) ON DELETE CASCADE,     -- for adult participants
+  child_id UUID REFERENCES children(id) ON DELETE CASCADE,       -- for children
+  added_by UUID NOT NULL REFERENCES profiles(id),                -- who added (self or parent)
+  role TEXT DEFAULT 'member' CHECK (role IN ('member', 'assistant')),
+  status TEXT DEFAULT 'active' CHECK (status IN ('active', 'inactive', 'pending')),
+  joined_at TIMESTAMPTZ DEFAULT NOW(),
+  CONSTRAINT member_xor CHECK (
+    (profile_id IS NOT NULL AND child_id IS NULL) OR
+    (profile_id IS NULL AND child_id IS NOT NULL)
+  )
+);
+```
+
+### `sessions`
+```sql
+CREATE TABLE sessions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  group_id UUID NOT NULL REFERENCES groups(id) ON DELETE CASCADE,
+  location_id UUID REFERENCES locations(id),
+  title TEXT,                        -- optional override, e.g. "Friendly Match"
+  starts_at TIMESTAMPTZ NOT NULL,
+  ends_at TIMESTAMPTZ NOT NULL,
+  is_cancelled BOOLEAN DEFAULT FALSE,
+  cancellation_reason TEXT,
+  notes TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+### `recurring_schedule`
+```sql
+CREATE TABLE recurring_schedule (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  group_id UUID NOT NULL REFERENCES groups(id) ON DELETE CASCADE,
+  day_of_week INT NOT NULL CHECK (day_of_week BETWEEN 0 AND 6), -- 0=Sunday
+  start_time TIME NOT NULL,
+  end_time TIME NOT NULL,
+  location_id UUID REFERENCES locations(id),
+  valid_from DATE NOT NULL,
+  valid_until DATE,               -- NULL = indefinite
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+### `attendance`
+```sql
+CREATE TABLE attendance (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  session_id UUID NOT NULL REFERENCES sessions(id) ON DELETE CASCADE,
+  member_id UUID NOT NULL REFERENCES group_members(id) ON DELETE CASCADE,
+  status TEXT NOT NULL CHECK (status IN ('present', 'absent', 'late', 'excused')),
+  marked_by UUID REFERENCES profiles(id),
+  marked_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(session_id, member_id)
+);
+```
+
+### `contracts`
+```sql
+CREATE TABLE contracts (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  group_id UUID NOT NULL REFERENCES groups(id) ON DELETE CASCADE,
+  member_id UUID NOT NULL REFERENCES group_members(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,               -- "Season 2025/2026 Membership"
+  description TEXT,
+  document_url TEXT,                 -- PDF stored in Supabase Storage
+  price DECIMAL(10,2) NOT NULL,
+  currency TEXT DEFAULT 'EUR',
+  billing_period TEXT CHECK (billing_period IN ('one_time', 'monthly', 'quarterly', 'yearly')),
+  starts_at DATE NOT NULL,
+  ends_at DATE,
+  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'signed', 'expired', 'cancelled')),
+  signed_at TIMESTAMPTZ,
+  signed_by UUID REFERENCES profiles(id), -- the parent or participant who signed
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+### `announcements`
+```sql
+CREATE TABLE announcements (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  group_id UUID NOT NULL REFERENCES groups(id) ON DELETE CASCADE,
+  author_id UUID NOT NULL REFERENCES profiles(id),
+  title TEXT NOT NULL,
+  body TEXT NOT NULL,
+  priority TEXT DEFAULT 'normal' CHECK (priority IN ('normal', 'important', 'urgent')),
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+### `announcement_reads`
+```sql
+CREATE TABLE announcement_reads (
+  announcement_id UUID REFERENCES announcements(id) ON DELETE CASCADE,
+  profile_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+  read_at TIMESTAMPTZ DEFAULT NOW(),
+  PRIMARY KEY (announcement_id, profile_id)
+);
+```
+
+---
+
+# 4. App Navigation Structure (Expo Router)
+
+```
+app/
+├── _layout.tsx                    # Root layout (auth check, providers)
+├── index.tsx                      # Splash / redirect logic
+│
+├── (auth)/                        # Auth group (unauthenticated)
+│   ├── _layout.tsx
+│   ├── welcome.tsx                # Welcome/onboarding carousel
+│   ├── sign-in.tsx
+│   ├── sign-up.tsx
+│   └── forgot-password.tsx
+│
+├── (onboarding)/                  # Post-signup role selection & setup
+│   ├── _layout.tsx
+│   ├── select-role.tsx            # "I'm an Organizer" / "I'm a Participant" / "I'm a Parent"
+│   ├── organizer-setup.tsx        # Create first organization
+│   └── parent-setup.tsx           # Add first child
+│
+├── (tabs)/                        # Main authenticated app (tab navigator)
+│   ├── _layout.tsx                # Tab bar with 4-5 tabs
+│   │
+│   ├── home/                      # TAB 1: Dashboard / Home
+│   │   ├── _layout.tsx
+│   │   └── index.tsx              # Role-specific dashboard
+│   │
+│   ├── schedule/                  # TAB 2: Unified Calendar
+│   │   ├── _layout.tsx
+│   │   └── index.tsx              # All sessions across all groups
+│   │
+│   ├── groups/                    # TAB 3: Groups
+│   │   ├── _layout.tsx
+│   │   ├── index.tsx              # List of user's groups
+│   │   └── [groupId]/
+│   │       ├── index.tsx          # Group detail (info, next sessions)
+│   │       ├── members.tsx        # Member list (organizer view)
+│   │       ├── sessions.tsx       # Session list
+│   │       ├── attendance/
+│   │       │   └── [sessionId].tsx # Attendance marking screen
+│   │       ├── contracts.tsx      # Contracts list
+│   │       ├── announcements.tsx  # Announcements feed
+│   │       └── settings.tsx       # Group settings (organizer)
+│   │
+│   ├── notifications/             # TAB 4: Notifications & Announcements
+│   │   ├── _layout.tsx
+│   │   └── index.tsx
+│   │
+│   └── profile/                   # TAB 5: Profile & Settings
+│       ├── _layout.tsx
+│       ├── index.tsx              # Profile overview
+│       ├── children.tsx           # Manage children (parent role)
+│       ├── organizations.tsx      # Manage orgs (organizer role)
+│       └── settings.tsx           # App settings, logout
+│
+├── join/                          # Deep link: Join group via invite code
+│   └── [code].tsx
+│
+└── modals/                        # Modal screens
+    ├── create-group.tsx
+    ├── create-session.tsx
+    ├── create-announcement.tsx
+    ├── contract-detail.tsx
+    ├── member-detail.tsx
+    └── add-child.tsx
+```
+
+---
+
+# 5. Key User Flows
+
+## 5.1 Organizer Flow
+1. **Sign Up** → Select "Organizer" role → Create Organization (name, sport, logo)
+2. **Create Group** → Set name, age group, skill level, price, location, schedule
+3. **Share Invite Code** → Participants/parents join via 6-character code or QR
+4. **Manage Sessions** → View upcoming, create one-off sessions, cancel with reason
+5. **Take Attendance** → Open session → See member list → Tap present/absent/late/excused
+6. **Send Announcements** → Write message → Push notification sent to all members
+7. **Manage Contracts** → Create contract template → Assign to members → Track signatures
+
+## 5.2 Participant Flow (Adult)
+1. **Sign Up** → Select "Participant" role
+2. **Join Group** → Enter invite code or scan QR → See group info → Confirm join
+3. **View Dashboard** → See today's schedule, upcoming sessions across all groups
+4. **View Schedule** → Calendar view with color-coded groups
+5. **Read Announcements** → Get push notifications, read in-app
+6. **Sign Contracts** → View contract details → Digital signature → Download PDF
+
+## 5.3 Parent Flow
+1. **Sign Up** → Select "Parent" role → Add children (name, DOB, medical notes)
+2. **Join Groups for Children** → Enter invite code → Select which child → Confirm
+3. **Unified Dashboard** → See all children's schedules in one view
+4. **Per-Child View** → Filter by child to see their groups, upcoming sessions
+5. **Sign Contracts** → Sign on behalf of child
+6. **Receive Notifications** → Cancellations, announcements, attendance reports
+
+---
+
+# 6. UI/UX Design System
+
+## 6.1 Design Philosophy
+- **Clean & Friendly**: Rounded corners, soft shadows, plenty of whitespace.
+- **Color-Coded Groups**: Each group gets an accent color for instant recognition in calendar/lists.
+- **Role-Adaptive UI**: Same app, different dashboards per role. No feature overload.
+- **Parent-First for Children**: Parents see a child switcher at the top of their dashboard.
+
+## 6.2 Color Palette
+
+| Token | Value | Usage |
+|---|---|---|
+| `primary` | `#6C5CE7` | Main brand purple — buttons, active tabs, links |
+| `primary-light` | `#A29BFE` | Light purple — backgrounds, badges |
+| `secondary` | `#00B894` | Green — success states, confirmations, attendance "present" |
+| `warning` | `#FDCB6E` | Yellow — pending states, upcoming reminders |
+| `danger` | `#E17055` | Red-orange — cancellations, absences, delete actions |
+| `background` | `#F8F9FD` | App background (light grayish blue) |
+| `surface` | `#FFFFFF` | Cards, sheets, modals |
+| `text-primary` | `#2D3436` | Main text |
+| `text-secondary` | `#636E72` | Secondary/muted text |
+| `border` | `#E2E8F0` | Dividers, input borders |
+
+## 6.3 Typography
+
+| Style | Size | Weight | Usage |
+|---|---|---|---|
+| `heading-xl` | 28px | Bold (700) | Screen titles |
+| `heading-lg` | 22px | SemiBold (600) | Section titles |
+| `heading-md` | 18px | SemiBold (600) | Card titles |
+| `body` | 16px | Regular (400) | Body text |
+| `body-sm` | 14px | Regular (400) | Secondary text, captions |
+| `caption` | 12px | Medium (500) | Labels, timestamps |
+
+## 6.4 Spacing & Sizing
+- **Border Radius**: Cards `16px`, Buttons `12px`, Inputs `10px`, Avatars `full (9999px)`.
+- **Card Shadow**: `shadowColor: "#6C5CE7", shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 12, elevation: 4`.
+- **Padding**: Screen padding `20px`, Card padding `16px`, Section gap `24px`.
+
+## 6.5 Component Patterns
+- **Cards**: White surface, 16px radius, subtle shadow, 16px internal padding.
+- **Buttons**: Primary (solid purple), Secondary (outlined), Destructive (red-orange). Height: 52px. Full-width on forms.
+- **Inputs**: 52px height, 10px radius, 1px border, 16px horizontal padding. Floating label pattern.
+- **Avatars**: 48px for lists, 80px for profile headers. Circular. Fallback: colored circle with initials.
+- **Bottom Sheets**: Used for quick actions (attendance marking, filters). Snap points: 25%, 50%, 90%.
+- **Empty States**: Illustrated (simple vector), with a title, description, and CTA button.
+- **Pull-to-Refresh**: On all list screens.
+
+## 6.6 Tab Bar
+- 5 tabs: Home, Schedule, Groups, Notifications, Profile
+- Icons: `Home`, `Calendar`, `Users`, `Bell`, `User` from lucide
+- Active: Primary purple icon + label. Inactive: Gray icon, no label.
+- Floating tab bar style with rounded corners and subtle shadow, elevated above content.
+
+---
+
+# 7. Coding Standards
+
+## 7.1 Strict Mobile-Only
+- **NEVER** use `<div>`, `<span>`, `<img>`, `<button>`, or any HTML element.
+- **ALWAYS** use `<View>`, `<Text>`, `<Image>`, `<Pressable>`, `<TouchableOpacity>`, `<ScrollView>`, `<FlatList>`.
+- **ALWAYS** wrap screen roots in `<SafeAreaView>` from `react-native-safe-area-context`.
+
+## 7.2 Component Architecture
+```
+src/
+├── components/
+│   ├── ui/                 # Reusable primitives (Button, Input, Card, Avatar, Badge)
+│   ├── groups/             # Group-related components (GroupCard, MemberRow)
+│   ├── schedule/           # Schedule components (SessionCard, CalendarDay)
+│   ├── attendance/         # Attendance components (AttendanceRow, StatusBadge)
+│   └── layout/             # Layout wrappers (ScreenWrapper, FloatingTabBar)
+├── hooks/                  # Custom hooks (useGroups, useSessions, useAuth)
+├── stores/                 # Zustand stores (authStore, groupStore)
+├── lib/                    # Utilities (supabase client, date helpers, constants)
+├── types/                  # TypeScript interfaces & types (database.types.ts)
+└── constants/              # Colors, spacing, sport categories
+```
+
+## 7.3 TypeScript Standards
+- Every component has a typed `interface Props { ... }`.
+- Generate Supabase types: `npx supabase gen types typescript --project-id <id> > src/types/database.types.ts`.
+- Use `z.infer<typeof schema>` for form types.
+- No `any`. Use `unknown` + type guards when type is uncertain.
+
+## 7.4 Data Fetching
+- Use custom hooks per entity: `useGroups()`, `useSessions()`, `useMembers(groupId)`.
+- Each hook uses `useEffect` + `useState` for loading/error/data pattern.
+- Future: Migrate to TanStack Query (React Query) for caching & background refetching.
+
+## 7.5 File Naming
+- Components: `PascalCase.tsx` (e.g., `GroupCard.tsx`).
+- Hooks: `camelCase.ts` (e.g., `useGroups.ts`).
+- Utilities: `camelCase.ts` (e.g., `dateHelpers.ts`).
+- Types: `camelCase.ts` (e.g., `database.types.ts`).
+- Screens (in `/app`): `kebab-case.tsx` as per Expo Router convention.
+
+---
+
+# 8. Feature Details & Business Logic
+
+## 8.1 Invite Code System
+- When a group is created, generate a 6-character alphanumeric code (uppercase, no ambiguous chars: exclude 0/O, 1/I/L).
+- Characters: `ABCDEFGHJKMNPQRSTUVWXYZ23456789`
+- Participants enter the code manually or scan a QR code containing a deep link: `hobio://join/{code}`
+- On join: Check if group exists → Show group preview (name, org, sport, schedule) → Confirm → Create `group_members` entry.
+
+## 8.2 Recurring Schedule → Session Generation
+- Organizers define recurring schedules (e.g., "Every Monday 17:00-18:30").
+- A Supabase Edge Function (or cron) generates `sessions` rows 4 weeks ahead.
+- Organizers can also create one-off sessions manually.
+- Cancelled sessions stay in DB with `is_cancelled = true` and a reason.
+
+## 8.3 Attendance Logic
+- For each session, auto-create attendance rows for all active group members with status `null` (unmarked).
+- Organizer opens session → sees member list → taps each to toggle: present ✅ / absent ❌ / late ⏰ / excused 📝.
+- After marking, parents receive a push notification summary: "Alex was marked present at Football today."
+
+## 8.4 Contract Lifecycle
+1. **Draft**: Organizer creates contract with title, description, price, period, optional PDF.
+2. **Pending**: Assigned to member(s). Appears in their Contracts tab.
+3. **Signed**: Participant or parent digitally signs (tap-to-sign, stored timestamp + signer ID).
+4. **Expired/Cancelled**: Auto-expire based on `ends_at` or manual cancellation.
+
+## 8.5 Announcements & Notifications
+- Organizer writes an announcement scoped to a group.
+- All group members (and parents of child members) receive a push notification.
+- In-app: unread badge on Notifications tab. Read status tracked in `announcement_reads`.
+- Priority levels affect notification styling: `urgent` = red banner at top of group screen.
+
+## 8.6 Dashboard Logic (Home Screen)
+
+### Organizer Dashboard
+- **Today's Sessions**: List of sessions happening today across all their groups.
+- **Quick Stats**: Total members, attendance rate this week, pending contracts.
+- **Recent Activity**: Latest joins, contract signatures, attendance completions.
+
+### Participant Dashboard
+- **My Schedule Today**: Sessions they're part of, with time and location.
+- **Upcoming This Week**: Next 7 days of sessions.
+- **Unread Announcements**: Latest announcements badge.
+
+### Parent Dashboard
+- **Child Switcher**: Horizontal scroll of child avatars at top. "All" option.
+- **Today's Schedule**: Merged schedule of selected child (or all children).
+- **Pending Actions**: Unsigned contracts, unread announcements.
+
+---
+
+# 9. Supabase Configuration
+
+## 9.1 Row Level Security (RLS) Policies
+Enable RLS on ALL tables. Key policies:
+
+- `profiles`: Users can read any profile. Users can update only their own.
+- `children`: Only the parent (`parent_id = auth.uid()`) can CRUD.
+- `organizations`: Anyone can read. Only owner can update/delete.
+- `groups`: Anyone can read active groups. Only org owner can update.
+- `group_members`: Members can read their own group's members. Org owner can CRUD.
+- `sessions`: Group members can read. Org owner can CRUD.
+- `attendance`: Org owner can CRUD. Members can read their own.
+- `contracts`: Org owner can create. Member/parent can read & update (sign) their own.
+- `announcements`: Group members can read. Org owner can create.
+
+## 9.2 Realtime Subscriptions
+- Subscribe to `announcements` table for live announcement feed.
+- Subscribe to `sessions` table for live cancellation updates.
+- Subscribe to `attendance` table for real-time attendance marking (organizer screen).
+
+## 9.3 Storage Buckets
+- `avatars` — Profile and child photos. Public read, authenticated write (own).
+- `logos` — Organization logos. Public read, org owner write.
+- `contracts` — PDF documents. Authenticated read (member/owner), org owner write.
+
+---
+
+# 10. Sport Categories & Icons
+
+Use these predefined categories with their lucide icon mappings:
+
+```typescript
+const SPORT_CATEGORIES = [
+  { key: 'football', label: 'Football', icon: 'circle-dot' },
+  { key: 'basketball', label: 'Basketball', icon: 'dribbble' },
+  { key: 'dance', label: 'Dance', icon: 'music' },
+  { key: 'swimming', label: 'Swimming', icon: 'waves' },
+  { key: 'tennis', label: 'Tennis', icon: 'target' },
+  { key: 'martial_arts', label: 'Martial Arts', icon: 'swords' },
+  { key: 'gymnastics', label: 'Gymnastics', icon: 'flip-horizontal' },
+  { key: 'music', label: 'Music', icon: 'music-2' },
+  { key: 'art', label: 'Art', icon: 'palette' },
+  { key: 'volleyball', label: 'Volleyball', icon: 'circle' },
+  { key: 'hockey', label: 'Hockey', icon: 'hexagon' },
+  { key: 'athletics', label: 'Athletics', icon: 'timer' },
+  { key: 'yoga', label: 'Yoga', icon: 'heart-pulse' },
+  { key: 'other', label: 'Other', icon: 'trophy' },
+] as const;
+```
+
+---
+
+# 11. Performance & Quality Guidelines
+
+1. **Lists**: Always use `<FlatList>` for lists > 10 items. Never map inside `<ScrollView>` for long lists.
+2. **Images**: Use `expo-image` with `placeholder` prop for blur-up loading.
+3. **Memoization**: Use `React.memo()` on list item components. Use `useMemo`/`useCallback` for expensive computations and callback props.
+4. **Skeleton Loading**: Show skeleton placeholders while data loads. Never show blank screens.
+5. **Error Boundaries**: Wrap each tab in an error boundary with retry option.
+6. **Offline Awareness**: Show a subtle banner when offline. Queue writes and sync when back online (future).
+7. **Accessibility**: All touchable elements need `accessibilityLabel`. Use `accessibilityRole` on buttons.
+
+---
+
+# 12. Testing Strategy
+
+- **Unit Tests**: Jest + React Native Testing Library for component logic.
+- **Integration Tests**: Test Supabase hooks with mocked client.
+- **E2E Tests**: Detox or Maestro for critical flows (sign up, join group, mark attendance).
+- **Type Safety**: `tsc --noEmit` in CI to catch type errors.
+
+---
+
+# 13. Environment Variables
+
+```env
+EXPO_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
+EXPO_PUBLIC_SUPABASE_ANON_KEY=eyJ...
+EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=AIza...
+```
+
+Never commit `.env` files. Use EAS Secrets for production builds.
+
+---
+
+# 14. Implementation Priority (Build Order)
+
+### Phase 1 — Foundation (MVP)
+1. Project setup (Expo, NativeWind, Supabase client)
+2. Auth flow (sign up, sign in, forgot password)
+3. Onboarding (role selection, basic profile setup)
+4. Group CRUD (create, read, update for organizers)
+5. Invite code join flow
+6. Basic group member list
+7. Tab navigation with role-based dashboard shells
+
+### Phase 2 — Core Features
+8. Recurring schedule setup + session generation
+9. Unified calendar view (all groups, color-coded)
+10. Attendance marking (organizer)
+11. Attendance viewing (participant/parent)
+12. Child profile management (parent role)
+13. Parent dashboard with child switcher
+
+### Phase 3 — Engagement
+14. Announcements (create, read, push notifications)
+15. Contract creation and digital signing
+16. Location/venue display with maps
+17. Session cancellation with reason + notification
+18. Notification center
+
+### Phase 4 — Polish
+19. Empty states with illustrations
+20. Skeleton loading screens
+21. Pull-to-refresh everywhere
+22. Animations (page transitions, attendance toggle)
+23. QR code generation & scanning for invite codes
+24. Dark mode support
+
+### Phase 5 — Monetization & Scale
+25. Stripe payment integration
+26. Attendance reports & statistics
+27. Export data (CSV/PDF)
+28. Multi-language support (i18n)
+29. Offline mode
+30. App Store & Play Store submission
