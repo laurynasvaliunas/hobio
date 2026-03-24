@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView, TouchableOpacity, Alert } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, Alert, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 import {
   Settings,
@@ -10,6 +10,8 @@ import {
   Shield,
   HelpCircle,
   RefreshCw,
+  FileText,
+  Lock,
 } from "lucide-react-native";
 import { ScreenWrapper, Card, Avatar, Badge } from "../../../src/components/ui";
 import { useTheme } from "../../../src/hooks/useTheme";
@@ -256,6 +258,23 @@ export default function ProfileScreen() {
             title="Help & Support"
             subtitle="FAQ, contact us"
             onPress={() => {}}
+          />
+        </Card>
+
+        {/* Legal */}
+        <Card>
+          <MenuItem
+            icon={<FileText size={20} color={colors.primary.DEFAULT} />}
+            title="Terms &amp; Conditions"
+            subtitle="Service terms and user agreement"
+            onPress={() => router.push("/(legal)/terms" as never)}
+          />
+          <View style={{ height: StyleSheet.hairlineWidth, backgroundColor: colors.border, marginLeft: 54 }} />
+          <MenuItem
+            icon={<Lock size={20} color={colors.primary.DEFAULT} />}
+            title="Privacy Policy"
+            subtitle="How we collect and use your data"
+            onPress={() => router.push("/(legal)/privacy" as never)}
           />
         </Card>
 

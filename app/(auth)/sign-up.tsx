@@ -11,7 +11,7 @@ import {
   Animated,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { Mail, Lock, UserIcon, ArrowLeft, ShieldCheck, CheckCircle } from "lucide-react-native";
+import { Mail, Lock, UserIcon, ArrowLeft, ShieldCheck, CheckCircle, Check } from "lucide-react-native";
 import { ScreenWrapper, Button, Input } from "../../src/components/ui";
 import { Colors, Shadows } from "../../src/constants/colors";
 import { useAuthStore } from "../../src/stores/authStore";
@@ -29,6 +29,8 @@ export default function SignUpScreen() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [emailConfirmationSent, setEmailConfirmationSent] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [termsError, setTermsError] = useState(false);
 
   // ── Staggered entrance animations ──
   const backAnim   = useRef(new Animated.Value(0)).current;
@@ -122,6 +124,10 @@ export default function SignUpScreen() {
 
   const handleSignUp = async () => {
     setTouched({ fullName: true, email: true, password: true, confirmPassword: true });
+    if (!agreedToTerms) {
+      setTermsError(true);
+      return;
+    }
     if (!validate()) return;
 
     setLoading(true);
@@ -293,8 +299,48 @@ export default function SignUpScreen() {
             </Animated.View>
           </View>
 
-          {/* CTA — slides up */}
+          {/* Terms & Conditions checkbox */}
           <Animated.View style={{ opacity: ctaAnim, transform: [{ translateY: ctaY }] }}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => {
+                setAgreedToTerms((v) => !v);
+                setTermsError(false);
+              }}
+              style={{ flexDirection: "row", alignItems: "flex-start", gap: 12, marginBottom: 20 }}
+            >
+              <View
+                style={{
+                  width: 22,
+                  height: 22,
+                  borderRadius: 6,
+                  borderWidth: 1.5,
+                  borderColor: termsError ? Colors.danger.DEFAULT : agreedToTerms ? Colors.primary.DEFAULT : Colors.text.secondary,
+                  backgroundColor: agreedToTerms ? Colors.primary.DEFAULT : "transparent",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 1,
+                }}
+              >
+                {agreedToTerms && <Check size={14} color="#fff" strokeWidth={3} />}
+              </View>
+              <Text style={{ flex: 1, fontSize: 13, color: termsError ? Colors.danger.DEFAULT : Colors.text.secondary, lineHeight: 20 }}>
+                I have read and agree to the{" "}
+                <Text
+                  style={{ color: Colors.primary.DEFAULT, fontWeight: "600", textDecorationLine: "underline" }}
+                  onPress={() => router.push("/(legal)/terms" as never)}
+                >
+                  Terms &amp; Conditions
+                </Text>
+                {" "}and{" "}
+                <Text
+                  style={{ color: Colors.primary.DEFAULT, fontWeight: "600", textDecorationLine: "underline" }}
+                  onPress={() => router.push("/(legal)/privacy" as never)}
+                >
+                  Privacy Policy
+                </Text>
+              </Text>
+            </TouchableOpacity>
             <Button title="Create Account" onPress={handleSignUp} loading={loading} />
           </Animated.View>
 
