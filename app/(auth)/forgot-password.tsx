@@ -179,7 +179,7 @@ export default function ForgotPasswordScreen() {
         {/* Header */}
         <View style={{ marginBottom: 36 }}>
           <Image
-            source={require("../../assets/hobio-logo.png")}
+            source={require("../../assets/hobio-brand-logo.png")}
             style={{ width: 160, height: 64, marginBottom: 20 }}
             resizeMode="contain"
           />

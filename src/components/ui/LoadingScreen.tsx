@@ -70,7 +70,7 @@ export function LoadingScreen() {
     <View style={styles.container}>
       <Animated.View style={[styles.logoWrapper, logoStyle]}>
         <Image
-          source={require("../../../assets/hobio-logo.png")}
+          source={require("../../../assets/hobio-brand-logo.png")}
           style={styles.logoImage}
           resizeMode="contain"
         />

@@ -222,7 +222,7 @@ export default function SignUpScreen() {
           {/* Header — slides up */}
           <Animated.View style={{ marginBottom: 32, opacity: headerAnim, transform: [{ translateY: headerY }] }}>
             <Image
-              source={require("../../assets/hobio-logo.png")}
+              source={require("../../assets/hobio-brand-logo.png")}
               style={{ width: 160, height: 64, marginBottom: 20 }}
               resizeMode="contain"
             />

@@ -104,7 +104,7 @@ export default function Index() {
         }}
       >
         <Image
-          source={require("../assets/hobio-logo.png")}
+          source={require("../assets/hobio-brand-logo.png")}
           style={{ width: 160, height: 160 }}
           resizeMode="contain"
         />

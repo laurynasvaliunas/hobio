@@ -125,7 +125,7 @@ export default function OrganizerSetupScreen() {
           {/* Header */}
           <Animated.View style={{ opacity: headerOpacity, marginBottom: 32 }}>
             <Image
-              source={require("../../assets/hobio-logo.png")}
+              source={require("../../assets/hobio-brand-logo.png")}
               style={{ width: 140, height: 56, marginBottom: 16 }}
               resizeMode="contain"
             />

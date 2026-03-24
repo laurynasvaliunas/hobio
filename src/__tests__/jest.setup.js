@@ -393,7 +393,7 @@ jest.mock("@expo-google-fonts/nunito", () => ({
 }));
 
 // ---------- Asset mocks ----------
-jest.mock("../../assets/hobio-logo.png", () => 1, { virtual: true });
+jest.mock("../../assets/hobio-brand-logo.png", () => 1, { virtual: true });
 
 // ---------- Console silencing ----------
 jest.spyOn(console, "warn").mockImplementation(() => {});

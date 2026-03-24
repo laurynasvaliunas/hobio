@@ -130,7 +130,7 @@ export default function WelcomeScreen() {
           ]}
         >
           <Image
-            source={require("../../assets/hobio-logo.png")}
+            source={require("../../assets/hobio-brand-logo.png")}
             style={styles.logoImage}
             resizeMode="contain"
           />

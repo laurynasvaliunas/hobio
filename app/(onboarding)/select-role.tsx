@@ -172,7 +172,7 @@ export default function SelectRoleScreen() {
           }}
         >
           <Image
-            source={require("../../assets/hobio-logo.png")}
+            source={require("../../assets/hobio-brand-logo.png")}
             style={{ width: 140, height: 56, marginBottom: 12 }}
             resizeMode="contain"
           />
