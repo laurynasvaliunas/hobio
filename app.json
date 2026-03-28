@@ -53,7 +53,14 @@
           "locationWhenInUsePermission": "Hobio uses your location to show nearby groups on the map."
         }
       ],
-      "expo-web-browser"
+      "expo-web-browser",
+      [
+        "@rnmapbox/maps",
+        {
+          "RNMapboxMapsImpl": "mapbox",
+          "RNMapboxMapsDownloadToken": "MAPBOX_ACCESS_TOKEN_PLACEHOLDER"
+        }
+      ]
     ]
   }
 }
