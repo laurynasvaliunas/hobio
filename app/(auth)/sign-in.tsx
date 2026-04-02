@@ -137,7 +137,7 @@ export default function SignInScreen() {
               style={{ flexDirection: "row", alignItems: "center", gap: 6 }}
             >
               <ArrowLeft size={20} color={Colors.primary.DEFAULT} strokeWidth={2.5} />
-              <Text style={{ fontSize: 15, fontWeight: "600", color: Colors.primary.DEFAULT }}>Back</Text>
+              <Text style={{ fontSize: 15, fontWeight: "600", color: Colors.primary.DEFAULT }}>{t("common.back")}</Text>
             </TouchableOpacity>
           </Animated.View>
 
