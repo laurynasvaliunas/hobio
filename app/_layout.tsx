@@ -46,6 +46,15 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
+    const onInitialized = () => setI18nReady(true);
+    i18n.on("initialized", onInitialized);
+    if (i18n.isInitialized) setI18nReady(true);
+    return () => {
+      i18n.off("initialized", onInitialized);
+    };
+  }, []);
+
+  useEffect(() => {
     // Network connectivity test (DEV only)
     if (__DEV__) {
       const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL ?? "";
