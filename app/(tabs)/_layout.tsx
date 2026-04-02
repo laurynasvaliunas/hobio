@@ -65,6 +65,7 @@ function BouncyTabIcon({
  * Participant/Parent sees:  Home, Discover, Schedule, My Hobbies, Settings
  */
 export default function TabsLayout() {
+  const { t } = useTranslation();
   const { colors, shadows } = useTheme();
   const router = useRouter();
   const profile = useAuthStore((s) => s.profile);
