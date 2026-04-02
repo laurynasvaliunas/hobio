@@ -36,14 +36,14 @@ export default function AddChildModal() {
 
   const handleSave = async () => {
     // Validate
-    const result = childSchema.safeParse({
-      full_name: fullName.trim(),
-      date_of_birth: dateOfBirth.trim(),
-      medical_notes: medicalNotes.trim() || undefined,
+    const result = getChildSchema().safeParse({
+      fullName: fullName.trim(),
+      dateOfBirth: dateOfBirth.trim(),
+      medicalNotes: medicalNotes.trim() || undefined,
     });
 
     if (!result.success) {
-      Alert.alert("Validation Error", result.error.issues[0]?.message ?? "Check your input");
+      Alert.alert(t("common.error"), result.error.issues[0]?.message ?? t("groups.validationCheck"));
       return;
     }
 
