@@ -12,6 +12,7 @@ import { useTheme } from "../../src/hooks/useTheme";
 import { Fonts } from "../../src/constants/fonts";
 import { useAuthStore } from "../../src/stores/authStore";
 import { useNotificationStore } from "../../src/stores/notificationStore";
+import { useTranslation } from "react-i18next";
 
 /**
  * Animated tab icon that "bounces" when it becomes active.
