@@ -142,8 +142,8 @@ export default function SelectRoleScreen() {
       }
     } catch (error: unknown) {
       const message =
-        error instanceof Error ? error.message : "Something went wrong";
-      Alert.alert("Error", message);
+        error instanceof Error ? error.message : t("auth.somethingWrong");
+      Alert.alert(t("common.error"), message);
     } finally {
       setLoading(false);
     }
