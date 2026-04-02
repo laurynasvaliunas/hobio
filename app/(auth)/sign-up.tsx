@@ -233,10 +233,10 @@ export default function SignUpScreen() {
               resizeMode="contain"
             />
             <Text style={{ fontSize: 30, fontWeight: "800", color: Colors.text.primary, marginBottom: 8, letterSpacing: -0.5 }}>
-              Create account
+              {t("auth.signUpTitle")}
             </Text>
             <Text style={{ fontSize: 16, color: Colors.text.secondary, lineHeight: 24 }}>
-              Join the community and start your journey
+              {t("auth.signUpSubtitle")}
             </Text>
           </Animated.View>
 
