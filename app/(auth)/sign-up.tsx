@@ -142,8 +142,8 @@ export default function SignUpScreen() {
       }
     } catch (error: unknown) {
       const message =
-        error instanceof Error ? error.message : "Something went wrong";
-      Alert.alert("Sign Up Failed", message);
+        error instanceof Error ? error.message : t("auth.somethingWrong");
+      Alert.alert(t("auth.signUpFailed"), message);
     } finally {
       setLoading(false);
     }
