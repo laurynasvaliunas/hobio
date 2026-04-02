@@ -209,10 +209,11 @@ export default function ForgotPasswordScreen() {
             label={t("common.email")}
             placeholder="you@example.com"
             value={email}
-            onChangeText={(t) => {
-              setEmail(t);
+            onChangeText={(text) => {
+              setEmail(text);
               if (touched) {
-                const result = emailSchema.safeParse(t.trim());
+                const schema = z.string().email(t("validation.forgotEmailInvalid"));
+                const result = schema.safeParse(text.trim());
                 setError(result.success ? undefined : result.error.issues[0]?.message);
               }
             }}
