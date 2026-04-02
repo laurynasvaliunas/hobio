@@ -15,9 +15,11 @@ import { Mail, Lock, UserIcon, ArrowLeft, ShieldCheck, CheckCircle, Check } from
 import { ScreenWrapper, Button, Input } from "../../src/components/ui";
 import { Colors, Shadows } from "../../src/constants/colors";
 import { useAuthStore } from "../../src/stores/authStore";
-import { signUpSchema } from "../../src/lib/validations";
+import { getSignUpSchema } from "../../src/lib/validations";
+import { useTranslation } from "react-i18next";
 
 export default function SignUpScreen() {
+  const { t } = useTranslation();
   const router = useRouter();
   const signUp = useAuthStore((s) => s.signUp);
 
