@@ -286,8 +286,8 @@ export default function SignUpScreen() {
             </Animated.View>
             <Animated.View style={{ opacity: f4Anim, transform: [{ translateX: f4X }] }}>
               <Input
-                label="Confirm Password"
-                placeholder="Repeat your password"
+                label={t("auth.confirmPassword")}
+                placeholder={t("auth.confirmPasswordPh")}
                 value={confirmPassword}
                 onChangeText={(t) => { setConfirmPassword(t); if (touched.confirmPassword) validate("confirmPassword"); }}
                 onBlur={() => handleBlur("confirmPassword")}
