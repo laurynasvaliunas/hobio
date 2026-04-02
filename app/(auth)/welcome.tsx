@@ -53,7 +53,14 @@ function OrbitingEmoji({
 }
 
 export default function WelcomeScreen() {
+  const { t } = useTranslation();
   const router = useRouter();
+
+  const PILLS = [
+    { icon: Sparkles, text: t("auth.welcomePillConnect"), color: Colors.primary.DEFAULT },
+    { icon: Zap, text: t("auth.welcomePillGrow"), color: Colors.secondary.DEFAULT },
+    { icon: Heart, text: t("auth.welcomePillThrive"), color: Colors.accent.DEFAULT },
+  ];
 
   // Orbit rotation (0→1 over 10 s, looping)
   const orbitAnim = useRef(new Animated.Value(0)).current;
@@ -148,8 +155,8 @@ export default function WelcomeScreen() {
 
         {/* ── Tagline ── */}
         <Animated.Text style={[styles.tagline, { opacity: taglineOp }]}>
-          Where communities come together to{"\n"}
-          <Text style={styles.taglineAccent}>play, learn, and grow</Text>
+          {t("auth.welcomeTagline")}{"\n"}
+          <Text style={styles.taglineAccent}>{t("auth.welcomeTaglineAccent")}</Text>
         </Animated.Text>
 
         {/* ── Illustration: orbiting emojis ── */}
