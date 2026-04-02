@@ -8,6 +8,7 @@ import { Button, ProgressBar } from "../../src/components/ui";
 import { Colors, Shadows } from "../../src/constants/colors";
 import { useAuthStore } from "../../src/stores/authStore";
 import type { UserRole } from "../../src/types/database.types";
+import { useTranslation } from "react-i18next";
 
 const { width } = Dimensions.get("window");
 
@@ -20,38 +21,39 @@ interface RoleOption {
   gradient: string;
 }
 
-const ROLES: RoleOption[] = [
-  {
-    role: "organizer",
-    icon: Briefcase,
-    title: "I'm an Organizer",
-    description:
-      "I run hobby groups, classes, or a sports club.\nI want to manage participants, schedules, and billing.",
-    color: Colors.primary.DEFAULT,
-    gradient: Colors.primary.light,
-  },
-  {
-    role: "participant",
-    icon: User,
-    title: "I'm a Participant",
-    description:
-      "I attend groups and classes.\nI want to see my schedule and stay on top of things.",
-    color: Colors.secondary.DEFAULT,
-    gradient: Colors.secondary.light,
-  },
-  {
-    role: "parent",
-    icon: Users,
-    title: "I'm a Parent",
-    description:
-      "I manage my children's activities.\nI want one place for all their schedules and payments.",
-    color: Colors.accent.DEFAULT,
-    gradient: Colors.accent.light,
-  },
-];
-
 export default function SelectRoleScreen() {
+  const { t } = useTranslation();
   const router = useRouter();
+
+  const ROLES: RoleOption[] = useMemo(
+    () => [
+      {
+        role: "organizer" as const,
+        icon: Briefcase,
+        title: t("onboarding.organizerTitle"),
+        description: t("onboarding.organizerDesc"),
+        color: Colors.primary.DEFAULT,
+        gradient: Colors.primary.light,
+      },
+      {
+        role: "participant" as const,
+        icon: User,
+        title: t("onboarding.participantTitle"),
+        description: t("onboarding.participantDesc"),
+        color: Colors.secondary.DEFAULT,
+        gradient: Colors.secondary.light,
+      },
+      {
+        role: "parent" as const,
+        icon: Users,
+        title: t("onboarding.parentTitle"),
+        description: t("onboarding.parentDesc"),
+        color: Colors.accent.DEFAULT,
+        gradient: Colors.accent.light,
+      },
+    ],
+    [t]
+  );
   const updateRole = useAuthStore((s) => s.updateRole);
   const profile = useAuthStore((s) => s.profile);
   const [selectedRole, setSelectedRole] = useState<UserRole | null>(null);
