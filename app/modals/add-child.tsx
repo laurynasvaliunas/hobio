@@ -86,7 +86,7 @@ export default function AddChildModal() {
             <X size={24} color={colors.text.primary} />
           </TouchableOpacity>
           <Text style={{ fontSize: 18, fontFamily: Fonts.bold, color: colors.text.primary }}>
-            Add Child
+            {t("groups.addChildModalTitle")}
           </Text>
           <View style={{ width: 24 }} />
         </View>
