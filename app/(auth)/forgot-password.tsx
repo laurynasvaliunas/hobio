@@ -76,8 +76,8 @@ export default function ForgotPasswordScreen() {
       setSent(true);
     } catch (err: unknown) {
       const message =
-        err instanceof Error ? err.message : "Something went wrong";
-      Alert.alert("Error", message);
+        err instanceof Error ? err.message : t("auth.somethingWrong");
+      Alert.alert(t("common.error"), message);
     } finally {
       setLoading(false);
     }
