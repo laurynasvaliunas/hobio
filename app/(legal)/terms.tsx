@@ -138,7 +138,7 @@ export default function TermsScreen() {
         <Section title={t("legal.terms.s14_title")}>
           <P>{t("legal.terms.s14_intro")}</P>
           <Bullet>
-            {COMPANY} ({t("legal.privacy.companyCode")} {COMPANY_CODE})
+            {`${COMPANY} (${t("legal.privacy.companyCode")} ${COMPANY_CODE})`}
           </Bullet>
           <Bullet>{ADDRESS}</Bullet>
           <Bullet>
