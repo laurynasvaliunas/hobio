@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { View, Text, Image, TouchableOpacity, Alert, Animated, Dimensions } from "react-native";
 import { useRouter } from "expo-router";
 import { Briefcase, User, Users, ChevronRight, Sparkles } from "lucide-react-native";
