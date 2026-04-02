@@ -175,7 +175,7 @@ export default function SignUpScreen() {
               letterSpacing: -0.3,
             }}
           >
-            Check your email
+            {t("auth.checkEmailTitle")}
           </Text>
           <Text
             style={{
@@ -186,12 +186,10 @@ export default function SignUpScreen() {
               maxWidth: 300,
             }}
           >
-            We sent a confirmation link to{"\n"}
-            <Text style={{ fontWeight: "700", color: Colors.text.primary }}>{email}</Text>
-            {"\n\n"}Click the link in the email to activate your account.
+            {t("auth.checkEmailBody", { email })}
           </Text>
           <Button
-            title="Back to Sign In"
+            title={t("auth.backToSignIn")}
             onPress={() => router.replace("/(auth)/sign-in")}
             variant="outline"
             style={{ marginTop: 16, width: 200 }}
