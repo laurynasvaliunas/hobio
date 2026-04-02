@@ -192,7 +192,7 @@ export default function SignInScreen() {
               style={{ alignSelf: "flex-end", marginTop: 10, marginBottom: 28 }}
             >
               <Text style={{ fontSize: 14, fontWeight: "600", color: Colors.primary.DEFAULT }}>
-                Forgot password?
+                {t("auth.forgotPassword")}
               </Text>
             </TouchableOpacity>
           </Animated.View>
