@@ -3,6 +3,7 @@ import { View, Animated, Text, Image } from "react-native";
 import { useRouter } from "expo-router";
 import { useAuthStore } from "../src/stores/authStore";
 import { Colors, Shadows } from "../src/constants/colors";
+import { useTranslation } from "react-i18next";
 
 /**
  * Splash / routing screen.
