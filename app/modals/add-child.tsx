@@ -111,8 +111,8 @@ export default function AddChildModal() {
           </View>
 
           <Input
-            label="Full Name *"
-            placeholder="e.g. Alex Johnson"
+            label={t("groups.addChildFullName")}
+            placeholder={t("groups.addChildNamePh")}
             value={fullName}
             onChangeText={setFullName}
             autoCapitalize="words"
