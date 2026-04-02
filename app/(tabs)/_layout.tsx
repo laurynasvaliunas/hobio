@@ -127,7 +127,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="home"
         options={{
-          title: "Home",
+          title: t("tabs.home"),
           href: isOrganizer ? null : undefined,
           tabBarIcon: ({ color, size, focused }) => (
             <BouncyTabIcon
