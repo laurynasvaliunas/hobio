@@ -59,8 +59,8 @@ export default function AddChildModal() {
       toast.show(`${fullName} added successfully`);
       router.dismiss();
     } catch (error: unknown) {
-      const msg = error instanceof Error ? error.message : "Failed to add child";
-      Alert.alert("Error", msg);
+      const msg = error instanceof Error ? error.message : t("groups.addChildFailed");
+      Alert.alert(t("common.error"), msg);
     } finally {
       setSaving(false);
     }
