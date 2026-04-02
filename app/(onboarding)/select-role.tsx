@@ -325,7 +325,7 @@ export default function SelectRoleScreen() {
         {/* Continue */}
         <Animated.View style={{ opacity: buttonOpacity }}>
           <Button
-            title="Continue"
+            title={t("common.continue")}
             onPress={handleContinue}
             loading={loading}
             disabled={!selectedRole}
