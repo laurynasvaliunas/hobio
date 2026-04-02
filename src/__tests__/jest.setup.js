@@ -405,3 +405,6 @@ jest.mock("../../assets/hobio-brand-logo.png", () => 1, { virtual: true });
 // ---------- Console silencing ----------
 jest.spyOn(console, "warn").mockImplementation(() => {});
 jest.spyOn(console, "error").mockImplementation(() => {});
+
+// i18n (loads JSON resources; requires expo-localization mock above)
+require("../../src/i18n");
