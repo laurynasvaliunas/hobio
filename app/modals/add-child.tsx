@@ -130,8 +130,8 @@ export default function AddChildModal() {
           </View>
 
           <Input
-            label="Medical Notes"
-            placeholder="Allergies, conditions, medication..."
+            label={t("groups.medicalNotes")}
+            placeholder={t("groups.medicalNotesPh")}
             value={medicalNotes}
             onChangeText={setMedicalNotes}
             autoCapitalize="sentences"
