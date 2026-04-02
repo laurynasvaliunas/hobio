@@ -196,7 +196,7 @@ export default function SelectRoleScreen() {
                 letterSpacing: 1,
               }}
             >
-              Choose Your Path
+              {t("onboarding.choosePath")}
             </Text>
           </View>
           <Text
@@ -208,7 +208,7 @@ export default function SelectRoleScreen() {
               letterSpacing: -0.5,
             }}
           >
-            How will you use Hobio?
+            {t("onboarding.howUseTitle")}
           </Text>
           <Text
             style={{
@@ -217,7 +217,7 @@ export default function SelectRoleScreen() {
               lineHeight: 22,
             }}
           >
-            Select your role to personalize your experience.{"\n"}You can always change this later.
+            {t("onboarding.howUseSubtitle")}
           </Text>
         </Animated.View>
 
