@@ -15,9 +15,11 @@ import { Mail, Lock, ArrowLeft } from "lucide-react-native";
 import { ScreenWrapper, Button, Input } from "../../src/components/ui";
 import { Colors } from "../../src/constants/colors";
 import { useAuthStore } from "../../src/stores/authStore";
-import { signInSchema } from "../../src/lib/validations";
+import { getSignInSchema } from "../../src/lib/validations";
+import { useTranslation } from "react-i18next";
 
 export default function SignInScreen() {
+  const { t } = useTranslation();
   const router = useRouter();
   const signIn = useAuthStore((s) => s.signIn);
 
