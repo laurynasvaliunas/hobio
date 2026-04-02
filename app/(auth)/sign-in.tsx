@@ -93,11 +93,11 @@ export default function SignInScreen() {
   // Inline success messages
   const emailSuccess =
     touched.email && !errors.email && email.trim().length > 0
-      ? "Email looks good!"
+      ? t("auth.emailLooksGood")
       : undefined;
   const passwordSuccess =
     touched.password && !errors.password && password.length >= 6
-      ? "Password is valid"
+      ? t("auth.passwordValid")
       : undefined;
 
   const handleSignIn = async () => {
