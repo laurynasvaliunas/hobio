@@ -155,8 +155,8 @@ export default function WelcomeScreen() {
 
         {/* ── Tagline ── */}
         <Animated.Text style={[styles.tagline, { opacity: taglineOp }]}>
-          {t("auth.welcomeTagline")}{"\n"}
-          <Text style={styles.taglineAccent}>{t("auth.welcomeTaglineAccent")}</Text>
+          Where communities come together to{"\n"}
+          <Text style={styles.taglineAccent}>play, learn, and grow</Text>
         </Animated.Text>
 
         {/* ── Illustration: orbiting emojis ── */}
@@ -194,12 +194,12 @@ export default function WelcomeScreen() {
           ]}
         >
           <Button
-            title="Get Started"
+            title={t("auth.getStarted")}
             size="lg"
             onPress={() => router.push("/(auth)/sign-up")}
           />
           <Button
-            title="I already have an account"
+            title={t("auth.alreadyHaveAccount")}
             size="lg"
             variant="ghost"
             onPress={() => router.push("/(auth)/sign-in")}
