@@ -18,7 +18,8 @@ import { useTheme } from "../../src/hooks/useTheme";
 import { Fonts } from "../../src/constants/fonts";
 import { useAuthStore } from "../../src/stores/authStore";
 import { useChildren } from "../../src/hooks/useChildren";
-import { childSchema } from "../../src/lib/validations";
+import { getChildSchema } from "../../src/lib/validations";
+import { useTranslation } from "react-i18next";
 
 export default function AddChildModal() {
   const router = useRouter();
