@@ -106,7 +106,7 @@ export default function SignUpScreen() {
 
       return result.success;
     },
-    [fullName, email, password, confirmPassword]
+    [fullName, email, password, confirmPassword, t]
   );
 
   const handleBlur = (field: string) => {
