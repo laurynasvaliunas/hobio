@@ -159,7 +159,7 @@ export default function SignInScreen() {
           {/* Email field */}
           <Animated.View style={{ marginBottom: 14, opacity: field1Anim, transform: [{ translateX: field1X }] }}>
             <Input
-              label="Email"
+              label={t("common.email")}
               placeholder="you@example.com"
               value={email}
               onChangeText={(t) => { setEmail(t); if (touched.email) validate("email"); }}
