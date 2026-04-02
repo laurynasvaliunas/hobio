@@ -273,8 +273,8 @@ export default function SignUpScreen() {
             </Animated.View>
             <Animated.View style={{ opacity: f3Anim, transform: [{ translateX: f3X }] }}>
               <Input
-                label="Password"
-                placeholder="At least 6 characters"
+                label={t("common.password")}
+                placeholder={t("auth.passwordPh")}
                 value={password}
                 onChangeText={(t) => { setPassword(t); if (touched.password) validate("password"); }}
                 onBlur={() => handleBlur("password")}
