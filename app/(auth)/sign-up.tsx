@@ -341,7 +341,7 @@ export default function SignUpScreen() {
                 </Text>
               </Text>
             </TouchableOpacity>
-            <Button title="Create Account" onPress={handleSignUp} loading={loading} />
+            <Button title={t("auth.createAccount")} onPress={handleSignUp} loading={loading} />
           </Animated.View>
 
           {/* Footer */}
