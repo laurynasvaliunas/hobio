@@ -204,9 +204,9 @@ export default function SignInScreen() {
 
           {/* Footer */}
           <Animated.View style={{ flexDirection: "row", justifyContent: "center", marginTop: 24, gap: 4, opacity: footerAnim }}>
-            <Text style={{ fontSize: 14, color: Colors.text.secondary }}>Don't have an account?</Text>
+            <Text style={{ fontSize: 14, color: Colors.text.secondary }}>{t("auth.noAccount")}</Text>
             <TouchableOpacity onPress={() => router.replace("/(auth)/sign-up")}>
-              <Text style={{ fontSize: 14, fontWeight: "700", color: Colors.primary.DEFAULT }}>Sign Up</Text>
+              <Text style={{ fontSize: 14, fontWeight: "700", color: Colors.primary.DEFAULT }}>{t("common.signUp")}</Text>
             </TouchableOpacity>
           </Animated.View>
         </ScrollView>
