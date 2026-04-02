@@ -112,8 +112,8 @@ export default function SignInScreen() {
       router.replace("/");
     } catch (error: unknown) {
       const message =
-        error instanceof Error ? error.message : "Invalid email or password";
-      Alert.alert("Sign In Failed", message);
+        error instanceof Error ? error.message : t("auth.signInInvalid");
+      Alert.alert(t("auth.signInFailed"), message);
     } finally {
       setLoading(false);
     }
