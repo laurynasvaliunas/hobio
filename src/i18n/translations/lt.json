@@ -52,7 +52,9 @@
     "reset": "Reset",
     "apply": "Apply",
     "close": "Close",
-    "keepEditing": "Keep Editing"
+    "keepEditing": "Tęsti redagavimą",
+    "checkInput": "Patikrinkite įvestį",
+    "validationError": "Patvirtinimo klaida"
   },
   "validation": {
     "emailRequired": "El. paštas privalomas",
