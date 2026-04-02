@@ -180,7 +180,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="groups"
         options={{
-          title: isOrganizer ? "Groups" : "My Hobbies",
+          title: isOrganizer ? t("tabs.groups") : t("tabs.myHobbies"),
           tabBarIcon: ({ color, size, focused }) => (
             <BouncyTabIcon
               IconComp={Users}
