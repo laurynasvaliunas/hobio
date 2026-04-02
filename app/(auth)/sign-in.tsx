@@ -176,8 +176,8 @@ export default function SignInScreen() {
           {/* Password field */}
           <Animated.View style={{ opacity: field2Anim, transform: [{ translateX: field2X }] }}>
             <Input
-              label="Password"
-              placeholder="Enter your password"
+              label={t("common.password")}
+              placeholder={t("auth.passwordPh")}
               value={password}
               onChangeText={(t) => { setPassword(t); if (touched.password) validate("password"); }}
               onBlur={() => handleBlur("password")}
