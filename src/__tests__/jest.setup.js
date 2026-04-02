@@ -179,6 +179,11 @@ jest.mock("expo-linking", () => ({
 
 jest.mock("expo-status-bar", () => ({ StatusBar: "StatusBar" }));
 
+// Heavy Reanimated background — smoke tests only need mount; full mock avoids worklet/runtime issues in Jest
+jest.mock("../../src/components/ui/AnimatedBackground", () => ({
+  AnimatedBackground: () => null,
+}));
+
 jest.mock("expo-localization", () => ({
   getLocales: () => [{ languageCode: "en", regionCode: "US" }],
   getCalendars: () => [],
