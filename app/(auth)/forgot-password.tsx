@@ -190,7 +190,7 @@ export default function ForgotPasswordScreen() {
               letterSpacing: -0.3,
             }}
           >
-            Reset password
+            {t("auth.resetTitle")}
           </Text>
           <Text
             style={{
@@ -199,7 +199,7 @@ export default function ForgotPasswordScreen() {
               lineHeight: 22,
             }}
           >
-            Enter your email and we'll send you a secure, time-limited link to reset your password.
+            {t("auth.resetSubtitle")}
           </Text>
         </View>
 
