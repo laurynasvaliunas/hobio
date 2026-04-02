@@ -141,7 +141,7 @@ export default function AddChildModal() {
           />
 
           <Button
-            title="Add Child"
+            title={t("groups.addChild")}
             onPress={handleSave}
             loading={saving}
             disabled={!fullName.trim() || !dateOfBirth.trim()}
