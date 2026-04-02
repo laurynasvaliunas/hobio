@@ -43,7 +43,7 @@ export default function AddChildModal() {
     });
 
     if (!result.success) {
-      Alert.alert(t("common.error"), result.error.issues[0]?.message ?? t("groups.validationCheck"));
+      Alert.alert(t("common.validationError"), result.error.issues[0]?.message ?? t("common.checkInput"));
       return;
     }
 

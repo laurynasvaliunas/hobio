@@ -52,7 +52,9 @@
     "reset": "Reset",
     "apply": "Apply",
     "close": "Close",
-    "keepEditing": "Keep Editing"
+    "keepEditing": "Keep Editing",
+    "checkInput": "Check your input",
+    "validationError": "Validation Error"
   },
   "validation": {
     "emailRequired": "Email is required",
