@@ -199,7 +199,7 @@ export default function SignInScreen() {
 
           {/* CTA — slides up */}
           <Animated.View style={{ opacity: ctaAnim, transform: [{ translateY: ctaY }] }}>
-            <Button title="Sign In" onPress={handleSignIn} loading={loading} />
+            <Button title={t("common.signIn")} onPress={handleSignIn} loading={loading} />
           </Animated.View>
 
           {/* Footer */}
