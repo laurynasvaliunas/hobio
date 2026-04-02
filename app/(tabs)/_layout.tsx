@@ -196,7 +196,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Settings",
+          title: t("tabs.settings"),
           tabBarIcon: ({ color, size, focused }) => (
             <BouncyTabIcon
               IconComp={User}
