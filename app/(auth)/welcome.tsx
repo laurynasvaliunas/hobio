@@ -208,7 +208,7 @@ export default function WelcomeScreen() {
 
         {/* ── Footer ── */}
         <Animated.Text style={[styles.footer, { opacity: btnsOpacity }]}>
-          Join thousands of communities worldwide 🌍
+          {t("auth.welcomeFooter")}
         </Animated.Text>
       </ScrollView>
     </SafeAreaView>
