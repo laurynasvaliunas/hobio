@@ -325,19 +325,19 @@ export default function SignUpScreen() {
                 {agreedToTerms && <Check size={14} color="#fff" strokeWidth={3} />}
               </View>
               <Text style={{ flex: 1, fontSize: 13, color: termsError ? Colors.danger.DEFAULT : Colors.text.secondary, lineHeight: 20 }}>
-                I have read and agree to the{" "}
+                {t("auth.termsPrefix")}{" "}
                 <Text
                   style={{ color: Colors.primary.DEFAULT, fontWeight: "600", textDecorationLine: "underline" }}
                   onPress={() => router.push("/(legal)/terms" as never)}
                 >
-                  Terms &amp; Conditions
+                  {t("auth.termsLink")}
                 </Text>
-                {" "}and{" "}
+                {" "}{t("auth.termsAnd")}{" "}
                 <Text
                   style={{ color: Colors.primary.DEFAULT, fontWeight: "600", textDecorationLine: "underline" }}
                   onPress={() => router.push("/(legal)/privacy" as never)}
                 >
-                  Privacy Policy
+                  {t("auth.privacyLink")}
                 </Text>
               </Text>
             </TouchableOpacity>
