@@ -149,10 +149,10 @@ export default function SignInScreen() {
               resizeMode="contain"
             />
             <Text style={{ fontSize: 30, fontWeight: "800", color: Colors.text.primary, marginBottom: 8, letterSpacing: -0.5 }}>
-              Welcome back
+              {t("auth.signInTitle")}
             </Text>
             <Text style={{ fontSize: 16, color: Colors.text.secondary, lineHeight: 24 }}>
-              Sign in to continue your journey
+              {t("auth.signInSubtitle")}
             </Text>
           </Animated.View>
 
