@@ -561,6 +561,7 @@ function deepLt() {
   lt.auth.alreadyHaveAccount = "Jau turiu paskyrą";
   lt.auth.signInTitle = "Sveiki sugrįžę";
   lt.auth.signInSubtitle = "Prisijunkite ir tęskite kelionę";
+  lt.auth.enterPassword = "Įveskite slaptažodį";
   lt.auth.forgotPassword = "Pamiršote slaptažodį?";
   lt.auth.noAccount = "Neturite paskyros?";
   lt.auth.hasAccount = "Jau turite paskyrą?";
