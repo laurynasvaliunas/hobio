@@ -82,7 +82,7 @@ export default function SignInScreen() {
 
       return Object.keys(newErrors).length === 0;
     },
-    [email, password]
+    [email, password, t]
   );
 
   const handleBlur = (field: "email" | "password") => {
