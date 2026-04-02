@@ -79,8 +79,9 @@ export default function RootLayout() {
     }
   }, [fontError]);
 
-  // Show loading spinner while fonts load
-  if (!fontsLoaded && !fontError) {
+  // Block until fonts and i18n are ready (avoids flash of missing translation keys)
+  const fontsPending = !fontsLoaded && !fontError;
+  if (fontsPending || !i18nReady) {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#FBF6F3" }}>
         <ActivityIndicator size="large" color="#D97758" />
