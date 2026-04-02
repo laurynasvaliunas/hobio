@@ -244,8 +244,8 @@ export default function SignUpScreen() {
           <View style={{ gap: 14, marginBottom: 32 }}>
             <Animated.View style={{ opacity: f1Anim, transform: [{ translateX: f1X }] }}>
               <Input
-                label="Full Name"
-                placeholder="John Doe"
+                label={t("common.fullName")}
+                placeholder={t("auth.fullNamePh")}
                 value={fullName}
                 onChangeText={(t) => { setFullName(t); if (touched.fullName) validate("fullName"); }}
                 onBlur={() => handleBlur("fullName")}
