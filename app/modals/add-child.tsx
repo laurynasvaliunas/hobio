@@ -22,6 +22,7 @@ import { getChildSchema } from "../../src/lib/validations";
 import { useTranslation } from "react-i18next";
 
 export default function AddChildModal() {
+  const { t } = useTranslation();
   const router = useRouter();
   const profile = useAuthStore((s) => s.profile);
   const toast = useToast();
