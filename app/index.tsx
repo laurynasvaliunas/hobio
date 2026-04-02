@@ -119,7 +119,7 @@ export default function Index() {
             fontWeight: "500",
           }}
         >
-          All your hobbies, one place
+          {t("splash.tagline")}
         </Text>
       </Animated.View>
     </View>
