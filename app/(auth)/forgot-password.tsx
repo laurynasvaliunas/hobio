@@ -206,7 +206,7 @@ export default function ForgotPasswordScreen() {
         {/* Email input */}
         <View style={{ marginBottom: 32 }}>
           <Input
-            label="Email"
+            label={t("common.email")}
             placeholder="you@example.com"
             value={email}
             onChangeText={(t) => {
