@@ -13,11 +13,9 @@ const getForgotPassword = () => require("../../../app/(auth)/forgot-password").d
 
 describe("Auth Screens — Smoke Tests", () => {
   it("renders WelcomeScreen without crashing", () => {
-    jest.useFakeTimers();
     const Screen = getWelcome();
     const { toJSON } = render(<Screen />);
     expect(toJSON()).toBeTruthy();
-    jest.useRealTimers();
   });
 
   it("renders SignInScreen without crashing", () => {
