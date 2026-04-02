@@ -131,7 +131,7 @@ export default function ForgotPasswordScreen() {
                 letterSpacing: -0.3,
               }}
             >
-              Check your email
+              {t("auth.forgotCheckTitle")}
             </Text>
             <Text
               style={{
@@ -142,13 +142,10 @@ export default function ForgotPasswordScreen() {
                 maxWidth: 280,
               }}
             >
-              We've sent a password reset link to{"\n"}
-              <Text style={{ fontWeight: "600", color: Colors.text.primary }}>
-                {email}
-              </Text>
+              {t("auth.forgotCheckBody", { email })}
             </Text>
             <Button
-              title="Back to Sign In"
+              title={t("auth.backToSignIn")}
               onPress={() => router.replace("/(auth)/sign-in")}
               variant="outline"
               style={{ marginTop: 24, width: 200 }}
