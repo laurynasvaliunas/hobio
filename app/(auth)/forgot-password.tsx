@@ -6,10 +6,10 @@ import { ScreenWrapper, Button, Input } from "../../src/components/ui";
 import { Colors, Shadows } from "../../src/constants/colors";
 import { supabase } from "../../src/lib/supabase";
 import { z } from "zod";
-
-const emailSchema = z.string().email("Please enter a valid email address");
+import { useTranslation } from "react-i18next";
 
 export default function ForgotPasswordScreen() {
+  const { t } = useTranslation();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
