@@ -62,7 +62,7 @@ export default function SignInScreen() {
   // Real-time Zod validation
   const validate = useCallback(
     (field?: "email" | "password") => {
-      const result = signInSchema.safeParse({ email: email.trim(), password });
+      const result = getSignInSchema().safeParse({ email: email.trim(), password });
       const newErrors: { email?: string; password?: string } = {};
 
       if (!result.success) {
