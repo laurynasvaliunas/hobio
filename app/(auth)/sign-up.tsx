@@ -86,7 +86,7 @@ export default function SignUpScreen() {
         password,
         confirmPassword,
       };
-      const result = signUpSchema.safeParse(data);
+      const result = getSignUpSchema().safeParse(data);
       const newErrors: Record<string, string> = {};
 
       if (!result.success) {
