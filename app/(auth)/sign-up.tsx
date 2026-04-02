@@ -258,7 +258,7 @@ export default function SignUpScreen() {
             </Animated.View>
             <Animated.View style={{ opacity: f2Anim, transform: [{ translateX: f2X }] }}>
               <Input
-                label="Email"
+                label={t("common.email")}
                 placeholder="you@example.com"
                 value={email}
                 onChangeText={(t) => { setEmail(t); if (touched.email) validate("email"); }}
