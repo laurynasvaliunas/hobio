@@ -124,8 +124,8 @@ export default function AddChildModal() {
             <BirthDatePicker
               value={dateOfBirth}
               onChange={setDateOfBirth}
-              label="Date of Birth *"
-              placeholder="Tap to select date"
+              label={t("groups.addChildDob")}
+              placeholder={t("groups.tapSelectDate")}
             />
           </View>
 
