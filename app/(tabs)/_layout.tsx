@@ -164,7 +164,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="schedule"
         options={{
-          title: "Schedule",
+          title: t("tabs.schedule"),
           tabBarIcon: ({ color, size, focused }) => (
             <BouncyTabIcon
               IconComp={Calendar}
