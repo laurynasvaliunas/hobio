@@ -179,6 +179,13 @@ jest.mock("expo-linking", () => ({
 
 jest.mock("expo-status-bar", () => ({ StatusBar: "StatusBar" }));
 
+jest.mock("expo-localization", () => ({
+  getLocales: () => [{ languageCode: "en", regionCode: "US" }],
+  getCalendars: () => [],
+  timezone: "UTC",
+  locale: "en-US",
+}));
+
 jest.mock("expo-image-manipulator", () => ({
   manipulateAsync: jest.fn().mockResolvedValue({ uri: "manipulated.jpg" }),
   SaveFormat: { JPEG: "jpeg", PNG: "png" },
