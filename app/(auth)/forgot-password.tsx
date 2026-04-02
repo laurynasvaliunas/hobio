@@ -60,7 +60,7 @@ export default function ForgotPasswordScreen() {
 
   const emailSuccess =
     touched && !error && email.trim().length > 0
-      ? "Email looks good!"
+      ? t("auth.emailLooksGood")
       : undefined;
 
   const handleReset = async () => {
