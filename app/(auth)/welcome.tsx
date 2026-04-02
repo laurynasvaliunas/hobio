@@ -14,17 +14,12 @@ import { Sparkles, Zap, Heart } from "lucide-react-native";
 import { Button, AnimatedBackground } from "../../src/components/ui";
 import { Colors } from "../../src/constants/colors";
 import { Fonts } from "../../src/constants/fonts";
+import { useTranslation } from "react-i18next";
 
 const { width: W } = Dimensions.get("window");
 
 const SPORT_EMOJIS = ["⚽", "🎨", "🎵", "🏀", "💃", "🎾"];
 const ORBIT_RADIUS = 88;
-
-const PILLS = [
-  { icon: Sparkles, text: "Connect", color: Colors.primary.DEFAULT },
-  { icon: Zap,      text: "Grow",    color: Colors.secondary.DEFAULT },
-  { icon: Heart,    text: "Thrive",  color: Colors.accent.DEFAULT },
-];
 
 // ── Orbiting emoji rendered with RN Animated ──
 function OrbitingEmoji({
