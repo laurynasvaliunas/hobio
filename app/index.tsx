@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
  * then routes to the correct screen.
  */
 export default function Index() {
+  const { t } = useTranslation();
   const router = useRouter();
   const { session, profile, isLoading, isOnboarded } = useAuthStore();
 
