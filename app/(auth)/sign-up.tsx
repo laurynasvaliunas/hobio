@@ -116,10 +116,10 @@ export default function SignUpScreen() {
 
   const getSuccess = (field: string, value: string, minLen = 1) => {
     if (touched[field] && !errors[field] && value.trim().length >= minLen) {
-      if (field === "email") return "Email looks good!";
-      if (field === "fullName") return "Nice name!";
-      if (field === "password") return "Strong enough";
-      if (field === "confirmPassword") return "Passwords match!";
+      if (field === "email") return t("auth.emailLooksGood");
+      if (field === "fullName") return t("auth.niceName");
+      if (field === "password") return t("auth.strongEnough");
+      if (field === "confirmPassword") return t("auth.passwordsMatch");
     }
     return undefined;
   };
