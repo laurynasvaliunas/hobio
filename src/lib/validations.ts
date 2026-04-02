@@ -1,56 +1,61 @@
 import { z } from "zod";
+import i18n from "../i18n";
 
-/** Sign-in form schema */
-export const signInSchema = z.object({
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .email("Enter a valid email"),
-  password: z
-    .string()
-    .min(1, "Password is required")
-    .min(6, "At least 6 characters"),
-});
-
-export type SignInFormData = z.infer<typeof signInSchema>;
-
-/** Sign-up form schema */
-export const signUpSchema = z
-  .object({
-    fullName: z
-      .string()
-      .min(1, "Name is required")
-      .min(2, "Name must be at least 2 characters"),
+/** Sign-in form schema — messages follow current locale */
+export function getSignInSchema() {
+  return z.object({
     email: z
       .string()
-      .min(1, "Email is required")
-      .email("Enter a valid email"),
+      .min(1, i18n.t("validation.emailRequired"))
+      .email(i18n.t("validation.emailInvalid")),
     password: z
       .string()
-      .min(1, "Password is required")
-      .min(6, "At least 6 characters"),
-    confirmPassword: z
-      .string()
-      .min(1, "Please confirm your password"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
+      .min(1, i18n.t("validation.passwordRequired"))
+      .min(6, i18n.t("validation.passwordMin")),
   });
+}
 
-export type SignUpFormData = z.infer<typeof signUpSchema>;
+export type SignInFormData = z.infer<ReturnType<typeof getSignInSchema>>;
+
+/** Sign-up form schema */
+export function getSignUpSchema() {
+  return z
+    .object({
+      fullName: z
+        .string()
+        .min(1, i18n.t("validation.nameRequired"))
+        .min(2, i18n.t("validation.nameMin")),
+      email: z
+        .string()
+        .min(1, i18n.t("validation.emailRequired"))
+        .email(i18n.t("validation.emailInvalid")),
+      password: z
+        .string()
+        .min(1, i18n.t("validation.passwordRequired"))
+        .min(6, i18n.t("validation.passwordMin")),
+      confirmPassword: z.string().min(1, i18n.t("validation.confirmPassword")),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: i18n.t("validation.passwordsNoMatch"),
+      path: ["confirmPassword"],
+    });
+}
+
+export type SignUpFormData = z.infer<ReturnType<typeof getSignUpSchema>>;
 
 /** Child form schema (for Family Vault) */
-export const childSchema = z.object({
-  fullName: z
-    .string()
-    .min(1, "Name is required")
-    .min(2, "Name must be at least 2 characters"),
-  dateOfBirth: z
-    .string()
-    .min(1, "Date of birth is required")
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "Use YYYY-MM-DD format"),
-  medicalNotes: z.string().optional(),
-});
+export function getChildSchema() {
+  return z.object({
+    fullName: z
+      .string()
+      .min(1, i18n.t("validation.nameRequired"))
+      .min(2, i18n.t("validation.nameMin")),
+    dateOfBirth: z
+      .string()
+      .min(1, i18n.t("validation.dobRequired"))
+      .regex(/^\d{4}-\d{2}-\d{2}$/, i18n.t("validation.dobFormat")),
+    medicalNotes: z.string().optional(),
+  });
+}
 
-export type ChildFormData = z.infer<typeof childSchema>;
+export type ChildFormData = z.infer<ReturnType<typeof getChildSchema>>;
