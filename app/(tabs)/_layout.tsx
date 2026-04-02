@@ -147,7 +147,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="discover"
         options={{
-          title: "Discover",
+          title: t("tabs.discover"),
           href: isOrganizer ? null : undefined,
           tabBarIcon: ({ color, size, focused }) => (
             <BouncyTabIcon
