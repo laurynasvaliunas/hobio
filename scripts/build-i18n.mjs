@@ -94,6 +94,7 @@ const en = {
     welcomeFooter: "Join thousands of communities worldwide 🌍",
     signInTitle: "Welcome back",
     signInSubtitle: "Sign in to continue your journey",
+    enterPassword: "Enter your password",
     signInFailed: "Sign In Failed",
     signInInvalid: "Invalid email or password",
     forgotPassword: "Forgot password?",
