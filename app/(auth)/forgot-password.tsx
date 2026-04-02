@@ -48,6 +48,7 @@ export default function ForgotPasswordScreen() {
   }, [sent]);
 
   const validateEmail = () => {
+    const emailSchema = z.string().email(t("validation.forgotEmailInvalid"));
     const result = emailSchema.safeParse(email.trim());
     if (!result.success) {
       setError(result.error.issues[0]?.message);
