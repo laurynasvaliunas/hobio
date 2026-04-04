@@ -55,20 +55,6 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    // Network connectivity test (DEV only)
-    if (__DEV__) {
-      const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL ?? "";
-      console.log("[Network Test] Starting...");
-      // Test 1: Can the phone reach the internet at all?
-      fetch("https://httpbin.org/get", { method: "GET" })
-        .then((r) => console.log("[Network Test] Internet OK, status:", r.status))
-        .catch((e) => console.error("[Network Test] Internet FAILED:", e.message));
-      // Test 2: Can the phone reach Supabase specifically?
-      fetch(`${supabaseUrl}/auth/v1/health`, { method: "GET" })
-        .then((r) => console.log("[Network Test] Supabase OK, status:", r.status))
-        .catch((e) => console.error("[Network Test] Supabase FAILED:", e.message));
-    }
-
     initialize();
   }, []);
 
