@@ -22,6 +22,12 @@ import { useAuthStore } from "../src/stores/authStore";
 import { useThemeStore } from "../src/stores/themeStore";
 import { ToastContainer } from "../src/components/ui/Toast";
 
+Sentry.init({
+  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+  enabled: !__DEV__,
+  tracesSampleRate: 0.2,
+});
+
 // Create a React Query client
 const queryClient = new QueryClient({
   defaultOptions: {
