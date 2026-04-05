@@ -38,7 +38,7 @@ const queryClient = new QueryClient({
   },
 });
 
-export default function RootLayout() {
+function RootLayout() {
   const initialize = useAuthStore((s) => s.initialize);
   const isDark = useThemeStore((s) => s.isDark);
 
