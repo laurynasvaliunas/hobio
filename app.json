@@ -16,6 +16,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.hobio.app",
+      "buildNumber": "1",
       "config": {
         "googleMapsApiKey": "AIzaSyBErUpRHTRY6w-_35o2ageEYdjNjtgFLns"
       },
