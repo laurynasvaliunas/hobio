@@ -57,6 +57,14 @@
       ],
       "expo-web-browser",
       [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "hobio",
+          "organization": "clyzio"
+        }
+      ],
+      [
         "@rnmapbox/maps",
         {
           "RNMapboxMapsImpl": "mapbox",
