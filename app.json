@@ -39,7 +39,9 @@
       },
       "permissions": [
         "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION"
+        "ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
       ]
     },
     "web": {
@@ -67,10 +69,16 @@
       [
         "@rnmapbox/maps",
         {
-          "RNMapboxMapsImpl": "mapbox",
-          "RNMapboxMapsDownloadToken": "MAPBOX_ACCESS_TOKEN_PLACEHOLDER"
+          "RNMapboxMapsImpl": "mapbox"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "1b6481b2-6ed9-4c5d-8db5-90290c85ec52"
+      }
+    },
+    "owner": "laurynas.valiunas"
   }
 }
