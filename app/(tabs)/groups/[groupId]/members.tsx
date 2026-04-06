@@ -152,7 +152,7 @@ export default function MembersScreen() {
     try {
       await approveMember(memberId);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-      Alert.alert("Approved", `${memberName} has been added to the group.`);
+      Alert.alert(t("groups.approveTitle"), `${memberName} has been added to the group.`);
     } catch {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       Alert.alert("Error", "Failed to approve member.");
