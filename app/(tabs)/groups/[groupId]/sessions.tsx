@@ -119,6 +119,7 @@ function SessionCard({ session, isOrganizer, onCancel, onAttendance }: SessionCa
 export default function SessionsScreen() {
   const { groupId } = useLocalSearchParams<{ groupId: string }>();
   const router = useRouter();
+  const { t } = useTranslation();
   const { groups } = useGroupStore();
   const profile = useAuthStore((s) => s.profile);
   const group = groups.find((g) => g.id === groupId);
