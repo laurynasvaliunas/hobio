@@ -376,7 +376,7 @@ export default function ScheduleSetupScreen() {
           {/* Generate sessions button */}
           {rules.length > 0 && (
             <Button
-              title="Generate Sessions (4 weeks)"
+              title={t("groups.generateSessions")}
               onPress={handleGenerate}
               loading={generating}
               variant="secondary"
