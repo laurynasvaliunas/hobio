@@ -24,6 +24,7 @@ type JoinResult = { group: Group; status: "active" | "pending" };
 export default function JoinGroupScreen() {
   const { code } = useLocalSearchParams<{ code: string }>();
   const router = useRouter();
+  const { t } = useTranslation();
   const profile = useAuthStore((s) => s.profile);
 
   const [inviteCode, setInviteCode] = useState(
