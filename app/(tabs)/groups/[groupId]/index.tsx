@@ -299,7 +299,7 @@ export default function GroupDetailScreen() {
                 </Text>
                 {isGroupOwner && (
                   <Button
-                    title="Set Up Schedule"
+                    title={t("groups.setUpSchedule")}
                     onPress={() => router.push(`/(tabs)/groups/${groupId}/schedule-setup` as never)}
                     size="sm"
                     fullWidth={false}
