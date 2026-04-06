@@ -29,6 +29,7 @@ import type { RecurringSchedule } from "../../../../src/types/database.types";
 export default function ScheduleSetupScreen() {
   const { groupId } = useLocalSearchParams<{ groupId: string }>();
   const router = useRouter();
+  const { t } = useTranslation();
   const { generateFromSchedule } = useSessions({ groupId });
 
   const [rules, setRules] = useState<RecurringSchedule[]>([]);
