@@ -193,8 +193,8 @@ export default function SettingsScreen() {
           <SettingsItem
             icon={<Palette size={20} color={Colors.accent.DEFAULT} />}
             iconBg={Colors.accent.DEFAULT + "15"}
-            title="Appearance"
-            subtitle="Light, dark, or system theme"
+            title={t("profile.appearance")}
+            subtitle={t("profile.appearanceSubtitle")}
             onPress={() => router.push("/(tabs)/profile/appearance" as never)}
           />
         </Card>
