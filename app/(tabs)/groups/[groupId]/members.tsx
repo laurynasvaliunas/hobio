@@ -107,7 +107,7 @@ function MemberRow({ member, isGroupOwner, onApprove, onReject, onRemove }: Memb
               <Shield size={16} color={Colors.primary.DEFAULT} />
             )}
             <Badge
-              label={member.role === "assistant" ? "Assistant" : "Member"}
+              label={member.role === "assistant" ? "Assistant" : t("groups.memberBadge")}
               variant={member.role === "assistant" ? "primary" : "neutral"}
             />
           </View>
