@@ -74,6 +74,7 @@ function SettingsItem({ icon, title, subtitle, onPress, danger, iconBg }: Settin
 
 export default function SettingsScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const profile = useAuthStore((s) => s.profile);
   const isOrganizer = profile?.role === "organizer";
   const isParent = profile?.role === "parent";
