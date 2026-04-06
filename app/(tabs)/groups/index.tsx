@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { View, Text, FlatList, TouchableOpacity, TextInput, Animated } from "react-native";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Plus, Users as UsersIcon, Search } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { ScreenWrapper, EmptyState, GroupCard } from "../../../src/components/ui";
