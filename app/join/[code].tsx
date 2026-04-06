@@ -172,7 +172,7 @@ export default function JoinGroupScreen() {
               : `You've successfully joined "${result.group.name}"`}
           </Text>
           <Button
-            title="Back to Home"
+            title={t("groups.joinBackHome")}
             onPress={() => {
               router.dismiss();
               router.replace("/(tabs)/home");
