@@ -285,7 +285,7 @@ export default function JoinGroupScreen() {
             />
 
             <Button
-              title="Request to Join"
+              title={t("groups.requestJoin")}
               onPress={handleJoin}
               loading={loading}
               disabled={inviteCode.length < 6}
