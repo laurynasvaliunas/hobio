@@ -1,4 +1,5 @@
 import React, { useRef, useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   View,
   Text,
