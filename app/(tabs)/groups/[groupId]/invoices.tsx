@@ -312,7 +312,7 @@ export default function InvoicesScreen() {
             <View>
               <RevenueChart stats={stats} />
               <Button
-                title="Generate Invoices"
+                title={t("groups.generateInvoices")}
                 onPress={handleGenerate}
                 loading={generating}
                 variant="secondary"
