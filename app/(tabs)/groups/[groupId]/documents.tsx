@@ -168,6 +168,7 @@ function DocumentRow({
 export default function DocumentsScreen() {
   const { groupId } = useLocalSearchParams<{ groupId: string }>();
   const router = useRouter();
+  const { t } = useTranslation();
   const { groups } = useGroupStore();
   const profile = useAuthStore((s) => s.profile);
   const toast = useToast();
