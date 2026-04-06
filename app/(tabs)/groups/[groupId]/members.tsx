@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { View, Text, FlatList, TouchableOpacity, Alert, SectionList, RefreshControl } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
