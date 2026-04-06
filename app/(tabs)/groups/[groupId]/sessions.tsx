@@ -87,7 +87,7 @@ function SessionCard({ session, isOrganizer, onCancel, onAttendance }: SessionCa
               <Text
                 style={{ fontSize: 13, fontWeight: "600", color: Colors.primary.DEFAULT }}
               >
-                Attendance
+                {t("groups.attendance")}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
