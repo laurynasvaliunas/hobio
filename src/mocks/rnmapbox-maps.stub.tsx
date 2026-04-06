@@ -45,27 +45,23 @@ function MarkerView({ children }: { children?: React.ReactNode; coordinate?: [nu
   return <>{children}</>;
 }
 
+const Stub = () => null;
+
 const MapboxGL = {
   setAccessToken: (_token: string) => {},
   MapView,
   Camera,
   MarkerView,
-  PointAnnotation: () => null,
+  PointAnnotation: Stub,
   UserLocation,
-  ShapeSource: () => null,
-  SymbolLayer: () => null,
-  CircleLayer: () => null,
-  LineLayer: () => null,
-  Images: () => null,
+  ShapeSource: Stub,
+  SymbolLayer: Stub,
+  CircleLayer: Stub,
+  LineLayer: Stub,
+  Images: Stub,
 };
 
 export default MapboxGL;
-export const setAccessToken = MapboxGL.setAccessToken;
-export const MapView = MapView;
-export const Camera = Camera;
-export const MarkerView = MarkerView;
-export const PointAnnotation = MapboxGL.PointAnnotation;
-export const UserLocation = UserLocation;
 
 const styles = StyleSheet.create({
   mapShell: {
