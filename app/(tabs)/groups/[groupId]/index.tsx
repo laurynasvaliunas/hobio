@@ -202,23 +202,23 @@ export default function GroupDetailScreen() {
             <View style={{ flexDirection: "row" }}>
               <QuickAction
                 icon={<Users size={22} color={Colors.primary.DEFAULT} />}
-                label="Members"
+                label={t("groups.members")}
                 badge={pendingMembers.length}
                 onPress={() => router.push(`/(tabs)/groups/${groupId}/members` as never)}
               />
               <QuickAction
                 icon={<Calendar size={22} color={Colors.primary.DEFAULT} />}
-                label="Sessions"
+                label={t("groups.sessions")}
                 onPress={() => router.push(`/(tabs)/groups/${groupId}/sessions` as never)}
               />
               <QuickAction
                 icon={<Receipt size={22} color={Colors.primary.DEFAULT} />}
-                label="Billing"
+                label={t("groups.billing")}
                 onPress={() => router.push(`/(tabs)/groups/${groupId}/invoices` as never)}
               />
               <QuickAction
                 icon={<FileText size={22} color={Colors.primary.DEFAULT} />}
-                label="Documents"
+                label={t("groups.documents")}
                 onPress={() => router.push(`/(tabs)/groups/${groupId}/documents` as never)}
               />
             </View>
