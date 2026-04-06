@@ -212,6 +212,7 @@ function InvoiceRow({ invoice, isOrganizer, onToggle }: InvoiceRowProps) {
 export default function InvoicesScreen() {
   const { groupId } = useLocalSearchParams<{ groupId: string }>();
   const router = useRouter();
+  const { t } = useTranslation();
   const { groups, organizations } = useGroupStore();
   const profile = useAuthStore((s) => s.profile);
   const toast = useToast();
