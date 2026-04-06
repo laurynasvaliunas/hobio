@@ -42,7 +42,7 @@ function RootLayout() {
   const initialize = useAuthStore((s) => s.initialize);
   const isDark = useThemeStore((s) => s.isDark);
 
-  const [i18nReady, setI18nReady] = useState(false);
+  const [i18nReady, setI18nReady] = useState(() => i18n.isInitialized);
 
   const [fontsLoaded, fontError] = useFonts({
     Nunito_400Regular,
