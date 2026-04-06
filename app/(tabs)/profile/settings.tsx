@@ -186,8 +186,8 @@ export default function SettingsScreen() {
         <Card style={{ marginBottom: 20 }}>
           <SettingsItem
             icon={<Shield size={20} color={Colors.primary.DEFAULT} />}
-            title="Security"
-            subtitle="Biometric lock, sign out all devices"
+            title={t("profile.security")}
+            subtitle={t("profile.securitySubtitle")}
             onPress={() => router.push("/(tabs)/profile/security" as never)}
           />
           <SettingsItem
