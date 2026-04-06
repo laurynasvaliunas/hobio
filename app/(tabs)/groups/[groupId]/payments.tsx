@@ -99,6 +99,7 @@ function PaymentRow({
 export default function PaymentsScreen() {
   const { groupId } = useLocalSearchParams<{ groupId: string }>();
   const router = useRouter();
+  const { t } = useTranslation();
   const profile = useAuthStore((s) => s.profile);
   const { groups } = useGroupStore();
   const group = groups.find((g) => g.id === groupId);
