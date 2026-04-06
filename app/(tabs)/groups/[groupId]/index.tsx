@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { View, Text, ScrollView, TouchableOpacity, Share } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
