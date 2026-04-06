@@ -223,8 +223,8 @@ export default function PaymentsScreen() {
             icon={
               <DollarSign size={36} color={Colors.primary.DEFAULT} strokeWidth={1.5} />
             }
-            title="No payment data"
-            description="Payment tracking will appear once members join this group."
+            title={t("groups.noPaymentTitle")}
+            description={t("groups.noPaymentDesc")}
           />
         }
       />
