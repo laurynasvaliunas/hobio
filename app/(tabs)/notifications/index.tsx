@@ -230,7 +230,7 @@ export default function NotificationsScreen() {
           isLoading ? null : (
             <EmptyState
               icon={<BellOff size={36} color={Colors.primary.DEFAULT} strokeWidth={1.5} />}
-              title="All caught up"
+              title={t("groups.notificationsAllCaughtUp")}
               description="You don't have any notifications yet. They'll appear here when something happens in your groups."
             />
           )
