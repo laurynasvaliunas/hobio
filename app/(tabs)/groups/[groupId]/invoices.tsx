@@ -334,7 +334,7 @@ export default function InvoicesScreen() {
           isLoading ? null : (
             <EmptyState
               icon={<Receipt size={36} color={Colors.primary.DEFAULT} strokeWidth={1.5} />}
-              title="No invoices yet"
+              title={t("groups.noInvoicesTitle")}
               description={
                 isOrganizer
                   ? "Generate invoices for the current billing period."
