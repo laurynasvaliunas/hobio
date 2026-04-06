@@ -354,7 +354,7 @@ export default function ScheduleSetupScreen() {
 
               <View style={{ flexDirection: "row", gap: 10 }}>
                 <Button
-                  title="Cancel"
+                  title={t("common.cancel")}
                   onPress={() => setShowForm(false)}
                   variant="outline"
                   size="sm"
@@ -362,7 +362,7 @@ export default function ScheduleSetupScreen() {
                   style={{ flex: 1 }}
                 />
                 <Button
-                  title="Add Rule"
+                  title={t("groups.addRule")}
                   onPress={handleAddRule}
                   loading={saving}
                   size="sm"
