@@ -259,13 +259,13 @@ export default function GroupsScreen() {
           ListEmptyComponent={
             <EmptyState
               icon={<UsersIcon size={36} color={colors.primary.DEFAULT} strokeWidth={1.5} />}
-              title={isOrganizer ? "No groups yet" : "No hobbies yet"}
+              title={isOrganizer ? t("groups.noGroupsOrganizer") : t("groups.noGroupsParticipant")}
               description={
                 isOrganizer
-                  ? "Create your first group and start inviting participants!"
-                  : "Join a group using an invite code from your organizer."
+                  ? t("groups.noGroupsDescOrganizer")
+                  : t("groups.noGroupsDescParticipant")
               }
-              actionLabel={isOrganizer ? "Create Group" : "Join Group"}
+              actionLabel={isOrganizer ? t("groups.createGroup") : t("groups.joinGroup")}
               onAction={() =>
                 isOrganizer ? router.push("/modals/create-group") : router.push("/join/enter")
               }
