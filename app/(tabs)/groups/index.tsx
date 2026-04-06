@@ -140,7 +140,7 @@ export default function GroupsScreen() {
           <TextInput
             value={searchQuery}
             onChangeText={setSearchQuery}
-            placeholder="Search groups..."
+            placeholder={t("groups.searchPh")}
             placeholderTextColor={colors.text.secondary + "80"}
             autoCorrect={false}
             autoCapitalize="none"
