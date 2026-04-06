@@ -219,8 +219,8 @@ export default function SettingsScreen() {
               <SettingsItem
                 icon={<RefreshCw size={20} color={Colors.secondary.DEFAULT} />}
                 iconBg={Colors.secondary.DEFAULT + "15"}
-                title="Switch Workspace"
-                subtitle="Toggle between Coach and Participant tools"
+                title={t("profile.switchWorkspaceSettings")}
+                subtitle={t("profile.switchWorkspaceSettingsSubtitle")}
                 onPress={() => router.push("/(tabs)/profile/switch-role" as never)}
               />
             </Card>
