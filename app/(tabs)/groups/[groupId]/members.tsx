@@ -120,6 +120,7 @@ function MemberRow({ member, isGroupOwner, onApprove, onReject, onRemove }: Memb
 export default function MembersScreen() {
   const { groupId } = useLocalSearchParams<{ groupId: string }>();
   const router = useRouter();
+  const { t } = useTranslation();
   const { groups, organizations } = useGroupStore();
   const profile = useAuthStore((s) => s.profile);
   const group = groups.find((g) => g.id === groupId);
