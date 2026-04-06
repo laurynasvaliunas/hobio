@@ -26,6 +26,9 @@
       }
     },
     "production": {
+      "env": {
+        "EXPO_PUBLIC_NATIVE_MAPBOX": "true"
+      },
       "autoIncrement": true,
       "ios": {
         "buildConfiguration": "Release"
