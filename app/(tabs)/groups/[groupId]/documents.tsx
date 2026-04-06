@@ -319,7 +319,7 @@ export default function DocumentsScreen() {
           isLoading ? null : (
             <EmptyState
               icon={<File size={36} color={Colors.primary.DEFAULT} strokeWidth={1.5} />}
-              title="No documents yet"
+              title={t("groups.noDocumentsTitle")}
               description={
                 isOrganizer
                   ? "Upload waivers, rules, or other files for your group."
