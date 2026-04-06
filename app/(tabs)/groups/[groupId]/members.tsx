@@ -160,7 +160,7 @@ export default function MembersScreen() {
   };
 
   const handleReject = (memberId: string, memberName: string) => {
-    Alert.alert("Reject Request", `Decline ${memberName}'s join request?`, [
+    Alert.alert(t("groups.rejectTitle"), `Decline ${memberName}'s join request?`, [
       { text: "Cancel", style: "cancel" },
       {
         text: "Reject",
