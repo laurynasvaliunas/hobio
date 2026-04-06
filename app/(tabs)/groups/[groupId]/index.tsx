@@ -229,12 +229,12 @@ export default function GroupDetailScreen() {
               <View style={{ flexDirection: "row" }}>
                 <QuickAction
                   icon={<Settings2 size={22} color={Colors.primary.DEFAULT} />}
-                  label="Schedule"
+                  label={t("groups.schedule")}
                   onPress={() => router.push(`/(tabs)/groups/${groupId}/schedule-setup` as never)}
                 />
                 <QuickAction
                   icon={<Megaphone size={22} color={Colors.primary.DEFAULT} />}
-                  label="Announce"
+                  label={t("groups.announce")}
                   onPress={() => router.push("/modals/create-announcement")}
                 />
                 <View style={{ flex: 1 }} />
