@@ -121,8 +121,8 @@ export default function SettingsScreen() {
         <Card style={{ marginBottom: 20 }}>
           <SettingsItem
             icon={<User size={20} color={Colors.primary.DEFAULT} />}
-            title="Account"
-            subtitle="Name, email, profile picture, password"
+            title={t("profile.account")}
+            subtitle={t("profile.accountSubtitle")}
             onPress={() => router.push("/(tabs)/profile/account" as never)}
           />
           {(isParent) && (
