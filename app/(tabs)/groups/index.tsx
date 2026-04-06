@@ -15,6 +15,7 @@ import { getSportEmoji } from "../../../src/constants/sports";
 
 export default function GroupsScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { colors, shadows } = useTheme();
   const profile = useAuthStore((s) => s.profile);
   const { groups, isLoading, fetchMyGroups, fetchMyOrganizations } = useGroupStore();
