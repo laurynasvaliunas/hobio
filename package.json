@@ -4,8 +4,8 @@
   "main": "./index.ts",
   "scripts": {
     "start": "expo start",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
+    "android": "EXPO_PUBLIC_NATIVE_MAPBOX=true expo run:android",
+    "ios": "EXPO_PUBLIC_NATIVE_MAPBOX=true expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll=false",
     "test:watch": "jest --watchAll",
