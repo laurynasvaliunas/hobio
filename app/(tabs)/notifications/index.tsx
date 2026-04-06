@@ -119,6 +119,7 @@ function NotificationItem({
 
 export default function NotificationsScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const {
     notifications,
     unreadCount,
