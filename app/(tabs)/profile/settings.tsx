@@ -138,8 +138,8 @@ export default function SettingsScreen() {
             <SettingsItem
               icon={<Building2 size={20} color={Colors.secondary.DEFAULT} />}
               iconBg={Colors.secondary.DEFAULT + "15"}
-              title="Organizer Preferences"
-              subtitle="Business hours, contact method"
+              title={t("profile.organizerPrefs")}
+              subtitle={t("profile.organizerPrefsSubtitle")}
               onPress={() => router.push("/(tabs)/profile/organizer-prefs" as never)}
             />
           )}
