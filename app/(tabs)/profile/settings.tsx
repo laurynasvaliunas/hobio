@@ -163,8 +163,8 @@ export default function SettingsScreen() {
           <SettingsItem
             icon={<Bell size={20} color={Colors.warning.dark} />}
             iconBg={Colors.warning.DEFAULT + "20"}
-            title="Notifications"
-            subtitle="Reminders, billing, quiet hours"
+            title={t("profile.notifications")}
+            subtitle={t("profile.notificationsSubtitle")}
             onPress={() => router.push("/(tabs)/profile/notifications" as never)}
           />
         </Card>
