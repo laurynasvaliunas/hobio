@@ -95,7 +95,7 @@ export default function SettingsScreen() {
           <ArrowLeft size={24} color={Colors.text.primary} />
         </TouchableOpacity>
         <Text style={{ fontSize: 22, fontWeight: "700", color: Colors.text.primary }}>
-          Settings
+          {t("common.settings")}
         </Text>
       </View>
 
