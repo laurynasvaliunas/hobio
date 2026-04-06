@@ -244,8 +244,8 @@ export default function SettingsScreen() {
         <Card>
           <SettingsItem
             icon={<Download size={20} color={Colors.primary.DEFAULT} />}
-            title="Download My Data"
-            subtitle="Export schedules, payments as JSON"
+            title={t("profile.downloadData")}
+            subtitle={t("profile.downloadDataSubtitle")}
             onPress={() => router.push("/(tabs)/profile/data-export" as never)}
           />
           <SettingsItem
