@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { View, Text, TouchableOpacity, FlatList, Alert } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
