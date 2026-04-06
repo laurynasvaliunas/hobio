@@ -417,8 +417,8 @@ export default function DiscoverScreen() {
           backgroundColor: Colors.surface + "E0",
         }}
       >
-        <LegendItem color={Colors.secondary.DEFAULT} icon={<Sprout size={12} color={Colors.secondary.DEFAULT} />} label="My Groups" />
-        <LegendItem color={Colors.primary.DEFAULT} icon={<Send size={12} color={Colors.primary.DEFAULT} />} label="Discover" />
+        <LegendItem color={Colors.secondary.DEFAULT} icon={<Sprout size={12} color={Colors.secondary.DEFAULT} />} label={t("groups.myGroups")} />
+        <LegendItem color={Colors.primary.DEFAULT} icon={<Send size={12} color={Colors.primary.DEFAULT} />} label={t("groups.legendDiscover")} />
       </View>
 
       {/* Carousel */}
