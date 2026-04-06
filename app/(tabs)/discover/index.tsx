@@ -61,6 +61,7 @@ export default function DiscoverScreen() {
   const profile = useAuthStore((s) => s.profile);
   const { unreadCount } = useNotificationStore();
   const router = useRouter();
+  const { t } = useTranslation();
 
   const cameraRef = useRef<MapboxGL.Camera>(null);
 
