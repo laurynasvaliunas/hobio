@@ -14,6 +14,8 @@ i18n.use(initReactI18next).init({
   fallbackLng: "en",
   interpolation: { escapeValue: false },
   compatibilityJSON: "v4",
+  // RN has no Suspense boundary by default; true causes useTranslation to throw a Promise → white screen
+  react: { useSuspense: false },
 });
 
 export default i18n;
