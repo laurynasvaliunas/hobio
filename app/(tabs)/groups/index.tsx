@@ -97,7 +97,7 @@ export default function GroupsScreen() {
         }}
       >
         <Text style={{ fontSize: 26, fontFamily: Fonts.extraBold, color: colors.text.primary }}>
-          {isOrganizer ? "My Groups" : "My Hobbies"}
+          {isOrganizer ? t("groups.myGroups") : t("common.myHobbies")}
         </Text>
 
         {isOrganizer && (
