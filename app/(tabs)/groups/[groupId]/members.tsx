@@ -27,6 +27,7 @@ interface MemberRowProps {
 }
 
 function MemberRow({ member, isGroupOwner, onApprove, onReject, onRemove }: MemberRowProps) {
+  const { t } = useTranslation();
   const name =
     member.profile?.full_name ?? member.child?.full_name ?? "Unknown";
   const email = member.profile?.email;
