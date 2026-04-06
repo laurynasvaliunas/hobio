@@ -61,11 +61,11 @@ const MapboxGL = {
 
 export default MapboxGL;
 export const setAccessToken = MapboxGL.setAccessToken;
-export const MapView as ExportMapView = MapView;
-export const Camera as ExportCamera = Camera;
-export const MarkerView as ExportMarkerView = MarkerView;
+export const MapView = MapView;
+export const Camera = Camera;
+export const MarkerView = MarkerView;
 export const PointAnnotation = MapboxGL.PointAnnotation;
-export const UserLocation as ExportUserLocation = UserLocation;
+export const UserLocation = UserLocation;
 
 const styles = StyleSheet.create({
   mapShell: {
