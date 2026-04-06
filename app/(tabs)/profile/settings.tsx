@@ -129,8 +129,8 @@ export default function SettingsScreen() {
             <SettingsItem
               icon={<Baby size={20} color={Colors.accent.DEFAULT} />}
               iconBg={Colors.accent.DEFAULT + "15"}
-              title="Family & Dependents"
-              subtitle="Manage your children's profiles"
+              title={t("profile.familyDependents")}
+              subtitle={t("profile.familyDependentsSubtitle")}
               onPress={() => router.push("/(tabs)/profile/family" as never)}
             />
           )}
