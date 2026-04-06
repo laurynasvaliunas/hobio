@@ -214,7 +214,7 @@ export default function MembersScreen() {
               color: Colors.text.primary,
             }}
           >
-            Members
+            {t("groups.members")}
           </Text>
           <Text style={{ fontSize: 13, color: Colors.text.secondary }}>
             {group?.name} {totalActive > 0 ? `(${totalActive})` : ""}
