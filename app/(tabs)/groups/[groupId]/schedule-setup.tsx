@@ -337,14 +337,14 @@ export default function ScheduleSetupScreen() {
               {/* Time inputs */}
               <View style={{ flexDirection: "row", gap: 12, marginBottom: 20 }}>
                 <Input
-                  label="Start Time"
+                  label={t("groups.startTime")}
                   placeholder="17:00"
                   value={startTime}
                   onChangeText={setStartTime}
                   containerStyle={{ flex: 1 }}
                 />
                 <Input
-                  label="End Time"
+                  label={t("groups.endTime")}
                   placeholder="18:30"
                   value={endTime}
                   onChangeText={setEndTime}
