@@ -84,6 +84,7 @@ function QuickAction({ icon, label, onPress, badge }: QuickActionProps) {
 export default function GroupDetailScreen() {
   const { groupId } = useLocalSearchParams<{ groupId: string }>();
   const router = useRouter();
+  const { t } = useTranslation();
   const { groups, organizations } = useGroupStore();
   const profile = useAuthStore((s) => s.profile);
 
