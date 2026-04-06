@@ -250,8 +250,8 @@ export default function SettingsScreen() {
           />
           <SettingsItem
             icon={<Trash2 size={20} color={Colors.danger.DEFAULT} />}
-            title="Delete Account"
-            subtitle="Permanently remove all your data"
+            title={t("profile.deleteAccount")}
+            subtitle={t("profile.deleteAccountSubtitle")}
             onPress={() => router.push("/(tabs)/profile/delete-account" as never)}
             danger
           />
