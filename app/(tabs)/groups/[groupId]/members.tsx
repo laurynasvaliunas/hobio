@@ -225,8 +225,8 @@ export default function MembersScreen() {
       {sections.length === 0 && !isLoading ? (
         <EmptyState
           icon={<UserPlus size={36} color={Colors.primary.DEFAULT} strokeWidth={1.5} />}
-          title="No members yet"
-          description="Share the invite code to let participants join this group."
+          title={t("groups.noMembersTitle")}
+          description={t("groups.noMembersDesc")}
         />
       ) : (
         <SectionList
