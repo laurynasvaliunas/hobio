@@ -256,7 +256,7 @@ export default function StudioDashboard() {
             <StatCard
               icon={<Users size={20} color={colors.primary.DEFAULT} />}
               value={memberCount}
-              label="Active Members"
+              label={t("groups.activeMembers")}
               tint={colors.primary.DEFAULT}
               subLabel="+8 this month"
               trend="up"
