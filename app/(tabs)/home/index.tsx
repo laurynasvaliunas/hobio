@@ -245,7 +245,7 @@ export default function HomeScreen() {
           )}
           <QuickActionTile
             icon={<LogIn size={24} color="#FFF" strokeWidth={2.5} />}
-            label="Join Group"
+            label={t("groups.joinGroup")}
             color={colors.secondary.DEFAULT}
             onPress={() => router.push("/join/enter")}
           />
