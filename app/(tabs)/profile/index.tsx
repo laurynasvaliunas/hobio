@@ -283,7 +283,7 @@ export default function ProfileScreen() {
         <Card>
           <MenuItem
             icon={<LogOut size={20} color={colors.danger.DEFAULT} />}
-            title="Sign Out"
+            title={t("common.signOut")}
             onPress={handleSignOut}
             danger
           />
