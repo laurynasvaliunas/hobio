@@ -15,6 +15,7 @@ interface AuthState {
   // Actions
   initialize: () => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
+  signInWithApple: () => Promise<void>;
   signUp: (email: string, password: string, fullName: string) => Promise<SignUpResult>;
   signOut: () => Promise<void>;
   setProfile: (profile: Profile) => void;
