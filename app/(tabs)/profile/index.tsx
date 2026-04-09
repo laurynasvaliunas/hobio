@@ -216,7 +216,7 @@ export default function ProfileScreen() {
                     color: colors.text.primary,
                   }}
                 >
-                  My Children ({children.length})
+                  {t("common.myChildren")} ({children.length})
                 </Text>
               </View>
               <ChevronRight size={18} color={colors.text.secondary} />
