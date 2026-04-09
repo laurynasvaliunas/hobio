@@ -244,8 +244,8 @@ export default function ProfileScreen() {
           {(isOrganizer || isParent) && (
             <MenuItem
               icon={<RefreshCw size={20} color={colors.primary.DEFAULT} />}
-              title="Switch Workspace"
-              subtitle={activeWorkspace ?? "Toggle Coach / Participant view"}
+              title={t("profile.switchWorkspace")}
+              subtitle={activeWorkspace ?? t("profile.switchWorkspaceSubtitle")}
               onPress={() => router.push("/(tabs)/profile/switch-role" as never)}
             />
           )}
