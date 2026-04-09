@@ -238,7 +238,7 @@ export default function HomeScreen() {
           {isOrganizer && (
             <QuickActionTile
               icon={<Plus size={24} color="#FFF" strokeWidth={2.5} />}
-              label="New Group"
+              label={t("groups.newGroup")}
               color={colors.primary.DEFAULT}
               onPress={() => router.push("/modals/create-group")}
             />
