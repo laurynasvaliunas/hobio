@@ -202,6 +202,26 @@ export default function SignInScreen() {
           {/* CTA — slides up */}
           <Animated.View style={{ opacity: ctaAnim, transform: [{ translateY: ctaY }] }}>
             <Button title={t("common.signIn")} onPress={handleSignIn} loading={loading} />
+
+            {Platform.OS === "ios" && (
+              <View style={{ marginTop: 16 }}>
+                <AppleAuthentication.AppleAuthenticationButton
+                  buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+                  buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+                  cornerRadius={12}
+                  style={{ width: "100%", height: 52 }}
+                  onPress={async () => {
+                    try {
+                      await useAuthStore.getState().signInWithApple();
+                    } catch (e: any) {
+                      if (e.code !== "ERR_REQUEST_CANCELED") {
+                        Alert.alert(t("auth.signInFailed"), e.message);
+                      }
+                    }
+                  }}
+                />
+              </View>
+            )}
           </Animated.View>
 
           {/* Footer */}
