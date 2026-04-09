@@ -268,7 +268,7 @@ export default function StudioDashboard() {
               value={groups.length}
               label={t("groups.activeGroups")}
               tint={colors.accent.DEFAULT}
-              subLabel="All running"
+              subLabel={t("groups.allRunning")}
             />
             <StatCard
               icon={<AlertCircle size={20} color={colors.danger.DEFAULT} />}
