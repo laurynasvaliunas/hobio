@@ -29,6 +29,7 @@ export default function HomeScreen() {
   const { unreadCount, fetchNotifications } = useNotificationStore();
   const router = useRouter();
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   const isOrganizer = profile?.role === "organizer";
   const isParent    = profile?.role === "parent";
