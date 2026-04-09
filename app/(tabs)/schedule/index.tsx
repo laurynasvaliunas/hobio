@@ -32,9 +32,11 @@ import {
 import { formatSessionTime } from "../../../src/lib/helpers";
 import { getSessionsForDate } from "../../../src/lib/scheduling";
 import type { Session } from "../../../src/types/database.types";
+import { useTranslation } from "react-i18next";
 
 export default function ScheduleScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const profile = useAuthStore((s) => s.profile);
   const { groups, fetchMyGroups, fetchMyOrganizations } = useGroupStore();
   const { unreadCount } = useNotificationStore();
