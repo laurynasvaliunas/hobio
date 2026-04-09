@@ -251,8 +251,8 @@ export default function ProfileScreen() {
           )}
           <MenuItem
             icon={<Shield size={20} color={colors.primary.DEFAULT} />}
-            title="Privacy & Data"
-            subtitle="Download data, manage account"
+            title={t("profile.privacyData")}
+            subtitle={t("profile.privacyDataSubtitle")}
             onPress={() => router.push("/(tabs)/profile/data-export" as never)}
           />
           <MenuItem
