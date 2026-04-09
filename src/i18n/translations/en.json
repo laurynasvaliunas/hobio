@@ -54,7 +54,17 @@
     "close": "Close",
     "keepEditing": "Keep Editing",
     "checkInput": "Check your input",
-    "validationError": "Validation Error"
+    "validationError": "Validation Error",
+    "seeAll": "See all",
+    "todaysSchedule": "Today's Schedule",
+    "noSessionsToday": "No sessions scheduled for today.",
+    "noGroupsJoined": "You haven't joined any groups yet.",
+    "quickStats": "Quick Stats",
+    "activeHobbiesCount_one": "{{count}} active hobby! Keep the momentum going!",
+    "activeHobbiesCount_other": "{{count}} active hobbies! Keep the momentum going!",
+    "tapEditProfile": "Tap to edit profile",
+    "profile": "Profile",
+    "myChildren": "My Children"
   },
   "validation": {
     "emailRequired": "Email is required",
