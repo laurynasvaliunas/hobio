@@ -45,7 +45,7 @@ import { PulseMarker } from "../../../src/components/map/PulseMarker";
 import { Card, Badge } from "../../../src/components/ui";
 
 MapboxGL.setAccessToken(
-  "MAPBOX_ACCESS_TOKEN_PLACEHOLDER"
+  process.env.EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
 );
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
