@@ -29,11 +29,6 @@
       "package": "com.hobio.app",
       "versionCode": 1,
       "edgeToEdgeEnabled": true,
-      "config": {
-        "googleMaps": {
-          "apiKey": "AIzaSyBv6ZUdZ-oTmE9lLwFhgPxxVuH_5P3Wdvw"
-        }
-      },
       "permissions": [
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.ACCESS_COARSE_LOCATION"
