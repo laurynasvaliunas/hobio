@@ -373,6 +373,17 @@
     "markedPaid": "Marked as paid",
     "paymentUpdateFailed": "Failed to update payment"
   },
+  "schedule": {
+    "sun": "Sun",
+    "mon": "Mon",
+    "tue": "Tue",
+    "wed": "Wed",
+    "thu": "Thu",
+    "fri": "Fri",
+    "sat": "Sat",
+    "noSessions": "No sessions on this day.",
+    "cancelled": "Cancelled"
+  },
   "discover": {},
   "join": {},
   "modals": {},
