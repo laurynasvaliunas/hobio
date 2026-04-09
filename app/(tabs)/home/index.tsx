@@ -252,7 +252,7 @@ export default function HomeScreen() {
           {isParent && (
             <QuickActionTile
               icon={<Baby size={24} color="#FFF" strokeWidth={2.5} />}
-              label="Add Child"
+              label={t("groups.addChild")}
               color={colors.accent.DEFAULT}
               onPress={() => router.push("/modals/add-child")}
             />
