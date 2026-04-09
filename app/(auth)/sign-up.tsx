@@ -343,6 +343,26 @@ export default function SignUpScreen() {
               </Text>
             </TouchableOpacity>
             <Button title={t("auth.createAccount")} onPress={handleSignUp} loading={loading} />
+
+            {Platform.OS === "ios" && (
+              <View style={{ marginTop: 16 }}>
+                <AppleAuthentication.AppleAuthenticationButton
+                  buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_UP}
+                  buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+                  cornerRadius={12}
+                  style={{ width: "100%", height: 52 }}
+                  onPress={async () => {
+                    try {
+                      await useAuthStore.getState().signInWithApple();
+                    } catch (e: any) {
+                      if (e.code !== "ERR_REQUEST_CANCELED") {
+                        Alert.alert(t("auth.signUpFailed"), e.message);
+                      }
+                    }
+                  }}
+                />
+              </View>
+            )}
           </Animated.View>
 
           {/* Footer */}
