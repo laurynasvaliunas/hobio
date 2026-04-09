@@ -190,7 +190,7 @@ export default function ProfileScreen() {
                 marginTop: 10,
               }}
             >
-              Tap to edit profile
+              {t("common.tapEditProfile")}
             </Text>
           </Card>
         </TouchableOpacity>
