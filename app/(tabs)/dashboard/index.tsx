@@ -266,7 +266,7 @@ export default function StudioDashboard() {
             <StatCard
               icon={<BarChart3 size={20} color={colors.accent.DEFAULT} />}
               value={groups.length}
-              label="Active Groups"
+              label={t("groups.activeGroups")}
               tint={colors.accent.DEFAULT}
               subLabel="All running"
             />
