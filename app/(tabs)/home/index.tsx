@@ -106,9 +106,9 @@ export default function HomeScreen() {
 
   const greeting = () => {
     const h = new Date().getHours();
-    if (h < 12) return "Good morning";
-    if (h < 17) return "Good afternoon";
-    return "Good evening";
+    if (h < 12) return t("common.goodMorning");
+    if (h < 17) return t("common.goodAfternoon");
+    return t("common.goodEvening");
   };
 
   const firstName = profile?.full_name?.split(" ")[0] ?? "there";
