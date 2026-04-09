@@ -236,8 +236,8 @@ export default function ProfileScreen() {
             <MenuItem
               icon={<Building2 size={20} color={colors.secondary.DEFAULT} />}
               iconBg={colors.secondary.DEFAULT + "15"}
-              title="My Organizations"
-              subtitle="Manage your clubs and studios"
+              title={t("profile.myOrganizations")}
+              subtitle={t("profile.myOrganizationsSubtitle")}
               onPress={() => router.push("/(tabs)/groups" as never)}
             />
           )}
