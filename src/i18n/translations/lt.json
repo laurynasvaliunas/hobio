@@ -372,6 +372,17 @@
     "markedPaid": "Pažymėta kaip apmokėta",
     "paymentUpdateFailed": "Nepavyko atnaujinti mokėjimo"
   },
+  "schedule": {
+    "sun": "Sk",
+    "mon": "Pr",
+    "tue": "An",
+    "wed": "Tr",
+    "thu": "Kt",
+    "fri": "Pn",
+    "sat": "Št",
+    "noSessions": "Šią dieną sesijų nėra.",
+    "cancelled": "Atšaukta"
+  },
   "discover": {},
   "join": {},
   "modals": {},
