@@ -273,7 +273,7 @@ export default function StudioDashboard() {
             <StatCard
               icon={<AlertCircle size={20} color={colors.danger.DEFAULT} />}
               value={overdueCount}
-              label="Overdue"
+              label={t("groups.overdue")}
               tint={colors.danger.DEFAULT}
               subLabel={overdueCount > 0 ? "Needs attention" : undefined}
             />
