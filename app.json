@@ -26,7 +26,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/hobio-logo.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#D97758"
       },
       "package": "com.hobio.app",
