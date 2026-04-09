@@ -291,7 +291,7 @@ export default function StudioDashboard() {
                 onPress: () => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); if (groups[0]) router.push(`/(tabs)/groups/${groups[0].id}/sessions` as never); } },
               { icon: <Megaphone size={20} color="#FFF" />, label: "Alert", bg: colors.accent.DEFAULT,
                 onPress: () => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); router.push("/modals/create-announcement" as never); } },
-              { icon: <FileText size={20} color="#FFF" />, label: "Contracts", bg: colors.secondary.DEFAULT,
+              { icon: <FileText size={20} color="#FFF" />, label: t("groups.contracts"), bg: colors.secondary.DEFAULT,
                 onPress: () => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); if (groups[0]) router.push(`/(tabs)/groups/${groups[0].id}/documents` as never); } },
               { icon: <Plus size={20} color="#FFF" />, label: "New Group", bg: colors.text.secondary,
                 onPress: () => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); router.push("/modals/create-group"); } },
