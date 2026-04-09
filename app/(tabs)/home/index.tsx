@@ -351,7 +351,7 @@ export default function HomeScreen() {
         {isOrganizer && (
           <Animated.View style={{ opacity: statsAnim, transform: [{ translateY: statsY }] }}>
             <Text style={{ fontSize: 20, fontFamily: Fonts.bold, color: colors.text.primary, marginBottom: 14 }}>
-              Quick Stats
+              {t("common.quickStats")}
             </Text>
             <View style={{ flexDirection: "row", gap: 12 }}>
               <Card style={{ flex: 1, alignItems: "center" }}>
