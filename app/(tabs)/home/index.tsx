@@ -279,7 +279,7 @@ export default function HomeScreen() {
               <View style={{ alignItems: "center", paddingVertical: 20, gap: 8 }}>
                 <Calendar size={32} color={colors.primary.light} strokeWidth={1.5} />
                 <Text style={{ fontSize: 15, color: colors.text.secondary, textAlign: "center" }}>
-                  No sessions scheduled for today.
+                  {t("common.noSessionsToday")}
                 </Text>
               </View>
             </Card>
