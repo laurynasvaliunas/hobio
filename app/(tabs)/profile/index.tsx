@@ -257,8 +257,8 @@ export default function ProfileScreen() {
           />
           <MenuItem
             icon={<HelpCircle size={20} color={colors.primary.DEFAULT} />}
-            title="Help & Support"
-            subtitle="FAQ, contact us"
+            title={t("profile.helpSupport")}
+            subtitle={t("profile.helpSupportSubtitle")}
             onPress={() => {}}
           />
         </Card>
