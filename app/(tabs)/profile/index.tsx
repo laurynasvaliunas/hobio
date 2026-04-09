@@ -228,8 +228,8 @@ export default function ProfileScreen() {
         <Card style={{ marginBottom: 16 }}>
           <MenuItem
             icon={<Settings size={20} color={colors.primary.DEFAULT} />}
-            title="Settings"
-            subtitle="Account, notifications, security, theme"
+            title={t("common.settings")}
+            subtitle={t("profile.settingsSubtitle")}
             onPress={() => router.push("/(tabs)/profile/settings" as never)}
           />
           {isOrganizer && (
