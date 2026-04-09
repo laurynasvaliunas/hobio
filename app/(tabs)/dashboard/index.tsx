@@ -248,7 +248,7 @@ export default function StudioDashboard() {
             <StatCard
               icon={<DollarSign size={20} color={colors.secondary.DEFAULT} />}
               value={formatCurrency(totalRevenue, currency)}
-              label="Total Revenue"
+              label={t("groups.totalRevenue")}
               tint={colors.secondary.DEFAULT}
               subLabel="+12% vs last month"
               trend="up"
