@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Appearance } from "react-native";
 import type { ThemeMode } from "../types/database.types";
 
@@ -17,14 +19,28 @@ function resolveIsDark(mode: ThemeMode): boolean {
   return Appearance.getColorScheme() === "dark";
 }
 
-export const useThemeStore = create<ThemeState>((set) => ({
-  mode: "system",
-  isDark: resolveIsDark("system"),
+export const useThemeStore = create<ThemeState>()(
+  persist(
+    (set) => ({
+      mode: "system",
+      isDark: resolveIsDark("system"),
 
-  setMode: (mode) => {
-    set({ mode, isDark: resolveIsDark(mode) });
-  },
-}));
+      setMode: (mode) => {
+        set({ mode, isDark: resolveIsDark(mode) });
+      },
+    }),
+    {
+      name: "hobio-theme",
+      storage: createJSONStorage(() => AsyncStorage),
+      partialize: (state) => ({ mode: state.mode }),
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          state.isDark = resolveIsDark(state.mode);
+        }
+      },
+    }
+  )
+);
 
 // Listen for system theme changes
 Appearance.addChangeListener(({ colorScheme }) => {
