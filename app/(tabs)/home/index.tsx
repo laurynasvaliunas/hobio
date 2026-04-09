@@ -219,7 +219,7 @@ export default function HomeScreen() {
             >
               <Text style={{ fontSize: 18 }}>🎯</Text>
               <Text style={{ fontSize: 14, fontFamily: Fonts.bold, color: colors.secondary.dark }}>
-                {groups.length} active hobb{groups.length === 1 ? "y" : "ies"}! Keep the momentum going!
+                {t("common.activeHobbiesCount", { count: groups.length })}
               </Text>
             </View>
           </Animated.View>
