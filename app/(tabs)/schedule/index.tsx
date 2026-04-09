@@ -244,7 +244,7 @@ export default function ScheduleScreen() {
           }}
         >
           {isToday(selectedDate)
-            ? "Today's Sessions"
+            ? t("common.todaysSchedule")
             : `${format(selectedDate, "EEEE, MMM d")}`}
         </Text>
 
