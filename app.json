@@ -17,9 +17,6 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.hobio.app",
       "buildNumber": "1",
-      "config": {
-        "googleMapsApiKey": "AIzaSyBErUpRHTRY6w-_35o2ageEYdjNjtgFLns"
-      },
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Hobio uses your location to show nearby groups on the map."
       }
