@@ -269,7 +269,7 @@ export default function HomeScreen() {
               onPress={() => router.push("/(tabs)/schedule")}
               style={{ flexDirection: "row", alignItems: "center", gap: 2 }}
             >
-              <Text style={{ fontSize: 14, fontFamily: Fonts.semiBold, color: colors.primary.DEFAULT }}>See all</Text>
+              <Text style={{ fontSize: 14, fontFamily: Fonts.semiBold, color: colors.primary.DEFAULT }}>{t("common.seeAll")}</Text>
               <ChevronRight size={16} color={colors.primary.DEFAULT} />
             </TouchableOpacity>
           </View>
@@ -311,7 +311,7 @@ export default function HomeScreen() {
               onPress={() => router.push("/(tabs)/groups")}
               style={{ flexDirection: "row", alignItems: "center", gap: 2 }}
             >
-              <Text style={{ fontSize: 14, fontFamily: Fonts.semiBold, color: colors.primary.DEFAULT }}>See all</Text>
+              <Text style={{ fontSize: 14, fontFamily: Fonts.semiBold, color: colors.primary.DEFAULT }}>{t("common.seeAll")}</Text>
               <ChevronRight size={16} color={colors.primary.DEFAULT} />
             </TouchableOpacity>
           </View>
