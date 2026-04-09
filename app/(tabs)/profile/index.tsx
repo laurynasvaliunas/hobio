@@ -117,13 +117,13 @@ export default function ProfileScreen() {
 
   const roleLabel =
     profile?.role === "organizer"
-      ? "Organizer"
+      ? t("common.organizer")
       : profile?.role === "parent"
-      ? "Parent"
-      : "Participant";
+      ? t("common.parent")
+      : t("common.participant");
 
   const activeWorkspace = activeRole
-    ? activeRole === "organizer" ? "Coach Mode" : "Participant Mode"
+    ? activeRole === "organizer" ? t("common.coachMode") : t("common.participantMode")
     : null;
 
 
