@@ -19,6 +19,7 @@ import { Fonts } from "../../../src/constants/fonts";
 import { useAuthStore } from "../../../src/stores/authStore";
 import { useChildren } from "../../../src/hooks/useChildren";
 import { usePreferences } from "../../../src/hooks/usePreferences";
+import { useTranslation } from "react-i18next";
 
 interface MenuItemProps {
   icon: React.ReactNode;
