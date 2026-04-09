@@ -347,8 +347,8 @@ export default function StudioDashboard() {
 
             <View style={{ gap: 10 }}>
               {[
-                { label: "New Members",  value: "+12", progress: 0.75, color: colors.primary.DEFAULT },
-                { label: "New Sessions", value: "+8",  progress: 0.55, color: colors.secondary.DEFAULT },
+                { label: t("groups.newMembers"),  value: "+12", progress: 0.75, color: colors.primary.DEFAULT },
+                { label: t("groups.newSessions"), value: "+8",  progress: 0.55, color: colors.secondary.DEFAULT },
               ].map(({ label, value, progress, color }) => (
                 <View key={label}>
                   <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 6 }}>
