@@ -263,7 +263,7 @@ export default function HomeScreen() {
         <Animated.View style={{ marginBottom: 28, opacity: schedAnim, transform: [{ translateY: schedY }] }}>
           <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
             <Text style={{ fontSize: 20, fontFamily: Fonts.bold, color: colors.text.primary }}>
-              Today's Schedule
+              {t("common.todaysSchedule")}
             </Text>
             <TouchableOpacity
               onPress={() => router.push("/(tabs)/schedule")}
