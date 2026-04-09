@@ -275,7 +275,7 @@ export default function StudioDashboard() {
               value={overdueCount}
               label={t("groups.overdue")}
               tint={colors.danger.DEFAULT}
-              subLabel={overdueCount > 0 ? "Needs attention" : undefined}
+              subLabel={overdueCount > 0 ? t("groups.needsAttention") : undefined}
             />
           </View>
         </Animated.View>
