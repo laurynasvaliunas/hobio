@@ -91,6 +91,7 @@ export default function ProfileScreen() {
   const { colors } = useTheme();
   const { profile, signOut } = useAuthStore();
   const router = useRouter();
+  const { t } = useTranslation();
 
   const isParent = profile?.role === "parent";
   const isOrganizer = profile?.role === "organizer";
