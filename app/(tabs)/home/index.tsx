@@ -321,7 +321,7 @@ export default function HomeScreen() {
               <View style={{ alignItems: "center", paddingVertical: 20, gap: 8 }}>
                 <Users size={32} color={colors.primary.light} strokeWidth={1.5} />
                 <Text style={{ fontSize: 15, color: colors.text.secondary, textAlign: "center" }}>
-                  You haven't joined any groups yet.
+                  {t("common.noGroupsJoined")}
                 </Text>
               </View>
             </Card>
