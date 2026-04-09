@@ -21,6 +21,7 @@ import { useSessions } from "../../../src/hooks/useSessions";
 import { getSessionsForDate } from "../../../src/lib/scheduling";
 import { formatSessionTime } from "../../../src/lib/helpers";
 import { getSportEmoji } from "../../../src/constants/sports";
+import { useTranslation } from "react-i18next";
 
 export default function HomeScreen() {
   const profile = useAuthStore((s) => s.profile);
