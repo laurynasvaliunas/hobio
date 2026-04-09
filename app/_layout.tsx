@@ -41,7 +41,10 @@ const queryClient = new QueryClient({
 
 function RootLayout() {
   const initialize = useAuthStore((s) => s.initialize);
+  const session = useAuthStore((s) => s.session);
   const isDark = useThemeStore((s) => s.isDark);
+
+  usePushNotifications(session?.id);
 
   const [i18nReady, setI18nReady] = useState(() => i18n.isInitialized);
 
