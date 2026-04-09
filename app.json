@@ -63,6 +63,7 @@
           "organization": "clyzio"
         }
       ],
+      "expo-apple-authentication",
       [
         "@rnmapbox/maps",
         {
