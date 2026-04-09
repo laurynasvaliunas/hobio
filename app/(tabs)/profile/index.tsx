@@ -267,8 +267,8 @@ export default function ProfileScreen() {
         <Card>
           <MenuItem
             icon={<FileText size={20} color={colors.primary.DEFAULT} />}
-            title="Terms &amp; Conditions"
-            subtitle="Service terms and user agreement"
+            title={t("profile.termsTitle")}
+            subtitle={t("profile.termsSubtitle")}
             onPress={() => router.push("/(legal)/terms" as never)}
           />
           <View style={{ height: StyleSheet.hairlineWidth, backgroundColor: colors.border, marginLeft: 54 }} />
