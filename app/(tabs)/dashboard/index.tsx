@@ -386,7 +386,7 @@ export default function StudioDashboard() {
             <TextInput
               value={searchQuery}
               onChangeText={setSearchQuery}
-              placeholder="Search groups..."
+              placeholder={t("groups.searchPh")}
               placeholderTextColor={colors.text.secondary + "80"}
               autoCorrect={false}
               autoCapitalize="none"
