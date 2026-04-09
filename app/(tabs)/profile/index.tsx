@@ -99,16 +99,16 @@ export default function ProfileScreen() {
   const { activeRole } = usePreferences(profile?.id ?? "");
 
   const handleSignOut = () => {
-    Alert.alert("Sign Out", "Are you sure you want to sign out?", [
-      { text: "Cancel", style: "cancel" },
+    Alert.alert(t("profile.signOutTitle"), t("profile.signOutMessage"), [
+      { text: t("common.cancel"), style: "cancel" },
       {
-        text: "Sign Out",
+        text: t("common.signOut"),
         style: "destructive",
         onPress: async () => {
           try {
             await signOut();
           } catch {
-            Alert.alert("Error", "Failed to sign out. Please try again.");
+            Alert.alert(t("common.error"), t("profile.signOutFailed"));
           }
         },
       },
