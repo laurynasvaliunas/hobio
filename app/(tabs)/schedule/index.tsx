@@ -67,7 +67,7 @@ export default function ScheduleScreen() {
   const monthEnd = endOfMonth(currentMonth);
   const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
   const startDayOfWeek = getDay(monthStart);
-  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const dayNames = [t("schedule.sun"), t("schedule.mon"), t("schedule.tue"), t("schedule.wed"), t("schedule.thu"), t("schedule.fri"), t("schedule.sat")];
 
   // Get sessions for selected date
   const daySessions = getSessionsForDate(sessions, selectedDate);
