@@ -142,7 +142,7 @@ export default function ProfileScreen() {
             marginBottom: 24,
           }}
         >
-          Profile
+          {t("common.profile")}
         </Text>
 
         {/* Profile card */}
