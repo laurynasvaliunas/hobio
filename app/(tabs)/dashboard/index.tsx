@@ -81,6 +81,7 @@ function useRevenueSummary(groups: Group[]) {
 export default function StudioDashboard() {
   const router  = useRouter();
   const { colors, shadows } = useTheme();
+  const { t } = useTranslation();
   const profile = useAuthStore((s) => s.profile);
   const { groups, fetchMyGroups, fetchMyOrganizations } = useGroupStore();
   const { unreadCount, fetchNotifications } = useNotificationStore();
