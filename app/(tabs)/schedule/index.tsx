@@ -294,7 +294,7 @@ export default function ScheduleScreen() {
                           >
                             {group?.name ?? "Session"}
                           </Text>
-                          {isCancelled && <Badge label="Cancelled" variant="danger" />}
+                          {isCancelled && <Badge label={t("schedule.cancelled")} variant="danger" />}
                         </View>
                         <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
                           <Clock size={13} color={Colors.text.secondary} />
