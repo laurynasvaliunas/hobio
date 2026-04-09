@@ -287,7 +287,7 @@ export default function StudioDashboard() {
           </Text>
           <View style={{ flexDirection: "row", gap: 10 }}>
             {[
-              { icon: <ClipboardList size={20} color="#FFF" />, label: "Attendance", bg: colors.primary.DEFAULT,
+              { icon: <ClipboardList size={20} color="#FFF" />, label: t("groups.attendance"), bg: colors.primary.DEFAULT,
                 onPress: () => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); if (groups[0]) router.push(`/(tabs)/groups/${groups[0].id}/sessions` as never); } },
               { icon: <Megaphone size={20} color="#FFF" />, label: "Alert", bg: colors.accent.DEFAULT,
                 onPress: () => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); router.push("/modals/create-announcement" as never); } },
