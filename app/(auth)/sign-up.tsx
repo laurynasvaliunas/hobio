@@ -10,6 +10,7 @@ import {
   ScrollView,
   Animated,
 } from "react-native";
+import * as AppleAuthentication from "expo-apple-authentication";
 import { useRouter } from "expo-router";
 import { Mail, Lock, UserIcon, ArrowLeft, ShieldCheck, CheckCircle, Check } from "lucide-react-native";
 import { ScreenWrapper, Button, Input } from "../../src/components/ui";
