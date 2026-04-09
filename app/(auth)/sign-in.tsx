@@ -9,7 +9,9 @@ import {
   Platform,
   ScrollView,
   Animated,
+  StyleSheet,
 } from "react-native";
+import * as AppleAuthentication from "expo-apple-authentication";
 import { useRouter } from "expo-router";
 import { Mail, Lock, ArrowLeft } from "lucide-react-native";
 import { ScreenWrapper, Button, Input } from "../../src/components/ui";
