@@ -274,8 +274,8 @@ export default function ProfileScreen() {
           <View style={{ height: StyleSheet.hairlineWidth, backgroundColor: colors.border, marginLeft: 54 }} />
           <MenuItem
             icon={<Lock size={20} color={colors.primary.DEFAULT} />}
-            title="Privacy Policy"
-            subtitle="How we collect and use your data"
+            title={t("profile.privacyPolicyTitle")}
+            subtitle={t("profile.privacyPolicySubtitle")}
             onPress={() => router.push("/(legal)/privacy" as never)}
           />
         </Card>
