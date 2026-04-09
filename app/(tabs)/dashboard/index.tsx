@@ -39,6 +39,7 @@ import { supabase } from "../../../src/lib/supabase";
 import { ExceptionsCard } from "../../../src/components/dashboard/ExceptionsCard";
 import { getSportEmoji } from "../../../src/constants/sports";
 import type { Group } from "../../../src/types/database.types";
+import { useTranslation } from "react-i18next";
 
 // ── Revenue hook ──
 function useRevenueSummary(groups: Group[]) {
