@@ -305,7 +305,7 @@ export default function HomeScreen() {
         <Animated.View style={{ marginBottom: 28, opacity: groupsAnim, transform: [{ translateY: groupsY }] }}>
           <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
             <Text style={{ fontSize: 20, fontFamily: Fonts.bold, color: colors.text.primary }}>
-              My Groups
+              {t("groups.myGroups")}
             </Text>
             <TouchableOpacity
               onPress={() => router.push("/(tabs)/groups")}
