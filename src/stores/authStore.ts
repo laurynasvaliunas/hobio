@@ -85,6 +85,23 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     if (error) throw error;
   },
 
+  signInWithApple: async () => {
+    if (Platform.OS !== "ios") return;
+    const credential = await AppleAuthentication.signInAsync({
+      requestedScopes: [
+        AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+        AppleAuthentication.AppleAuthenticationScope.EMAIL,
+      ],
+    });
+    if (credential.identityToken) {
+      const { error } = await supabase.auth.signInWithIdToken({
+        provider: "apple",
+        token: credential.identityToken,
+      });
+      if (error) throw error;
+    }
+  },
+
   signUp: async (email, password, fullName): Promise<SignUpResult> => {
     if (__DEV__) console.log("[Auth] Signing up:", email);
     const { data, error } = await supabase.auth.signUp({
