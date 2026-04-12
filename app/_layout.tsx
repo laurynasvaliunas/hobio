@@ -22,11 +22,16 @@ import { useThemeStore } from "../src/stores/themeStore";
 import { ToastContainer } from "../src/components/ui/Toast";
 import { usePushNotifications } from "../src/hooks/usePushNotifications";
 
-Sentry.init({
-  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
-  enabled: !__DEV__,
-  tracesSampleRate: 0.2,
-});
+// Sentry is only active in production builds (not in Expo Go / dev)
+let Sentry: typeof import("@sentry/react-native") | null = null;
+if (!__DEV__) {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  Sentry = require("@sentry/react-native");
+  Sentry!.init({
+    dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+    tracesSampleRate: 0.2,
+  });
+}
 
 // Create a React Query client
 const queryClient = new QueryClient({
