@@ -212,7 +212,7 @@ export default function SignUpScreen() {
             justifyContent: "center",
             paddingVertical: 20,
           }}
-          keyboardShouldPersistTaps="handled"
+          keyboardShouldPersistTaps="always"
         >
           {/* Back — slides in */}
           <Animated.View style={{ opacity: backAnim, transform: [{ translateX: backX }], marginBottom: 32 }}>

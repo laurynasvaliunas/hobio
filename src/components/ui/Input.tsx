@@ -94,6 +94,8 @@ export function Input({
           style={[
             {
               flex: 1,
+              // Required in row layouts so the field keeps a real width and receives taps on iOS
+              minWidth: 0,
               fontSize: 16,
               fontFamily: Fonts.regular,
               color: colors.text.primary,
@@ -104,6 +106,7 @@ export function Input({
         />
         {secureTextEntry && (
           <TouchableOpacity
+            style={{ flexShrink: 0 }}
             onPress={() => setShowPassword(!showPassword)}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
