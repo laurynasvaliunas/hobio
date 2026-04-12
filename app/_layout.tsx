@@ -126,4 +126,4 @@ function RootLayout() {
   );
 }
 
-export default Sentry.wrap(RootLayout);
+export default Sentry ? Sentry.wrap(RootLayout) : RootLayout;
