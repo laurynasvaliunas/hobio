@@ -29,6 +29,7 @@ import {
 import * as Haptics from "expo-haptics";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MapboxGL from "@rnmapbox/maps";
+import Constants from "expo-constants";
 import { Colors, Shadows } from "../../../src/constants/colors";
 import { Fonts } from "../../../src/constants/fonts";
 import { useAuthStore } from "../../../src/stores/authStore";
