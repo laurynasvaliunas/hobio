@@ -1,7 +1,6 @@
 import "../global.css";
 import "../src/i18n";
 import i18n from "../src/i18n";
-import * as Sentry from "@sentry/react-native";
 import React, { useEffect, useState } from "react";
 import { View, ActivityIndicator } from "react-native";
 import { Stack } from "expo-router";
