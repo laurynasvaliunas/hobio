@@ -277,9 +277,15 @@ export default function SignUpScreen() {
                 label={t("common.password")}
                 placeholder={t("auth.passwordPh")}
                 value={password}
-                onChangeText={(t) => { setPassword(t); if (touched.password) validate("password"); }}
+                onChangeText={(text) => {
+                  setPassword(text);
+                  if (touched.password) validate("password");
+                }}
                 onBlur={() => handleBlur("password")}
                 secureTextEntry
+                textContentType="newPassword"
+                autoComplete="password-new"
+                passwordRules="minlength: 6;"
                 error={touched.password ? errors.password : undefined}
                 success={getSuccess("password", password, 6)}
                 icon={<Lock size={20} color={Colors.text.secondary} />}
@@ -290,9 +296,15 @@ export default function SignUpScreen() {
                 label={t("auth.confirmPassword")}
                 placeholder={t("auth.confirmPasswordPh")}
                 value={confirmPassword}
-                onChangeText={(t) => { setConfirmPassword(t); if (touched.confirmPassword) validate("confirmPassword"); }}
+                onChangeText={(text) => {
+                  setConfirmPassword(text);
+                  if (touched.confirmPassword) validate("confirmPassword");
+                }}
                 onBlur={() => handleBlur("confirmPassword")}
                 secureTextEntry
+                textContentType="newPassword"
+                autoComplete="password-new"
+                passwordRules="minlength: 6;"
                 error={touched.confirmPassword ? errors.confirmPassword : undefined}
                 success={getSuccess("confirmPassword", confirmPassword, 6)}
                 icon={<ShieldCheck size={20} color={Colors.text.secondary} />}
