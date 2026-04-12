@@ -304,7 +304,7 @@ export default function SignUpScreen() {
                 secureTextEntry
                 textContentType="newPassword"
                 autoComplete="password-new"
-                {...(Platform.OS === "ios" ? { passwordRules: "minlength: 6;" as const } : {})}
+                passwordRules={Platform.OS === "ios" ? "minlength: 6;" : undefined}
                 error={touched.confirmPassword ? errors.confirmPassword : undefined}
                 success={getSuccess("confirmPassword", confirmPassword, 6)}
                 icon={<ShieldCheck size={20} color={Colors.text.secondary} />}
