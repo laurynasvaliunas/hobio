@@ -47,6 +47,17 @@ export function usePushNotifications(userId: string | undefined) {
   const responseListener = useRef<Notifications.EventSubscription>();
 
   useEffect(() => {
+    // Set handler here (inside effect) so it runs after the native bridge is ready
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: true,
+      }),
+    });
+  }, []);
+
+  useEffect(() => {
     if (!userId) return;
 
     registerForPushNotifications(userId).catch((err) => {
