@@ -44,9 +44,13 @@ import {
 import { PulseMarker } from "../../../src/components/map/PulseMarker";
 import { Card, Badge } from "../../../src/components/ui";
 
-MapboxGL.setAccessToken(
-  process.env.EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
-);
+try {
+  MapboxGL.setAccessToken(
+    process.env.EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN || ""
+  );
+} catch {
+  // Mapbox native module not available in this environment (e.g. Expo Go)
+}
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CARD_WIDTH = SCREEN_WIDTH * 0.78;
