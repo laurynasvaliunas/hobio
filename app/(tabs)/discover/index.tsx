@@ -237,6 +237,21 @@ export default function DiscoverScreen() {
     [handleRegionChange]
   );
 
+  if (!isMapboxAvailable) {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#FBF6F3", alignItems: "center", justifyContent: "center", padding: 32 }}>
+        <Map size={48} color="#D97758" strokeWidth={1.5} />
+        <Text style={{ fontSize: 20, fontFamily: Fonts.bold, color: "#2D1E17", marginTop: 20, marginBottom: 8, textAlign: "center" }}>
+          Zemelapio rodinys
+        </Text>
+        <Text style={{ fontSize: 14, fontFamily: Fonts.regular, color: "#7A6158", textAlign: "center", lineHeight: 22 }}>
+          Zemelapio funkcija prieinama tik irenginiu arba development kliente.{"\n"}
+          Naudokite EAS development build simuliatoriuje.
+        </Text>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <MapboxGL.MapView
