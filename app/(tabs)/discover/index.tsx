@@ -62,6 +62,14 @@ function deltaToZoom(latitudeDelta: number) {
   return Math.round(Math.log2(360 / latitudeDelta));
 }
 
+const isMapboxAvailable = (() => {
+  try {
+    return typeof MapboxGL?.MapView !== "undefined";
+  } catch {
+    return false;
+  }
+})();
+
 export default function DiscoverScreen() {
   const profile = useAuthStore((s) => s.profile);
   const { unreadCount } = useNotificationStore();
