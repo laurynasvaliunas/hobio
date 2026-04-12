@@ -41,9 +41,9 @@
   "submit": {
     "production": {
       "ios": {
-        "appleId": "YOUR_APPLE_ID",
-        "ascAppId": "YOUR_APP_STORE_CONNECT_APP_ID",
-        "appleTeamId": "YOUR_APPLE_TEAM_ID"
+        "appleId": "laurynas@clyzio.com",
+        "ascAppId": "6762083578",
+        "appleTeamId": "Q8P66YD7GQ"
       },
       "android": {
         "serviceAccountKeyPath": "./service-account.json",
