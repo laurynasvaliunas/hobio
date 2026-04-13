@@ -21,6 +21,7 @@ import { useAuthStore } from "../src/stores/authStore";
 import { useThemeStore } from "../src/stores/themeStore";
 import { ToastContainer } from "../src/components/ui/Toast";
 import { usePushNotifications } from "../src/hooks/usePushNotifications";
+import { StripeProvider } from "@stripe/stripe-react-native";
 
 // Sentry is only active in production builds (not in Expo Go / dev)
 let Sentry: typeof import("@sentry/react-native") | null = null;
