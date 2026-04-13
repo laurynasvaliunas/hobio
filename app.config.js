@@ -66,7 +66,13 @@ module.exports = ({ config }) => ({
       },
     ],
     "expo-apple-authentication",
-    "@stripe/stripe-react-native",
+    [
+      "@stripe/stripe-react-native",
+      {
+        merchantIdentifier: "merchant.com.hobio.app",
+        enableGooglePay: false,
+      },
+    ],
     [
       "@rnmapbox/maps",
       {
