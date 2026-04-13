@@ -14,7 +14,7 @@ module.exports = ({ config }) => ({
     backgroundColor: "#FBF6F3",
   },
   ios: {
-    supportsTablet: true,
+    supportsTablet: false,
     bundleIdentifier: "com.hobio.app",
     buildNumber: "1",
     infoPlist: {
