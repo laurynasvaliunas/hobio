@@ -84,7 +84,7 @@ Deno.serve(async (req: Request) => {
       currency: currency.toLowerCase(),
       customer: customerId,
       description: description ?? "Hobio Group Subscription",
-      automatic_payment_methods: { enabled: true },
+      payment_method_types: ["card"],
       metadata: {
         group_id: group_id ?? "",
         member_id: member_id ?? "",
