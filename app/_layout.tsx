@@ -129,6 +129,7 @@ function RootLayout() {
         </PaperProvider>
       </SafeAreaProvider>
     </QueryClientProvider>
+    </StripeProvider>
   );
 }
 
