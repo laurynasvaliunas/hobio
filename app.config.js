@@ -20,6 +20,7 @@ module.exports = ({ config }) => ({
     infoPlist: {
       NSLocationWhenInUseUsageDescription:
         "Hobio uses your location to show nearby groups on the map.",
+      ITSAppUsesNonExemptEncryption: false,
     },
   },
   android: {
