@@ -10,7 +10,7 @@
         "EXPO_PUBLIC_NATIVE_MAPBOX": "true"
       },
       "ios": {
-        "simulator": true
+        "simulator": false
       }
     },
     "preview": {
