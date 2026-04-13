@@ -94,7 +94,6 @@ function RootLayout() {
   return (
     <StripeProvider
       publishableKey={process.env.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""}
-      merchantIdentifier="merchant.com.hobio.app"
       urlScheme="hobio"
     >
     <QueryClientProvider client={queryClient}>
