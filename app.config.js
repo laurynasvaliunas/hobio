@@ -78,9 +78,10 @@ module.exports = ({ config }) => ({
       "@rnmapbox/maps",
       {
         RNMapboxMapsImpl: "mapbox",
-        // Token passed at native level — fixes C++ crash on iOS simulator
         RNMapboxMapsAccessToken:
           process.env.EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN || "",
+        RNMapboxMapsDownloadToken:
+          process.env.RNMAPBOX_MAPS_DOWNLOAD_TOKEN || "",
       },
     ],
   ],
