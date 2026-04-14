@@ -6,11 +6,14 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
+      "channel": "development",
       "env": {
-        "EXPO_PUBLIC_NATIVE_MAPBOX": "true"
+        "EXPO_PUBLIC_NATIVE_MAPBOX": "true",
+        "EX_DEV_CLIENT_NETWORK_INSPECTOR": "true"
       },
       "ios": {
-        "simulator": false
+        "simulator": false,
+        "buildConfiguration": "Debug"
       }
     },
     "preview": {
