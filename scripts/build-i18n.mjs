@@ -712,6 +712,27 @@ function deepLt() {
   lt.groups.documents = "Dokumentai";
   lt.groups.joinThisGroup = "Prisijungti prie šios grupės";
   lt.groups.memberOfGroup = "Jūs jau šios grupės narys";
+  lt.groups.notFound = "Grupė nerasta";
+  lt.groups.updateFailed = "Nepavyko atnaujinti grupės";
+  lt.groups.deleteTitle = "Ištrinti grupę";
+  lt.groups.deleteConfirm = "Negrįžtamai ištrinti \"{{name}}\"? Visos sesijos, nariai ir istorija bus pašalinti.";
+  lt.groups.deleteFailed = "Nepavyko ištrinti grupės";
+  lt.groups.deleteGroup = "Ištrinti grupę";
+  lt.groups.settingsTitle = "Grupės nustatymai";
+  lt.groups.settingsOwnerOnly = "Tik organizatorius gali keisti šią grupę.";
+  lt.groups.nameLabel = "Grupės pavadinimas";
+  lt.groups.descriptionLabel = "Aprašymas";
+  lt.groups.ageGroupLabel = "Amžiaus grupė";
+  lt.groups.ageGroupPlaceholder = "pvz. 8-12, Suaugusieji";
+  lt.groups.skillLevelLabel = "Lygis";
+  lt.groups.colorLabel = "Akcentinė spalva";
+  lt.groups.pricePerMonthLabel = "Kaina / mėnesį";
+  lt.groups.activeLabel = "Grupė aktyvi";
+  lt.groups.activeHint = "Išjungus, grupė paslepiama nuo dalyvių.";
+  lt.groups.shareInviteCta = "Dalintis kvietimu";
+  lt.groups.showQrCta = "QR kodas";
+  lt.groups.inviteQrTitle = "Kvietimo QR";
+  lt.groups.inviteQrDesc = "Nuskaityk kodą, kad prisijungtum prie „{{name}}".";
   lt.legal.termsTitle = "Naudojimo sąlygos";
   lt.legal.privacyTitle = "Privatumo politika";
   // Legal bodies: keep English in LT file for formal review — many orgs ship EN legal + LT summary; here we mirror structure with Lithuanian for headers and key clauses
