@@ -139,6 +139,10 @@ function RootLayout() {
                     options={{ presentation: "modal" }}
                   />
                   <Stack.Screen
+                    name="modals/invite-qr"
+                    options={{ presentation: "modal" }}
+                  />
+                  <Stack.Screen
                     name="join/[code]"
                     options={{ presentation: "modal" }}
                   />
