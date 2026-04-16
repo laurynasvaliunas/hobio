@@ -143,36 +143,36 @@ export default function SessionsScreen() {
   const { sessions, isLoading, cancelSession } = useSessions({ groupId });
 
   const handleCancel = (session: Session) => {
+    const defaultReason = t("groups.cancelledByOrganizer");
     Alert.prompt?.(
-      "Cancel Session",
-      "Enter a reason for cancellation (optional):",
+      t("groups.cancelSession"),
+      t("groups.cancelSessionPrompt"),
       [
-        { text: "Back", style: "cancel" },
+        { text: t("common.back"), style: "cancel" },
         {
-          text: "Cancel Session",
+          text: t("groups.cancelSession"),
           style: "destructive",
           onPress: async (reason: string | undefined) => {
             try {
-              await cancelSession(session.id, reason || "Cancelled by organizer");
+              await cancelSession(session.id, reason || defaultReason);
             } catch {
-              Alert.alert("Error", "Failed to cancel session.");
+              Alert.alert(t("common.error"), t("groups.cancelSessionFailed"));
             }
           },
         },
       ],
       "plain-text"
     ) ??
-      // Fallback for Android (no Alert.prompt)
-      Alert.alert("Cancel Session", "Cancel this session?", [
-        { text: "Back", style: "cancel" },
+      Alert.alert(t("groups.cancelSession"), t("groups.cancelSessionConfirm"), [
+        { text: t("common.back"), style: "cancel" },
         {
-          text: "Cancel Session",
+          text: t("groups.cancelSession"),
           style: "destructive",
           onPress: async () => {
             try {
-              await cancelSession(session.id, "Cancelled by organizer");
+              await cancelSession(session.id, defaultReason);
             } catch {
-              Alert.alert("Error", "Failed to cancel session.");
+              Alert.alert(t("common.error"), t("groups.cancelSessionFailed"));
             }
           },
         },
