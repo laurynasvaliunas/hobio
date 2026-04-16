@@ -166,7 +166,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       if (error) throw error;
     } catch (error) {
-      console.error('[AuthContext] Sign in error:', error);
+      log.error('Sign in error', { error });
       throw error;
     }
   };
