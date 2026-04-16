@@ -136,6 +136,28 @@ export const useGroupStore = create<GroupState>((set, get) => ({
     return newGroup;
   },
 
+  updateGroup: async (groupId, patch) => {
+    const { data, error } = await supabase
+      .from("groups")
+      .update(patch)
+      .eq("id", groupId)
+      .select()
+      .single();
+
+    if (error) throw error;
+    const updated = data as Group;
+    set({
+      groups: get().groups.map((g) => (g.id === groupId ? updated : g)),
+    });
+    return updated;
+  },
+
+  deleteGroup: async (groupId) => {
+    const { error } = await supabase.from("groups").delete().eq("id", groupId);
+    if (error) throw error;
+    set({ groups: get().groups.filter((g) => g.id !== groupId) });
+  },
+
   joinGroup: async (inviteCode, profileId) => {
     // Find group by invite code
     const { data: group, error: findError } = await supabase
