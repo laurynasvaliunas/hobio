@@ -206,7 +206,7 @@ export function useBiometricAuth(): UseBiometricAuthReturn {
       setIsLoading(false);
       return true;
     } catch (error) {
-      console.error("Biometric enroll error:", error);
+      log.error("enroll_failed", { name: (error as Error)?.name });
       setIsLoading(false);
       return false;
     }
