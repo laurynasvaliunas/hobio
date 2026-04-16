@@ -77,7 +77,10 @@ export default function GroupsScreen() {
     ? groups.filter((g) => g.name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()))
     : groups;
 
-  const totalMembers = groups.reduce((acc, g) => acc + (g.member_count ?? 0), 0);
+  const totalMembers = groups.reduce(
+    (acc, g) => acc + (((g as unknown) as { member_count?: number }).member_count ?? 0),
+    0
+  );
 
   const rot1Deg = rot1.interpolate({ inputRange: [0, 1], outputRange: ["0deg", "360deg"] });
   const rot2Deg = rot2.interpolate({ inputRange: [0, 1], outputRange: ["0deg", "-360deg"] });
