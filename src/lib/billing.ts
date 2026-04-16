@@ -110,6 +110,7 @@ export function generateInvoiceRecords(
       paid_at: null,
       paid_marked_by: null,
       notes: null,
+      stripe_invoice_id: null,
     });
   }
 
