@@ -22,6 +22,10 @@ import { useThemeStore } from "../src/stores/themeStore";
 import { ToastContainer } from "../src/components/ui/Toast";
 import { usePushNotifications } from "../src/hooks/usePushNotifications";
 import { StripeProvider } from "@stripe/stripe-react-native";
+import { ErrorBoundary } from "../src/components/ErrorBoundary";
+import { createLogger } from "../src/lib/logger";
+
+const log = createLogger("Root");
 
 // Sentry is only active in production builds (not in Expo Go / dev)
 let Sentry: typeof import("@sentry/react-native") | null = null;
