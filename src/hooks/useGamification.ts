@@ -115,7 +115,7 @@ export function useGamification(profileId: string) {
         new Set((userAch ?? []).map((ua: { achievement_id: string }) => ua.achievement_id)),
       );
     } catch (err) {
-      console.error("Fetch achievements error:", err);
+      log.error("Fetch achievements failed", { err });
     }
   }, [profileId]);
 
