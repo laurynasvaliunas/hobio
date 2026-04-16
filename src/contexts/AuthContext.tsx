@@ -265,7 +265,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
       }
     } catch (error) {
-      console.error('[AuthContext] Apple sign in error:', error);
+      log.error('Apple sign in error', { error });
       throw error;
     }
   };
