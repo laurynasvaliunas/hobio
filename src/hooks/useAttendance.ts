@@ -2,6 +2,9 @@ import { useEffect, useState, useCallback } from "react";
 import { supabase } from "../lib/supabase";
 import type { Attendance, AttendanceStatus } from "../types/database.types";
 import type { MemberWithDetails } from "./useMembers";
+import { createLogger } from "../lib/logger";
+
+const log = createLogger("useAttendance");
 
 export interface AttendanceRecord {
   member: MemberWithDetails;
