@@ -3,6 +3,9 @@ import { supabase } from "../lib/supabase";
 import type { Invoice, InvoiceStatus, BillingPeriod } from "../types/database.types";
 import type { MemberWithDetails } from "./useMembers";
 import { generateInvoiceRecords, getBillingRange, computeRevenueStats } from "../lib/billing";
+import { createLogger } from "../lib/logger";
+
+const log = createLogger("useInvoices");
 
 export interface InvoiceWithMember extends Invoice {
   memberName?: string;
