@@ -67,7 +67,7 @@ export function usePaymentSheet() {
 
         return data;
       } catch (err) {
-        console.error("Create payment intent error:", err);
+        log.error("Create payment intent failed", { err });
         throw err;
       } finally {
         setIsLoading(false);
