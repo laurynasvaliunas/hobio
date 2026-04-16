@@ -223,7 +223,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
       }
     } catch (error) {
-      console.error('[AuthContext] Google sign in error:', error);
+      log.error('Google sign in error', { error });
       throw error;
     }
   };
