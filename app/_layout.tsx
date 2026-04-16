@@ -65,7 +65,7 @@ function RootLayout() {
   const session = useAuthStore((s) => s.session);
   const isDark = useThemeStore((s) => s.isDark);
 
-  usePushNotifications(session?.id);
+  usePushNotifications(session?.user?.id);
 
   const [i18nReady, setI18nReady] = useState(() => i18n.isInitialized);
 
