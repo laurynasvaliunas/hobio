@@ -5,6 +5,10 @@
  * - Region helpers
  */
 
+import { createLogger } from "./logger";
+
+const log = createLogger("geo");
+
 const GOOGLE_GEOCODING_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY ?? "";
 
 /** Earth's radius in kilometers */
