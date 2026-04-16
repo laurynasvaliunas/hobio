@@ -82,7 +82,7 @@ export default function PaymentsOverview() {
 
       setPayments(items);
     } catch (err) {
-      console.error("Fetch payments overview error:", err);
+      if (__DEV__) console.error("Fetch payments overview error:", err);
     } finally {
       setIsLoading(false);
     }
