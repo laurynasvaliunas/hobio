@@ -107,43 +107,57 @@ function RootLayout() {
   }
 
   return (
-    <StripeProvider
-      publishableKey={process.env.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""}
-      urlScheme="hobio"
-    >
-    <QueryClientProvider client={queryClient}>
-      <SafeAreaProvider>
-        <PaperProvider>
-            <GestureHandlerRootView style={{ flex: 1 }}>
-              <StatusBar style={isDark ? "light" : "dark"} />
-              <ToastContainer />
-              <Stack screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="index" />
-                <Stack.Screen name="(auth)" />
-                <Stack.Screen name="(onboarding)" />
-                <Stack.Screen name="(tabs)" />
-                <Stack.Screen
-                  name="modals/create-group"
-                  options={{ presentation: "modal" }}
-                />
-                <Stack.Screen
-                  name="modals/create-announcement"
-                  options={{ presentation: "modal" }}
-                />
-                <Stack.Screen
-                  name="modals/add-child"
-                  options={{ presentation: "modal" }}
-                />
-                <Stack.Screen
-                  name="join/[code]"
-                  options={{ presentation: "modal" }}
-                />
-              </Stack>
-            </GestureHandlerRootView>
-        </PaperProvider>
-      </SafeAreaProvider>
-    </QueryClientProvider>
-    </StripeProvider>
+    <ErrorBoundary scope="root">
+      <StripeProvider
+        publishableKey={process.env.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""}
+        urlScheme="hobio"
+      >
+        <QueryClientProvider client={queryClient}>
+          <SafeAreaProvider>
+            <PaperProvider>
+              <GestureHandlerRootView style={{ flex: 1 }}>
+                <StatusBar style={isDark ? "light" : "dark"} />
+                <ToastContainer />
+                <Stack screenOptions={{ headerShown: false }}>
+                  <Stack.Screen name="index" />
+                  <Stack.Screen name="(auth)" />
+                  <Stack.Screen name="(onboarding)" />
+                  <Stack.Screen name="(tabs)" />
+                  <Stack.Screen
+                    name="modals/create-group"
+                    options={{ presentation: "modal" }}
+                  />
+                  <Stack.Screen
+                    name="modals/create-announcement"
+                    options={{ presentation: "modal" }}
+                  />
+                  <Stack.Screen
+                    name="modals/add-child"
+                    options={{ presentation: "modal" }}
+                  />
+                  <Stack.Screen
+                    name="modals/create-session"
+                    options={{ presentation: "modal" }}
+                  />
+                  <Stack.Screen
+                    name="modals/contract-detail"
+                    options={{ presentation: "modal" }}
+                  />
+                  <Stack.Screen
+                    name="modals/member-detail"
+                    options={{ presentation: "modal" }}
+                  />
+                  <Stack.Screen
+                    name="join/[code]"
+                    options={{ presentation: "modal" }}
+                  />
+                </Stack>
+              </GestureHandlerRootView>
+            </PaperProvider>
+          </SafeAreaProvider>
+        </QueryClientProvider>
+      </StripeProvider>
+    </ErrorBoundary>
   );
 }
 
