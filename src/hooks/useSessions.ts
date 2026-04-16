@@ -47,7 +47,7 @@ export function useSessions({ groupId, groupIds }: UseSessionsOptions = {}): Use
       setSessions((data as Session[]) ?? []);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
-      console.error("Fetch sessions error:", err);
+      log.error("Fetch sessions failed", { err });
     } finally {
       setIsLoading(false);
     }
