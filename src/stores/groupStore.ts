@@ -80,7 +80,7 @@ export const useGroupStore = create<GroupState>((set, get) => ({
 
       set({ groups: allGroups as Group[] });
     } catch (error) {
-      console.error("Fetch groups error:", error);
+      log.error("Fetch groups failed", { error });
     } finally {
       set({ isLoading: false });
     }
