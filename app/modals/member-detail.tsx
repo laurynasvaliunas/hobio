@@ -162,11 +162,7 @@ export default function MemberDetailModal() {
       ) : (
         <ScrollView contentContainerStyle={{ padding: 20, gap: 16 }}>
           <View style={{ alignItems: "center", gap: 10, marginBottom: 8 }}>
-            <Avatar
-              size={96}
-              uri={avatarUrl}
-              fallback={displayName}
-            />
+            <Avatar size={96} name={displayName} imageUrl={avatarUrl ?? null} />
             <Text
               style={{
                 fontSize: 22,
@@ -177,10 +173,11 @@ export default function MemberDetailModal() {
               {displayName}
             </Text>
             <View style={{ flexDirection: "row", gap: 6 }}>
-              <Badge variant={data.status === "active" ? "success" : "warning"}>
-                {data.status}
-              </Badge>
-              {isChild ? <Badge variant="primary">{t("profile.child")}</Badge> : null}
+              <Badge
+                label={data.status}
+                variant={data.status === "active" ? "secondary" : "warning"}
+              />
+              {isChild ? <Badge label={t("profile.child")} variant="primary" /> : null}
             </View>
           </View>
 
