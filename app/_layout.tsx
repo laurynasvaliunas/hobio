@@ -90,10 +90,9 @@ function RootLayout() {
     initialize();
   }, []);
 
-  // Log font errors in development
   useEffect(() => {
     if (fontError) {
-      console.warn("Font loading error:", fontError);
+      log.warn("font_loading_error", { name: (fontError as Error)?.name });
     }
   }, [fontError]);
 
