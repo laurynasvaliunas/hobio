@@ -2,6 +2,9 @@ import { useState, useCallback } from "react";
 import { Alert } from "react-native";
 import * as Haptics from "expo-haptics";
 import { supabase } from "../lib/supabase";
+import { createLogger } from "../lib/logger";
+
+const log = createLogger("usePaymentSheet");
 
 /**
  * Payment intent response from our Supabase Edge Function.
