@@ -117,7 +117,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setOrganization(orgData);
       }
     } catch (error) {
-      console.error('[AuthContext] Fetch profile error:', error);
+      log.error('Fetch profile error', { error });
     }
   };
 
