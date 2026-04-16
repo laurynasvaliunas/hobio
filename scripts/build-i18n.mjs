@@ -322,6 +322,8 @@ const en = {
     noPaymentTitle: "No payment data",
     noPaymentDesc: "Payment tracking will appear once members join this group.",
     noSessionsTitle: "No sessions yet",
+    noSessionsOrganizer: "Set up a recurring schedule to auto-generate sessions.",
+    noSessionsParticipant: "Your organizer hasn't scheduled sessions yet.",
     noInvoicesTitle: "No invoices yet",
     generateInvoices: "Generate Invoices",
     noDocumentsTitle: "No documents yet",
