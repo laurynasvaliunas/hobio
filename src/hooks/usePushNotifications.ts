@@ -77,17 +77,27 @@ export function usePushNotifications(userId: string | undefined) {
     if (!userId) return;
 
     registerForPushNotifications(userId).catch((err) => {
-      if (__DEV__) console.warn("[Push] Registration failed:", err);
+      log.warn("registration_failed", { name: (err as Error)?.name });
     });
 
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {
-        if (__DEV__) console.log("[Push] Received:", notification);
+        const type = (notification.request.content.data as NotificationData)?.type;
+        log.event("received", { type: typeof type === "string" ? type : "unknown" });
       });
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        if (__DEV__) console.log("[Push] Response:", response);
+        const data = response.notification.request.content.data as unknown;
+        const deeplink = extractDeeplink(data);
+        log.event("response", { hasDeeplink: !!deeplink });
+        if (deeplink) {
+          try {
+            router.push(deeplink as never);
+          } catch (err) {
+            log.warn("deeplink_navigate_failed", { name: (err as Error)?.name });
+          }
+        }
       });
 
     return () => {
