@@ -59,17 +59,22 @@ async function registerForPushNotifications(userId: string) {
 }
 
 export function usePushNotifications(userId: string | undefined) {
-  const notificationListener = useRef<Notifications.EventSubscription>();
-  const responseListener = useRef<Notifications.EventSubscription>();
+  const notificationListener = useRef<Notifications.EventSubscription | null>(null);
+  const responseListener = useRef<Notifications.EventSubscription | null>(null);
 
   useEffect(() => {
-    // Set handler here (inside effect) so it runs after the native bridge is ready
+    // Set handler here (inside effect) so it runs after the native bridge is ready.
+    // `shouldShowBanner` and `shouldShowList` are required since expo-notifications v0.28;
+    // we keep `shouldShowAlert` as a fallback for older runtimes.
     Notifications.setNotificationHandler({
-      handleNotification: async () => ({
-        shouldShowAlert: true,
-        shouldPlaySound: true,
-        shouldSetBadge: true,
-      }),
+      handleNotification: async () =>
+        ({
+          shouldShowBanner: true,
+          shouldShowList: true,
+          shouldShowAlert: true,
+          shouldPlaySound: true,
+          shouldSetBadge: true,
+        }) as Notifications.NotificationBehavior,
     });
   }, []);
 
@@ -80,14 +85,16 @@ export function usePushNotifications(userId: string | undefined) {
       log.warn("registration_failed", { name: (err as Error)?.name });
     });
 
-    notificationListener.current =
-      Notifications.addNotificationReceivedListener((notification) => {
+    const received = Notifications.addNotificationReceivedListener(
+      (notification) => {
         const type = (notification.request.content.data as NotificationData)?.type;
         log.event("received", { type: typeof type === "string" ? type : "unknown" });
-      });
+      }
+    );
+    notificationListener.current = received;
 
-    responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
+    const response = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
         const data = response.notification.request.content.data as unknown;
         const deeplink = extractDeeplink(data);
         log.event("response", { hasDeeplink: !!deeplink });
@@ -98,17 +105,15 @@ export function usePushNotifications(userId: string | undefined) {
             log.warn("deeplink_navigate_failed", { name: (err as Error)?.name });
           }
         }
-      });
+      }
+    );
+    responseListener.current = response;
 
     return () => {
-      if (notificationListener.current) {
-        Notifications.removeNotificationSubscription(
-          notificationListener.current
-        );
-      }
-      if (responseListener.current) {
-        Notifications.removeNotificationSubscription(responseListener.current);
-      }
+      received.remove();
+      response.remove();
+      notificationListener.current = null;
+      responseListener.current = null;
     };
   }, [userId]);
 }
