@@ -22,7 +22,8 @@ export default function ProfileLayout() {
       <Stack.Screen name="organizer-prefs" />
       <Stack.Screen name="data-export" />
       <Stack.Screen name="delete-account" />
-      <Stack.Screen name="emergency-contact" />
-    </Stack>
+        <Stack.Screen name="emergency-contact" />
+      </Stack>
+    </ErrorBoundary>
   );
 }
