@@ -260,7 +260,14 @@ export default function SessionsScreen() {
           />
         )}
         ListEmptyComponent={
-          isLoading ? null : (
+          isLoading ? null : error ? (
+            <ErrorState
+              title={t("common.error")}
+              description={error}
+              onRetry={fetchSessions}
+              retryLabel={t("common.tryAgain") as string}
+            />
+          ) : (
             <EmptyState
               icon={<Calendar size={36} color={Colors.primary.DEFAULT} strokeWidth={1.5} />}
               title={t("groups.noSessionsTitle")}
