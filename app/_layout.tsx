@@ -51,16 +51,6 @@ if (!__DEV__) {
   });
 }
 
-// Create a React Query client
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 2,
-      staleTime: 5 * 60 * 1000, // 5 minutes
-    },
-  },
-});
-
 function RootLayout() {
   const initialize = useAuthStore((s) => s.initialize);
   const session = useAuthStore((s) => s.session);
