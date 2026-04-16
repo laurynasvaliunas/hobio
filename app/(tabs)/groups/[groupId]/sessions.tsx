@@ -265,7 +265,7 @@ export default function SessionsScreen() {
               title={t("common.error")}
               description={error}
               onRetry={fetchSessions}
-              retryLabel={t("common.tryAgain") as string}
+              retryLabel={t("common.tryAgain")}
             />
           ) : (
             <EmptyState
@@ -273,10 +273,10 @@ export default function SessionsScreen() {
               title={t("groups.noSessionsTitle")}
               description={
                 isOrganizer
-                  ? "Set up a recurring schedule to auto-generate sessions."
-                  : "Your organizer hasn't scheduled sessions yet."
+                  ? t("groups.noSessionsOrganizer")
+                  : t("groups.noSessionsParticipant")
               }
-              actionLabel={isOrganizer ? "Set Up Schedule" : undefined}
+              actionLabel={isOrganizer ? t("groups.setUpSchedule") : undefined}
               onAction={
                 isOrganizer
                   ? () =>
