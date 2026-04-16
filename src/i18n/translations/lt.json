@@ -59,13 +59,22 @@
     "emailInvalid": "Įveskite galiojantį el. paštą",
     "passwordRequired": "Slaptažodis privalomas",
     "passwordMin": "Mažiausiai 6 simboliai",
+    "passwordWeak": "Use upper + lower case letters, numbers, and symbols",
     "nameRequired": "Name is required",
     "nameMin": "Name must be at least 2 characters",
     "confirmPassword": "Please confirm your password",
     "passwordsNoMatch": "Passwords don't match",
     "dobRequired": "Date of birth is required",
     "dobFormat": "Use YYYY-MM-DD format",
-    "forgotEmailInvalid": "Please enter a valid email address"
+    "forgotEmailInvalid": "Please enter a valid email address",
+    "termsRequired": "You must accept the Terms of Service",
+    "titleRequired": "Title is required",
+    "bodyRequired": "Message cannot be empty",
+    "endAfterStart": "End time must be after start time",
+    "urlInvalid": "Enter a valid URL",
+    "orgNameRequired": "Organization name is required",
+    "orgNameMin": "Name must be at least 2 characters",
+    "sportRequired": "Please choose a sport category"
   },
   "auth": {
     "welcomePillConnect": "Connect",
