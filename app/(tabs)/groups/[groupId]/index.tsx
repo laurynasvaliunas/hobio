@@ -235,9 +235,22 @@ export default function GroupDetailScreen() {
                 <QuickAction
                   icon={<Megaphone size={22} color={Colors.primary.DEFAULT} />}
                   label={t("groups.announce")}
-                  onPress={() => router.push("/modals/create-announcement")}
+                  onPress={() =>
+                    router.push({
+                      pathname: "/modals/create-announcement",
+                      params: { groupId },
+                    } as never)
+                  }
                 />
-                <View style={{ flex: 1 }} />
+                <QuickAction
+                  icon={<Bell size={22} color={Colors.primary.DEFAULT} />}
+                  label={t("announcements.feedTitle")}
+                  onPress={() =>
+                    router.push(
+                      `/(tabs)/groups/${groupId}/announcements` as never
+                    )
+                  }
+                />
                 <View style={{ flex: 1 }} />
               </View>
             </Card>
