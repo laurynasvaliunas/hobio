@@ -100,10 +100,12 @@ function SessionCard({
               <Text
                 style={{ fontSize: 13, fontWeight: "600", color: Colors.primary.DEFAULT }}
               >
-                {t("groups.attendance")}
+                {attendanceLabel}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessibilityRole="button"
+              accessibilityLabel={cancelLabel}
               onPress={onCancel}
               style={{
                 flexDirection: "row",
@@ -119,7 +121,7 @@ function SessionCard({
               <Text
                 style={{ fontSize: 13, fontWeight: "600", color: Colors.danger.DEFAULT }}
               >
-                Cancel
+                {cancelLabel}
               </Text>
             </TouchableOpacity>
           </View>
