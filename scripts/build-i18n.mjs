@@ -736,7 +736,7 @@ function deepLt() {
   lt.groups.shareInviteCta = "Dalintis kvietimu";
   lt.groups.showQrCta = "QR kodas";
   lt.groups.inviteQrTitle = "Kvietimo QR";
-  lt.groups.inviteQrDesc = "Nuskaityk kodą, kad prisijungtum prie „{{name}}".";
+  lt.groups.inviteQrDesc = "Nuskaityk kodą, kad prisijungtum prie \"{{name}}\".";
   lt.legal.termsTitle = "Naudojimo sąlygos";
   lt.legal.privacyTitle = "Privatumo politika";
   // Legal bodies: keep English in LT file for formal review — many orgs ship EN legal + LT summary; here we mirror structure with Lithuanian for headers and key clauses
