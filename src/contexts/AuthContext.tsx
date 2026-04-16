@@ -181,7 +181,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setProfile(null);
       setOrganization(null);
     } catch (error) {
-      console.error('[AuthContext] Sign out error:', error);
+      log.error('Sign out error', { error });
       throw error;
     }
   };
