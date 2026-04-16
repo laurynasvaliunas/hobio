@@ -186,7 +186,7 @@ export function useMemberAttendanceStats(memberId: string): UseMemberAttendanceS
           percentage: total > 0 ? Math.round((present / total) * 100) : 0,
         });
       } catch (error) {
-        console.error("Fetch member attendance stats error:", error);
+        log.error("Fetch member attendance stats failed", { error });
       } finally {
         setIsLoading(false);
       }
