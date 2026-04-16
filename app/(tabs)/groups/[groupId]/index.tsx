@@ -143,7 +143,11 @@ export default function GroupDetailScreen() {
               <ArrowLeft size={24} color="#FFFFFF" />
             </TouchableOpacity>
             {isGroupOwner && (
-              <TouchableOpacity onPress={() => router.push(`/(tabs)/groups/${groupId}/schedule-setup` as never)}>
+              <TouchableOpacity
+                accessibilityRole="button"
+                accessibilityLabel={t("groups.settingsTitle")}
+                onPress={() => router.push(`/(tabs)/groups/${groupId}/settings` as never)}
+              >
                 <Settings size={22} color="#FFFFFF" />
               </TouchableOpacity>
             )}
