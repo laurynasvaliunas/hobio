@@ -106,7 +106,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   signUp: async (email, password, fullName): Promise<SignUpResult> => {
-    if (__DEV__) console.log("[Auth] Signing up:", email);
+    log.event("sign_up_attempt");
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -115,10 +115,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       },
     });
     if (error) {
-      if (__DEV__) console.error("[Auth] signUp error:", error.message);
+      log.error("sign_up_failed", { code: error.status ?? error.name });
       throw error;
     }
-    if (__DEV__) console.log("[Auth] signUp success, session:", !!data.session);
+    log.event("sign_up_success", { hasSession: !!data.session });
 
     if (data.session && data.user) {
       // Email confirmation is disabled — session is active immediately.
