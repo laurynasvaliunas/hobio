@@ -132,7 +132,7 @@ export function useGamification(profileId: string) {
 
       setRecentXp((data as XpLog[]) ?? []);
     } catch (err) {
-      console.error("Fetch XP logs error:", err);
+      log.error("Fetch XP logs failed", { err });
     }
   }, [profileId]);
 
