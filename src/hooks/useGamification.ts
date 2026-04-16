@@ -175,7 +175,7 @@ export function useGamification(profileId: string) {
 
         return { newXp, newLevel, leveledUp: newLevel > (stats?.level ?? 1) };
       } catch (err) {
-        console.error("Award XP error:", err);
+        log.error("Award XP failed", { err });
         return null;
       }
     },
