@@ -2,6 +2,7 @@
   "common": {
     "back": "Back",
     "tryAgain": "Try again",
+    "close": "Close",
     "cancel": "Cancel",
     "continue": "Continue",
     "save": "Save",
@@ -52,7 +53,6 @@
     "waitlist": "Waitlist",
     "reset": "Reset",
     "apply": "Apply",
-    "close": "Close",
     "keepEditing": "Keep Editing"
   },
   "validation": {
@@ -387,6 +387,62 @@
   "discover": {},
   "join": {},
   "modals": {},
+  "announcements": {
+    "newAnnouncement": "New Announcement",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Short, clear headline",
+    "bodyLabel": "Message",
+    "bodyPlaceholder": "Share an update with everyone in this group…",
+    "priorityLabel": "Priority",
+    "priorityNormal": "Normal",
+    "priorityImportant": "Important",
+    "priorityUrgent": "Urgent",
+    "sendCta": "Send announcement",
+    "sendFailed": "Could not send announcement",
+    "missingGroup": "Open an announcement from inside a group to post it.",
+    "emptyTitle": "No announcements yet",
+    "emptyOrganizer": "Post an update to reach everyone in this group.",
+    "emptyParticipant": "You're all caught up.",
+    "feedTitle": "Announcements"
+  },
+  "members": {
+    "detailTitle": "Member",
+    "email": "Email",
+    "phone": "Phone",
+    "joined": "Joined",
+    "age": "Age",
+    "medicalNotes": "Medical notes",
+    "remove": "Remove from group",
+    "removeConfirm": "Remove this member from the group?",
+    "removed": "Member removed.",
+    "removeFailed": "Could not remove member."
+  },
+  "contracts": {
+    "detailTitle": "Contract",
+    "pending": "Pending signature",
+    "signed": "Signed",
+    "expired": "Expired",
+    "cancelled": "Cancelled",
+    "signCta": "Sign contract",
+    "signing": "Signing…",
+    "signFailed": "Could not sign the contract.",
+    "billingOneTime": "One-time",
+    "billingMonthly": "Monthly",
+    "billingQuarterly": "Quarterly",
+    "billingYearly": "Yearly",
+    "termsNote": "By signing you agree to the terms of this contract and the monthly billing schedule shown above."
+  },
+  "sessions": {
+    "newSession": "New Session",
+    "titleLabel": "Title (optional)",
+    "titlePlaceholder": "e.g. Friendly match",
+    "startLabel": "Starts at",
+    "endLabel": "Ends at",
+    "notesLabel": "Notes (optional)",
+    "notesPlaceholder": "Anything the group should know",
+    "createCta": "Create session",
+    "createFailed": "Could not create session"
+  },
   "legal": {
     "effectiveDateLabel": "Effective date: {{date}}",
     "termsTitle": "Terms & Conditions",
