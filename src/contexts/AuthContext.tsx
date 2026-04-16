@@ -100,7 +100,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         .single();
 
       if (profileError) {
-        console.error('[AuthContext] Profile fetch error:', profileError);
+        log.error('Profile fetch error', { error: profileError });
         return;
       }
 
