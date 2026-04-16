@@ -1,6 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
 import { supabase } from "../lib/supabase";
 import type { GroupMember, Profile, Child, MemberStatus } from "../types/database.types";
+import { createLogger } from "../lib/logger";
+
+const log = createLogger("useMembers");
 
 export interface MemberWithDetails extends GroupMember {
   profile?: Profile;
