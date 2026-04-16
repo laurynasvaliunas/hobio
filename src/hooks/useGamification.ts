@@ -315,7 +315,7 @@ export function useGamification(profileId: string) {
         }
       } catch (err) {
         // Ignore duplicate inserts
-        console.error("Unlock achievement error:", err);
+        log.error("Unlock achievement failed", { err });
       }
     },
     [profileId, unlockedIds, awardXp],
