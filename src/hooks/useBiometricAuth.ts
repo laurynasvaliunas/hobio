@@ -115,7 +115,7 @@ export function useBiometricAuth(): UseBiometricAuthReturn {
     try {
       await SecureStore.setItemAsync(LAST_UNLOCK_KEY, Date.now().toString());
     } catch (error) {
-      console.error("Record unlock error:", error);
+      log.error("record_unlock_failed", { name: (error as Error)?.name });
     }
   }, []);
 
