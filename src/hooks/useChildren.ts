@@ -39,7 +39,7 @@ export function useChildren(parentId: string): UseChildrenReturn {
       if (error) throw error;
       setChildren((data as Child[]) ?? []);
     } catch (error) {
-      console.error("Fetch children error:", error);
+      log.error("Fetch children failed", { error });
     } finally {
       setIsLoading(false);
     }
