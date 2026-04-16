@@ -57,7 +57,7 @@ export function usePreferences(profileId: string) {
         setPreferences(data as UserPreferences);
       }
     } catch (err) {
-      console.error("Fetch preferences error:", err);
+      log.error("Fetch preferences failed", { err });
     } finally {
       setIsLoading(false);
     }
