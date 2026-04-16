@@ -100,7 +100,7 @@ export const useGroupStore = create<GroupState>((set, get) => ({
       if (error) throw error;
       set({ organizations: (data as Organization[]) ?? [] });
     } catch (error) {
-      console.error("Fetch organizations error:", error);
+      log.error("Fetch organizations failed", { error });
     }
   },
 
