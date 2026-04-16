@@ -3,6 +3,9 @@ import { AppState, type AppStateStatus, Platform } from "react-native";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
 import { supabase } from "../lib/supabase";
+import { createLogger } from "../lib/logger";
+
+const log = createLogger("Biometric");
 
 // Secure store keys
 const BIOMETRIC_ENABLED_KEY = "hobio_biometric_enabled";
