@@ -390,7 +390,7 @@ export function useLeaderboard(limit = 20) {
 
       setEntries(mapped);
     } catch (err) {
-      console.error("Fetch leaderboard error:", err);
+      log.error("Fetch leaderboard failed", { err });
     } finally {
       setIsLoading(false);
     }
