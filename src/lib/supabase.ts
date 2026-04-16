@@ -106,7 +106,10 @@ const authStorage = Platform.OS === "web" ? AsyncStorage : nativeStorage;
 // Use React Native's native fetch to avoid whatwg-fetch XHR polyfill issues
 const nativeFetch: typeof globalThis.fetch = (...args) => globalThis.fetch(...args);
 
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
+type SupabaseDatabase = Database; // keep import graph alive for regeneration tooling
+void (null as SupabaseDatabase | null);
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     storage: authStorage,
     autoRefreshToken: true,
