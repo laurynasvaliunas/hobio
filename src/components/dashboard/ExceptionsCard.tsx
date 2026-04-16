@@ -103,7 +103,7 @@ export function ExceptionsCard({
         });
       }
     } catch (err) {
-      console.error("Exceptions fetch error:", err);
+      log.error("Exceptions fetch failed", { err });
     }
   }, [groups]);
 
