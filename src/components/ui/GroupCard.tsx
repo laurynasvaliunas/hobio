@@ -85,7 +85,7 @@ export function GroupCard({
               iconStyle,
             ]}
           >
-            <View style={{ tintColor: color }}>{icon}</View>
+            <View>{icon}</View>
           </Animated.View>
 
           {/* Text content */}
