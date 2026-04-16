@@ -2,6 +2,9 @@ import { useEffect, useState, useCallback } from "react";
 import { supabase } from "../lib/supabase";
 import { uploadFile, getSignedUrl, deleteFile, generateFilePath } from "../lib/storage";
 import type { Document, DocumentCategory, DocumentAcknowledgement } from "../types/database.types";
+import { createLogger } from "../lib/logger";
+
+const log = createLogger("useDocuments");
 
 export interface DocumentWithStatus extends Document {
   acknowledged?: boolean;
