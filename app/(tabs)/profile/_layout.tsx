@@ -1,14 +1,16 @@
 import React from "react";
 import { Stack } from "expo-router";
+import { ErrorBoundary } from "../../../src/components/ErrorBoundary";
 
 export default function ProfileLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-        animation: "slide_from_right",
-      }}
-    >
+    <ErrorBoundary scope="profile">
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          animation: "slide_from_right",
+        }}
+      >
       <Stack.Screen name="index" />
       <Stack.Screen name="settings" />
       <Stack.Screen name="account" />
