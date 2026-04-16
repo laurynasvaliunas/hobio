@@ -54,7 +54,7 @@ export function useInvoices(groupId: string, members: MemberWithDetails[] = []):
       setInvoices(enriched);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
-      console.error("Fetch invoices error:", err);
+      log.error("Fetch invoices failed", { err });
     } finally {
       setIsLoading(false);
     }
