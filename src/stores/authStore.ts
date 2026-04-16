@@ -139,7 +139,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       });
 
       if (profileError && profileError.code !== "23505") {
-        console.error("Profile creation error:", profileError);
+        log.error("profile_create_failed", { code: profileError.code });
       }
 
       await get().fetchProfile();
