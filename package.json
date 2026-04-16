@@ -12,7 +12,10 @@
     "test:coverage": "jest --coverage",
     "setup": "node scripts/setup.js",
     "db:push": "supabase db push",
-    "db:reset": "supabase db reset"
+    "db:reset": "supabase db reset",
+    "db:types": "supabase gen types typescript --linked > src/types/supabase.ts",
+    "typecheck": "tsc --noEmit",
+    "i18n:build": "node scripts/build-i18n.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/nunito": "^0.4.2",
