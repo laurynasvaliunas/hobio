@@ -214,7 +214,7 @@ export function useMyInvoices(profileId: string): UseMyInvoicesReturn {
         setInvoices((data as Invoice[]) ?? []);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Something went wrong");
-        console.error("Fetch my invoices error:", err);
+        log.error("Fetch my invoices failed", { err });
       } finally {
         setIsLoading(false);
       }
