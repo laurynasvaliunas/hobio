@@ -57,7 +57,7 @@ export function useAttendance(sessionId: string, members: MemberWithDetails[]): 
 
       setRecords(combined);
     } catch (error) {
-      console.error("Fetch attendance error:", error);
+      log.error("Fetch attendance failed", { error });
     } finally {
       setIsLoading(false);
     }
