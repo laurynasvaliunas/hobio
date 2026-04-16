@@ -74,7 +74,7 @@ export async function geocodeAddress(
       return { latitude: lat, longitude: lng };
     }
 
-    console.warn("Geocoding returned no results for:", address);
+    log.warn("Geocoding returned no results");
     return null;
   } catch (error) {
     console.error("Geocoding error:", error);
