@@ -267,7 +267,7 @@ export function useBiometricAuth(): UseBiometricAuthReturn {
       setIsLoading(false);
       return true;
     } catch (error) {
-      console.error("Biometric authenticate error:", error);
+      log.error("authenticate_failed", { name: (error as Error)?.name });
       setIsLoading(false);
       return false;
     }
