@@ -1,6 +1,9 @@
 import { create } from "zustand";
 import { supabase } from "../lib/supabase";
 import type { AppNotification, NotificationType } from "../types/database.types";
+import { createLogger } from "../lib/logger";
+
+const log = createLogger("notificationStore");
 
 interface NotificationState {
   notifications: AppNotification[];
