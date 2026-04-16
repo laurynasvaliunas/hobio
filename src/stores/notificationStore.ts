@@ -51,7 +51,7 @@ export const useNotificationStore = create<NotificationState>((set, get) => ({
 
       set({ notifications: notifs, unreadCount });
     } catch (error) {
-      console.error("Fetch notifications error:", error);
+      log.error("Fetch notifications failed", { error });
     } finally {
       set({ isLoading: false });
     }
