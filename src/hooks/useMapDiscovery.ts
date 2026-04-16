@@ -4,6 +4,9 @@ import { supabase } from "../lib/supabase";
 import { haversineDistance } from "../lib/geo";
 import { DEFAULT_REGION } from "../lib/geo";
 import type { Group, Location as LocationType } from "../types/database.types";
+import { createLogger } from "../lib/logger";
+
+const log = createLogger("useMapDiscovery");
 
 export interface MapGroup {
   group: Group;
