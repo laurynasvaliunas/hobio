@@ -177,7 +177,7 @@ export default function MemberDetailModal() {
                 label={data.status}
                 variant={data.status === "active" ? "secondary" : "warning"}
               />
-              {isChild ? <Badge label={t("profile.child")} variant="primary" /> : null}
+              {isChild ? <Badge label={t("common.child")} variant="primary" /> : null}
             </View>
           </View>
 
