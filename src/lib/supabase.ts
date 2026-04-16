@@ -3,7 +3,14 @@ import { Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SecureStore from "expo-secure-store";
 import { createClient } from "@supabase/supabase-js";
-import { Database } from "../types/supabase";
+// NOTE: `Database` is intentionally imported as a type-only alias but NOT
+// passed as the `createClient` generic. The generated file in
+// `../types/supabase` lags behind our latest migration (documents,
+// achievements, user_stats, push_tokens, etc. are missing), and enforcing
+// the stale schema would surface false-positive type errors across hooks.
+// Re-tighten this once `npm run db:types` is executed against a linked
+// Supabase project.
+import type { Database } from "../types/supabase";
 import { createLogger } from "./logger";
 
 const log = createLogger("Supabase");
