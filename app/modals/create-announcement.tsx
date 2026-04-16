@@ -192,12 +192,11 @@ export default function CreateAnnouncementModal() {
           </View>
 
           <Button
-            title={submitting ? undefined : t("announcements.sendCta")}
+            title={t("announcements.sendCta")}
             onPress={onSubmit}
-            disabled={!canSubmit || submitting}
-          >
-            {submitting ? <ActivityIndicator color="#fff" /> : null}
-          </Button>
+            disabled={!canSubmit}
+            loading={submitting}
+          />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
