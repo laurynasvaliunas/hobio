@@ -143,7 +143,7 @@
     "familyMissing": "Trūksta informacijos",
     "familyMissingBody": "Užpildykite bent vieno vaiko vardą ir gimimo datą.",
     "invalidDateTitle": "Neteisinga data",
-    "invalidDateBody": "„{{name}}" turi neteisingą datą. Naudokite YYYY-MM-DD formatą.",
+    "invalidDateBody": "\"{{name}}\" turi neteisingą datą. Naudokite YYYY-MM-DD formatą.",
     "childFullName": "Vardas ir pavardė *",
     "childNamePh": "pvz. Emilija Jonaitis",
     "dob": "Gimimo data *",
