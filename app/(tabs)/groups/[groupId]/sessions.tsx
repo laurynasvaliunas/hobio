@@ -25,9 +25,22 @@ interface SessionCardProps {
   isOrganizer: boolean;
   onCancel: () => void;
   onAttendance: () => void;
+  attendanceLabel: string;
+  cancelLabel: string;
+  cancelledLabel: string;
+  reasonLabel: string;
 }
 
-function SessionCard({ session, isOrganizer, onCancel, onAttendance }: SessionCardProps) {
+function SessionCard({
+  session,
+  isOrganizer,
+  onCancel,
+  onAttendance,
+  attendanceLabel,
+  cancelLabel,
+  cancelledLabel,
+  reasonLabel,
+}: SessionCardProps) {
   const isCancelled = session.is_cancelled;
 
   return (
