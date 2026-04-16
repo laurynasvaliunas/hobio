@@ -12,7 +12,7 @@ import {
   Users,
 } from "lucide-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Card, Badge, EmptyState, Button } from "../../../../src/components/ui";
+import { Card, Badge, EmptyState, Button, ErrorState } from "../../../../src/components/ui";
 import { Colors, Shadows } from "../../../../src/constants/colors";
 import { useGroupStore } from "../../../../src/stores/groupStore";
 import { useAuthStore } from "../../../../src/stores/authStore";
