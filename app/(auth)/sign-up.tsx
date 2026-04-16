@@ -130,7 +130,6 @@ export default function SignUpScreen() {
     setTouched({ fullName: true, email: true, password: true, confirmPassword: true });
     if (!agreedToTerms) {
       setTermsError(true);
-      return;
     }
     if (!validate()) return;
 
