@@ -84,7 +84,10 @@ export default function AccountSettingsScreen() {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       toast.show("Profile picture updated!");
     } catch (err) {
-      console.error("Avatar upload error:", err);
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.error("Avatar upload error", err);
+      }
       toast.show("Failed to upload photo", "error");
     } finally {
       setUploadingAvatar(false);
