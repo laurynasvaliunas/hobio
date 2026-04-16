@@ -6,6 +6,8 @@ interface Props {
   children: React.ReactNode;
   style?: ViewStyle;
   noPadding?: boolean;
+  /** Override the default 16px internal padding with a custom number. */
+  padding?: number;
   /** Elevated card uses a stronger shadow (e.g. for banners, featured content) */
   elevated?: boolean;
   /** If provided, card is tappable with a spring bounce */
