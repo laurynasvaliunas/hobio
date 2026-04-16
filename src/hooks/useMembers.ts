@@ -79,7 +79,7 @@ export function useMembers(groupId: string): UseMembersReturn {
       setPendingMembers(enriched.filter((m) => m.status === "pending"));
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
-      console.error("Fetch members error:", err);
+      log.error("Fetch members failed", { err });
     } finally {
       setIsLoading(false);
     }
