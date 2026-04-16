@@ -74,7 +74,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const { data: { session }, error } = await supabase.auth.getSession();
       
       if (error) {
-        console.error('[AuthContext] Session error:', error);
+        log.error('Session error', { error });
         return;
       }
 
