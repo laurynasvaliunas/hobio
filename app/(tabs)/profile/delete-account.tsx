@@ -56,7 +56,10 @@ export default function DeleteAccountScreen() {
               toast.show("Account deleted");
               await signOut();
             } catch (err) {
-              console.error("Delete account error:", err);
+              if (__DEV__) {
+                // eslint-disable-next-line no-console
+                console.error("Delete account error", err);
+              }
               Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
               toast.show("Failed to delete account", "error");
             } finally {
