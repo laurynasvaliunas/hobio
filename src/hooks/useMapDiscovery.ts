@@ -87,7 +87,7 @@ export function useMapDiscovery(profileId: string): UseMapDiscoveryReturn {
         setRegion(userRegion);
         initialRegionRef.current = userRegion;
       } catch (err) {
-        console.warn("Location error, using default:", err);
+        log.warn("Location lookup failed, using default", { err });
       }
     })();
   }, []);
