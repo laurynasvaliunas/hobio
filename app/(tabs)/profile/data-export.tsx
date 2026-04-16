@@ -66,7 +66,10 @@ export default function DataExportScreen() {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       toast.show("Data exported!");
     } catch (err) {
-      console.error("Export error:", err);
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.error("Export error", err);
+      }
       toast.show("Export failed", "error");
     } finally {
       setExporting(false);
