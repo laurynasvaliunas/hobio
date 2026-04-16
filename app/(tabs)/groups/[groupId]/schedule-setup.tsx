@@ -58,7 +58,10 @@ export default function ScheduleSetupScreen() {
       if (error) throw error;
       setRules((data as RecurringSchedule[]) ?? []);
     } catch (error) {
-      console.error("Fetch rules error:", error);
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.error("Fetch rules error", error);
+      }
     } finally {
       setIsLoading(false);
     }
