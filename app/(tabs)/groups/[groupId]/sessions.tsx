@@ -77,7 +77,7 @@ function SessionCard({
 
         {isCancelled && session.cancellation_reason && (
           <Text style={{ fontSize: 13, color: Colors.danger.DEFAULT }}>
-            Reason: {session.cancellation_reason}
+            {reasonLabel}: {session.cancellation_reason}
           </Text>
         )}
 
