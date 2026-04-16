@@ -140,7 +140,7 @@ export default function SessionsScreen() {
   const group = groups.find((g) => g.id === groupId);
   const isOrganizer = profile?.role === "organizer";
 
-  const { sessions, isLoading, cancelSession } = useSessions({ groupId });
+  const { sessions, isLoading, error, cancelSession, fetchSessions } = useSessions({ groupId });
 
   const handleCancel = (session: Session) => {
     const defaultReason = t("groups.cancelledByOrganizer");
