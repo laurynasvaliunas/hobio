@@ -8,6 +8,7 @@ import Animated, {
   withDelay,
   useAnimatedStyle,
   withSpring,
+  type SharedValue,
 } from "react-native-reanimated";
 import { Colors } from "../../constants/colors";
 
