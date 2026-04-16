@@ -20,6 +20,11 @@ interface GroupState {
   createGroup: (
     group: Omit<Group, "id" | "created_at" | "invite_code">
   ) => Promise<Group>;
+  updateGroup: (
+    groupId: string,
+    patch: Partial<Omit<Group, "id" | "created_at" | "invite_code" | "organization_id">>
+  ) => Promise<Group>;
+  deleteGroup: (groupId: string) => Promise<void>;
   joinGroup: (inviteCode: string, profileId: string) => Promise<Group>;
 }
 
