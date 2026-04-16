@@ -691,6 +691,8 @@ function deepLt() {
   lt.validation.orgNameMin = "Pavadinimas turi būti bent 2 simbolių";
   lt.validation.sportRequired = "Pasirinkite sporto šaką";
   lt.common.tryAgain = "Bandyti dar kartą";
+  lt.common.copy = "Kopijuoti";
+  lt.common.copiedToClipboard = "Nukopijuota";
   lt.groups.noSessionsOrganizer = "Nustatykite pasikartojantį tvarkaraštį.";
   lt.groups.noSessionsParticipant = "Organizatorius dar nesuplanavo sesijų.";
   lt.groups.setUpSchedule = "Nustatyti tvarkaraštį";
