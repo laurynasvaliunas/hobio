@@ -4,6 +4,9 @@ import type { Session, User } from '@supabase/supabase-js';
 import type { Profile } from '../types/database.types';
 import * as WebBrowser from 'expo-web-browser';
 import * as AuthSession from 'expo-auth-session';
+import { createLogger } from '../lib/logger';
+
+const log = createLogger('AuthContext');
 
 // Configure WebBrowser for OAuth
 WebBrowser.maybeCompleteAuthSession();
