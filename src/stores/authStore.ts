@@ -52,18 +52,18 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     });
 
     try {
-      if (__DEV__) console.log("[Auth] Initializing...");
+      log.debug("initializing");
       const {
         data: { session },
         error: sessionError,
       } = await supabase.auth.getSession();
 
       if (sessionError) {
-        console.error("[Auth] getSession error:", sessionError.message);
+        log.error("getSession failed", { code: sessionError.name });
       }
 
       if (session?.user) {
-        if (__DEV__) console.log("[Auth] Session found for:", session.user.email);
+        log.event("session_found");
         set({
           session: {
             user: { id: session.user.id, email: session.user.email ?? "" },
@@ -71,10 +71,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         });
         await get().fetchProfile();
       } else {
-        if (__DEV__) console.log("[Auth] No existing session");
+        log.event("no_existing_session");
       }
     } catch (error) {
-      console.error("[Auth] initialization error:", error);
+      log.error("initialization error", { name: (error as Error)?.name });
     } finally {
       set({ isLoading: false });
     }
