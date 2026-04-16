@@ -389,7 +389,7 @@ export default function GroupSettingsScreen() {
             title={t("common.save")}
             loading={saving}
             onPress={handleSave}
-            leftIcon={<Save size={18} color="#FFFFFF" />}
+            icon={<Save size={18} color="#FFFFFF" />}
           />
 
           <TouchableOpacity
