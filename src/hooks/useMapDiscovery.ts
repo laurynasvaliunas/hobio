@@ -65,7 +65,7 @@ export function useMapDiscovery(profileId: string): UseMapDiscoveryReturn {
       try {
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== "granted") {
-          console.warn("Location permission not granted");
+          log.warn("Location permission not granted");
           return;
         }
 
