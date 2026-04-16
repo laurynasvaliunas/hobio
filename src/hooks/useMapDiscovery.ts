@@ -176,7 +176,7 @@ export function useMapDiscovery(profileId: string): UseMapDiscoveryReturn {
         setAllMapGroups(mapGroups);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Something went wrong");
-        console.error("Map groups fetch error:", err);
+        log.error("Map groups fetch failed", { err });
       } finally {
         setIsLoading(false);
       }
