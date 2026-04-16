@@ -253,6 +253,10 @@ export default function SessionsScreen() {
                 `/(tabs)/groups/${groupId}/attendance/${item.id}` as never
               )
             }
+            attendanceLabel={t("groups.attendance")}
+            cancelLabel={t("common.cancel")}
+            cancelledLabel={t("groups.cancelled")}
+            reasonLabel={t("groups.reason")}
           />
         )}
         ListEmptyComponent={
