@@ -221,7 +221,7 @@ export function useBiometricAuth(): UseBiometricAuthReturn {
       setIsEnabled(false);
       setIsLocked(false);
     } catch (error) {
-      console.error("Biometric unenroll error:", error);
+      log.error("unenroll_failed", { name: (error as Error)?.name });
     }
   }, []);
 
