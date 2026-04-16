@@ -188,16 +188,37 @@ export default function GroupDetailScreen() {
                     {group.invite_code}
                   </Text>
                 </View>
-                <TouchableOpacity
-                  onPress={handleShareInvite}
-                  style={{
-                    width: 44, height: 44, borderRadius: 12,
-                    backgroundColor: Colors.primary.light + "20",
-                    alignItems: "center", justifyContent: "center",
-                  }}
-                >
-                  <Share2 size={20} color={Colors.primary.DEFAULT} />
-                </TouchableOpacity>
+                <View style={{ flexDirection: "row", gap: 8 }}>
+                  <TouchableOpacity
+                    accessibilityRole="button"
+                    accessibilityLabel={t("groups.showQrCta")}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/modals/invite-qr",
+                        params: { code: group.invite_code, name: group.name },
+                      } as never)
+                    }
+                    style={{
+                      width: 44, height: 44, borderRadius: 12,
+                      backgroundColor: Colors.primary.light + "20",
+                      alignItems: "center", justifyContent: "center",
+                    }}
+                  >
+                    <QrCode size={20} color={Colors.primary.DEFAULT} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    accessibilityRole="button"
+                    accessibilityLabel={t("groups.shareInviteCta")}
+                    onPress={handleShareInvite}
+                    style={{
+                      width: 44, height: 44, borderRadius: 12,
+                      backgroundColor: Colors.primary.light + "20",
+                      alignItems: "center", justifyContent: "center",
+                    }}
+                  >
+                    <Share2 size={20} color={Colors.primary.DEFAULT} />
+                  </TouchableOpacity>
+                </View>
               </View>
             </Card>
           )}
