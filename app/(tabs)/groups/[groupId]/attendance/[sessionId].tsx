@@ -168,7 +168,10 @@ export default function AttendanceScreen() {
       await markAttendance(memberId, status, profile.id);
     } catch (error) {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-      console.error("Mark attendance error:", error);
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.error("Mark attendance error", error);
+      }
     }
   };
 
