@@ -6,6 +6,9 @@ import type {
   Achievement,
   UserAchievement,
 } from "../types/database.types";
+import { createLogger } from "../lib/logger";
+
+const log = createLogger("useGamification");
 
 /**
  * XP Level calculation (mirrors the SQL function).
