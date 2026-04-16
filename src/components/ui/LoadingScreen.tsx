@@ -35,7 +35,7 @@ export function LoadingScreen() {
     textOpacity.value = withDelay(400, withTiming(1, { duration: 300 }));
 
     // Bouncing dots — staggered pulse
-    const pulse = (sv: Animated.SharedValue<number>, delay: number) => {
+    const pulse = (sv: SharedValue<number>, delay: number) => {
       sv.value = withDelay(
         delay + 600,
         withRepeat(
