@@ -289,7 +289,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       await refreshProfile();
     } catch (error) {
-      console.error('[AuthContext] Update profile error:', error);
+      log.error('Update profile error', { error });
       throw error;
     }
   };
