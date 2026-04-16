@@ -2,6 +2,9 @@ import { create } from "zustand";
 import type { Group, Organization, GroupMember } from "../types/database.types";
 import { supabase } from "../lib/supabase";
 import { generateInviteCode } from "../constants/categories";
+import { createLogger } from "../lib/logger";
+
+const log = createLogger("groupStore");
 
 interface GroupState {
   groups: Group[];
