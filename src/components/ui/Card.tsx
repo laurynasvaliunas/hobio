@@ -18,7 +18,7 @@ interface Props {
  * Pill-shaped card (24px border radius) with a springy bounce on tap.
  * Theme-aware — adapts to light/dark mode automatically.
  */
-export function Card({ children, style, noPadding = false, elevated = false, onPress }: Props) {
+export function Card({ children, style, noPadding = false, padding, elevated = false, onPress }: Props) {
   const { colors, shadows } = useTheme();
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
