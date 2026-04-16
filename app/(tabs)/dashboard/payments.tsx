@@ -82,7 +82,10 @@ export default function PaymentsOverview() {
 
       setPayments(items);
     } catch (err) {
-      if (__DEV__) console.error("Fetch payments overview error:", err);
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.error("Fetch payments overview error", err);
+      }
     } finally {
       setIsLoading(false);
     }
