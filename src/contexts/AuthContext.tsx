@@ -85,7 +85,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         await fetchProfile(session.user.id);
       }
     } catch (error) {
-      console.error('[AuthContext] Init error:', error);
+      log.error('Init error', { error });
     } finally {
       setLoading(false);
     }
