@@ -6,6 +6,9 @@ import type {
   OrganizerSettings,
   ThemeMode,
 } from "../types/database.types";
+import { createLogger } from "../lib/logger";
+
+const log = createLogger("usePreferences");
 
 const DEFAULT_NOTIFICATIONS: NotificationPreferences = {
   session_reminders: true,
