@@ -94,7 +94,7 @@ export function useGamification(profileId: string) {
         setStats(data as UserStats);
       }
     } catch (err) {
-      console.error("Fetch user stats error:", err);
+      log.error("Fetch user stats failed", { err });
     }
   }, [profileId]);
 
