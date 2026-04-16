@@ -185,11 +185,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
     if (error) {
       if (error.code === "PGRST116") {
-        // Profile doesn't exist yet (rare — DB trigger may have failed)
         set({ isOnboarded: false });
         return;
       }
-      console.error("Fetch profile error:", error);
+      log.error("fetch_profile_failed", { code: error.code });
       return;
     }
 
