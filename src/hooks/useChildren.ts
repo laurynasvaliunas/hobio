@@ -1,6 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
 import { supabase } from "../lib/supabase";
 import type { Child } from "../types/database.types";
+import { createLogger } from "../lib/logger";
+
+const log = createLogger("useChildren");
 
 interface UseChildrenReturn {
   children: Child[];
