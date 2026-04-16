@@ -86,7 +86,8 @@ export default function SignUpScreen() {
         email: email.trim(),
         password,
         confirmPassword,
-      };
+        acceptTerms: agreedToTerms ? (true as const) : undefined,
+      } as const;
       const result = getSignUpSchema().safeParse(data);
       const newErrors: Record<string, string> = {};
 
@@ -107,7 +108,7 @@ export default function SignUpScreen() {
 
       return result.success;
     },
-    [fullName, email, password, confirmPassword, t]
+    [fullName, email, password, confirmPassword, agreedToTerms]
   );
 
   const handleBlur = (field: string) => {
