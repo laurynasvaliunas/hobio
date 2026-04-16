@@ -19,6 +19,8 @@ const en = {
     back: "Back",
     tryAgain: "Try again",
     close: "Close",
+    copy: "Copy",
+    copiedToClipboard: "Copied to clipboard",
     cancel: "Cancel",
     continue: "Continue",
     save: "Save",
