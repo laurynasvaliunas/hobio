@@ -12,6 +12,7 @@ import {
   Settings,
   ClipboardList,
   Megaphone,
+  Bell,
   Clock,
   CreditCard,
   Settings2,
