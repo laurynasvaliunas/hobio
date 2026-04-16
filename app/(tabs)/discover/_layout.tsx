@@ -1,6 +1,11 @@
 import React from "react";
 import { Stack } from "expo-router";
+import { ErrorBoundary } from "../../../src/components/ErrorBoundary";
 
 export default function DiscoverLayout() {
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <ErrorBoundary scope="discover">
+      <Stack screenOptions={{ headerShown: false }} />
+    </ErrorBoundary>
+  );
 }
