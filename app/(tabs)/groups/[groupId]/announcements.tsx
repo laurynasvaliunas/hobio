@@ -17,7 +17,6 @@ import {
   useAnnouncements,
   type Announcement,
 } from "../../../../src/hooks/useAnnouncements";
-import { useMembers } from "../../../../src/hooks/useMembers";
 import { useAuthStore } from "../../../../src/stores/authStore";
 import { useGroupStore } from "../../../../src/stores/groupStore";
 
