@@ -3,6 +3,9 @@ import { Platform } from "react-native";
 import * as AppleAuthentication from "expo-apple-authentication";
 import type { Profile, UserRole } from "../types/database.types";
 import { supabase } from "../lib/supabase";
+import { createLogger } from "../lib/logger";
+
+const log = createLogger("Auth");
 
 export type SignUpResult = "signed_in" | "email_confirmation_required";
 
