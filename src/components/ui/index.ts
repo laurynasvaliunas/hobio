@@ -5,6 +5,7 @@ export { Avatar } from "./Avatar";
 export { Badge } from "./Badge";
 export { ScreenWrapper } from "./ScreenWrapper";
 export { EmptyState } from "./EmptyState";
+export { ErrorState } from "./ErrorState";
 export { ToastContainer, useToast } from "./Toast";
 export { Skeleton, HomeScreenSkeleton, ScheduleSkeleton, RosterSkeleton } from "./Skeleton";
 export { ProgressBar } from "./ProgressBar";
