@@ -17,6 +17,7 @@ const PHONE = "+370 615 41336";
 const en = {
   common: {
     back: "Back",
+    tryAgain: "Try again",
     cancel: "Cancel",
     continue: "Continue",
     save: "Save",
