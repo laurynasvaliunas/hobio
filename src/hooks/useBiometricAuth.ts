@@ -80,7 +80,7 @@ export function useBiometricAuth(): UseBiometricAuthReturn {
         }
       }
     } catch (error) {
-      console.error("Biometric availability check error:", error);
+      log.error("availability_check_failed", { name: (error as Error)?.name });
       setIsAvailable(false);
     }
   }, []);
