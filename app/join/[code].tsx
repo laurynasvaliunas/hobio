@@ -39,75 +39,68 @@ export default function JoinGroupScreen() {
   const [showPlane, setShowPlane] = useState(false);
 
   const handleJoin = async () => {
-    if (!inviteCode.trim() || inviteCode.trim().length < 6) {
-      Alert.alert("Error", "Please enter a valid 6-character invite code.");
+    const code = normalizeInviteCode(inviteCode);
+    if (!code) {
+      Alert.alert(t("common.error"), t("groups.invalidCode"));
       return;
     }
     if (!profile) return;
 
     setLoading(true);
     try {
-      // 1. Find group by invite code
-      const { data: group, error: findError } = await supabase
-        .from("groups")
-        .select("*")
-        .eq("invite_code", inviteCode.toUpperCase().trim())
-        .single();
-
-      if (findError || !group) throw new Error("Invalid invite code. Check and try again.");
-
-      // 2. Check if already a member
-      const { data: existing } = await supabase
-        .from("group_members")
-        .select("id, status")
-        .eq("group_id", group.id)
-        .eq("profile_id", profile.id)
-        .single();
-
-      if (existing) {
-        if (existing.status === "pending") {
-          throw new Error("Your join request is still pending approval.");
-        }
-        throw new Error("You're already a member of this group.");
-      }
-
-      // 3. Check capacity
-      if (group.max_participants) {
-        const { count } = await supabase
-          .from("group_members")
-          .select("id", { count: "exact", head: true })
-          .eq("group_id", group.id)
-          .eq("status", "active");
-
-        if (count && count >= group.max_participants) {
-          throw new Error("This group is full.");
-        }
-      }
-
-      // 4. Join with "pending" status (admin must approve)
-      const { error: joinError } = await supabase.from("group_members").insert({
-        group_id: group.id,
-        profile_id: profile.id,
-        child_id: null,
-        added_by: profile.id,
-        role: "member",
-        status: "pending",
+      // All join validation (code exists, not full, idempotent for already-joined,
+      // parent/child ownership) is enforced atomically by the RPC + RLS.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data, error } = await (supabase as any).rpc("join_group_by_invite", {
+        p_code: code,
+        p_child_id: null,
       });
 
-      if (joinError) throw joinError;
+      if (error) {
+        log.warn("rpc_failed", { code: error.code });
+        throw new Error(mapJoinError(error.code, error.message));
+      }
+      if (!data) throw new Error(t("groups.joinUnknown"));
+
+      // Fetch the group via RLS (caller is now a member).
+      const { data: group } = await supabase
+        .from("groups")
+        .select("*")
+        .eq("id", (data as { group_id: string }).group_id)
+        .single();
+      if (!group) throw new Error(t("groups.joinUnknown"));
 
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       setShowPlane(true);
-      setResult({ group: group as Group, status: "pending" });
-    } catch (error: unknown) {
+      setResult({
+        group: group as Group,
+        status: (data as { status: "active" | "pending" }).status ?? "active",
+      });
+    } catch (err: unknown) {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-      const message =
-        error instanceof Error ? error.message : "Something went wrong";
-      Alert.alert("Join Failed", message);
+      const message = err instanceof Error ? err.message : t("groups.joinUnknown");
+      Alert.alert(t("groups.joinFailed"), message);
     } finally {
       setLoading(false);
     }
   };
+
+  function mapJoinError(code: string | undefined, fallback: string): string {
+    switch (code) {
+      case "02000":
+        return t("groups.invalidCode");
+      case "22023":
+        return t("groups.invalidCodeLength");
+      case "23514":
+        return t("groups.groupFull");
+      case "42501":
+        return t("groups.notAuthorized");
+      case "28000":
+        return t("groups.notSignedIn");
+      default:
+        return fallback;
+    }
+  }
 
   // Success state
   if (result) {
