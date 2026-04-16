@@ -14,7 +14,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Bell, Megaphone, Siren, X } from "lucide-react-native";
 import { useTranslation } from "react-i18next";
-import { Button, ScreenWrapper } from "../../src/components/ui";
+import { Button } from "../../src/components/ui";
 import { Colors } from "../../src/constants/colors";
 import { getAnnouncementSchema, type AnnouncementFormData } from "../../src/lib/validations";
 import { useAnnouncements } from "../../src/hooks/useAnnouncements";
