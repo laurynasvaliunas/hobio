@@ -18,6 +18,7 @@ const en = {
   common: {
     back: "Back",
     tryAgain: "Try again",
+    close: "Close",
     cancel: "Cancel",
     continue: "Continue",
     save: "Save",
