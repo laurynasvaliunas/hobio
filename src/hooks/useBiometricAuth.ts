@@ -307,7 +307,7 @@ export function useBiometricAuth(): UseBiometricAuthReturn {
         setIsLoading(false);
         return true;
       } catch (error) {
-        console.error("Password fallback error:", error);
+        log.error("password_fallback_failed", { name: (error as Error)?.name });
         setIsLoading(false);
         return false;
       }
