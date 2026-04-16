@@ -66,7 +66,7 @@ export function useDocuments(groupId: string, profileId?: string): UseDocumentsR
         setDocuments(docs);
       }
     } catch (error) {
-      console.error("Fetch documents error:", error);
+      log.error("Fetch documents failed", { error });
     } finally {
       setIsLoading(false);
     }
