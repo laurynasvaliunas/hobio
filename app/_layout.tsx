@@ -35,6 +35,18 @@ if (!__DEV__) {
   Sentry!.init({
     dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
     tracesSampleRate: 0.2,
+    // Strip PII before sending events to Sentry.
+    beforeSend(event) {
+      if (event.user) {
+        delete event.user.email;
+        delete (event.user as { phone?: unknown }).phone;
+      }
+      if (event.request?.headers) {
+        delete event.request.headers["Authorization"];
+        delete event.request.headers["Cookie"];
+      }
+      return event;
+    },
   });
 }
 
