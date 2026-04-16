@@ -3,6 +3,9 @@ import { supabase } from "../lib/supabase";
 import type { Session, RecurringSchedule } from "../types/database.types";
 import { generateSessionsFromRules } from "../lib/scheduling";
 import { addWeeks, startOfDay } from "date-fns";
+import { createLogger } from "../lib/logger";
+
+const log = createLogger("useSessions");
 
 interface UseSessionsOptions {
   groupId?: string;
