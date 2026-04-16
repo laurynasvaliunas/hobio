@@ -58,7 +58,7 @@ function SessionCard({
             >
               {session.title || formatDate(session.starts_at)}
             </Text>
-            {isCancelled && <Badge label="Cancelled" variant="danger" />}
+            {isCancelled && <Badge label={cancelledLabel} variant="danger" />}
           </View>
         </View>
 
