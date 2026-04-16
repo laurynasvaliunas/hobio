@@ -59,7 +59,7 @@ export async function geocodeAddress(
   address: string
 ): Promise<{ latitude: number; longitude: number } | null> {
   if (!GOOGLE_GEOCODING_API_KEY) {
-    console.warn("Google Maps API key not set. Skipping geocoding.");
+    log.warn("Google Maps API key not set. Skipping geocoding.");
     return null;
   }
 
