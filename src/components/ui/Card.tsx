@@ -55,7 +55,7 @@ export function Card({ children, style, noPadding = false, padding, elevated = f
           } : shadows.card),
           transform: [{ scale: scaleAnim }],
         },
-        !noPadding && { padding: 16 },
+        !noPadding && { padding: padding ?? 16 },
         style,
       ]}
     >
