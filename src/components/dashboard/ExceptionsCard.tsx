@@ -12,6 +12,9 @@ import { useTheme } from "../../hooks/useTheme";
 import { Fonts } from "../../constants/fonts";
 import { supabase } from "../../lib/supabase";
 import type { Group } from "../../types/database.types";
+import { createLogger } from "../../lib/logger";
+
+const log = createLogger("ExceptionsCard");
 
 interface ExceptionItem {
   type: "red" | "yellow" | "green";
