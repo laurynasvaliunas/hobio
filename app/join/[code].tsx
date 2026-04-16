@@ -17,7 +17,11 @@ import { Colors } from "../../src/constants/colors";
 import { Fonts } from "../../src/constants/fonts";
 import { useAuthStore } from "../../src/stores/authStore";
 import { supabase } from "../../src/lib/supabase";
+import { normalizeInviteCode } from "../../src/lib/authGuards";
+import { createLogger } from "../../src/lib/logger";
 import type { Group } from "../../src/types/database.types";
+
+const log = createLogger("Join");
 
 type JoinResult = { group: Group; status: "active" | "pending" };
 
