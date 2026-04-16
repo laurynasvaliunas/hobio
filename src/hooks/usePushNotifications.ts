@@ -2,9 +2,25 @@ import { useEffect, useRef } from "react";
 import { Platform } from "react-native";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
+import { router } from "expo-router";
 import { supabase } from "../lib/supabase";
+import { createLogger } from "../lib/logger";
 
+const log = createLogger("Push");
 const PROJECT_ID = "1b6481b2-6ed9-4c5d-8db5-90290c85ec52";
+
+type NotificationData = { deeplink?: string; groupId?: string; type?: string } & Record<
+  string,
+  unknown
+>;
+
+function extractDeeplink(data: unknown): string | null {
+  if (!data || typeof data !== "object") return null;
+  const d = data as NotificationData;
+  if (typeof d.deeplink === "string") return d.deeplink;
+  if (typeof d.groupId === "string") return `/(tabs)/groups/${d.groupId}`;
+  return null;
+}
 
 async function registerForPushNotifications(userId: string) {
   if (!Device.isDevice) return;
