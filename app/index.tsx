@@ -1,68 +1,93 @@
-import React, { useEffect, useRef } from "react";
-import { View, Animated, Text, Image } from "react-native";
+import React, { useEffect } from "react";
+import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
 import { useRouter } from "expo-router";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  withSpring,
+  withSequence,
+  withDelay,
+  withRepeat,
+  Easing,
+  interpolate,
+} from "react-native-reanimated";
 import { useAuthStore } from "../src/stores/authStore";
-import { Colors, Shadows } from "../src/constants/colors";
 import { useTranslation } from "react-i18next";
 
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
+const GLOW_SIZE = SCREEN_WIDTH * 1.4;
+
 /**
- * Splash / routing screen.
- * Shows an animated branded splash while auth state loads,
- * then routes to the correct screen.
+ * Hobio — branded intro / splash screen.
+ *
+ * Sequence (≈1.4s total):
+ *   1. Warm terracotta glow blooms behind the stage.
+ *   2. Logo stamps in: slight rotation + spring scale + fade.
+ *   3. A single breathing pulse keeps the logo "alive" while auth resolves.
+ *   4. Tagline slides up and fades in.
+ * Once the auth store settles, the user is routed to the correct entry screen.
  */
 export default function Index() {
   const { t } = useTranslation();
   const router = useRouter();
   const { session, profile, isLoading, isOnboarded } = useAuthStore();
 
-  // Pulse animation on the logo
-  const logoScale = useRef(new Animated.Value(0.8)).current;
-  const logoOpacity = useRef(new Animated.Value(0)).current;
-  const subtitleOpacity = useRef(new Animated.Value(0)).current;
+  const logoOpacity = useSharedValue(0);
+  const logoScale = useSharedValue(0.5);
+  const logoRotate = useSharedValue(-8);
+  const glowOpacity = useSharedValue(0);
+  const glowScale = useSharedValue(0.6);
+  const taglineOpacity = useSharedValue(0);
+  const taglineTranslate = useSharedValue(12);
+  const breathing = useSharedValue(1);
 
   useEffect(() => {
-    // Entrance animation
-    Animated.sequence([
-      Animated.parallel([
-        Animated.spring(logoScale, {
-          toValue: 1,
-          tension: 50,
-          friction: 7,
-          useNativeDriver: true,
-        }),
-        Animated.timing(logoOpacity, {
-          toValue: 1,
-          duration: 500,
-          useNativeDriver: true,
-        }),
-      ]),
-      Animated.timing(subtitleOpacity, {
-        toValue: 1,
-        duration: 400,
-        useNativeDriver: true,
-      }),
-    ]).start();
+    glowOpacity.value = withTiming(0.55, {
+      duration: 700,
+      easing: Easing.out(Easing.quad),
+    });
+    glowScale.value = withTiming(1, {
+      duration: 900,
+      easing: Easing.out(Easing.cubic),
+    });
 
-    // Gentle pulse while loading
-    const pulse = Animated.loop(
-      Animated.sequence([
-        Animated.timing(logoScale, {
-          toValue: 1.05,
-          duration: 1000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(logoScale, {
-          toValue: 1,
-          duration: 1000,
-          useNativeDriver: true,
-        }),
-      ])
+    logoOpacity.value = withDelay(
+      150,
+      withTiming(1, { duration: 450, easing: Easing.out(Easing.quad) })
     );
-    const timer = setTimeout(() => pulse.start(), 800);
-    return () => {
-      clearTimeout(timer);
-      pulse.stop();
-    };
+    logoScale.value = withDelay(
+      150,
+      withSequence(
+        withSpring(1.08, { damping: 9, stiffness: 140, mass: 0.9 }),
+        withSpring(1, { damping: 14, stiffness: 160 })
+      )
+    );
+    logoRotate.value = withDelay(
+      150,
+      withSpring(0, { damping: 10, stiffness: 120 })
+    );
+
+    taglineOpacity.value = withDelay(
+      750,
+      withTiming(1, { duration: 500, easing: Easing.out(Easing.quad) })
+    );
+    taglineTranslate.value = withDelay(
+      750,
+      withTiming(0, { duration: 500, easing: Easing.out(Easing.cubic) })
+    );
+
+    breathing.value = withDelay(
+      1400,
+      withRepeat(
+        withSequence(
+          withTiming(1.03, { duration: 1100, easing: Easing.inOut(Easing.quad) }),
+          withTiming(1, { duration: 1100, easing: Easing.inOut(Easing.quad) })
+        ),
+        -1,
+        false
+      )
+    );
   }, []);
 
   useEffect(() => {
@@ -73,7 +98,6 @@ export default function Index() {
       return;
     }
 
-    // Session exists but profile is still being fetched — wait.
     if (!profile) return;
 
     if (!isOnboarded) {
@@ -81,7 +105,6 @@ export default function Index() {
       return;
     }
 
-    // RBAC: Route organizers to Studio Dashboard, others to Home
     if (profile.role === "organizer") {
       router.replace("/(tabs)/dashboard");
     } else {
@@ -89,39 +112,106 @@ export default function Index() {
     }
   }, [isLoading, session, profile, isOnboarded]);
 
+  const glowStyle = useAnimatedStyle(() => ({
+    opacity: glowOpacity.value,
+    transform: [{ scale: glowScale.value }],
+  }));
+
+  const logoStyle = useAnimatedStyle(() => ({
+    opacity: logoOpacity.value,
+    transform: [
+      { scale: logoScale.value * breathing.value },
+      { rotate: `${logoRotate.value}deg` },
+    ],
+  }));
+
+  const haloStyle = useAnimatedStyle(() => {
+    const intensity = interpolate(breathing.value, [1, 1.03], [0.25, 0.45]);
+    return {
+      opacity: logoOpacity.value * intensity,
+      transform: [{ scale: breathing.value * 1.15 }],
+    };
+  });
+
+  const taglineStyle = useAnimatedStyle(() => ({
+    opacity: taglineOpacity.value,
+    transform: [{ translateY: taglineTranslate.value }],
+  }));
+
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: Colors.primary.DEFAULT,
-        gap: 12,
-      }}
-    >
-      <Animated.View
-        style={{
-          opacity: logoOpacity,
-          transform: [{ scale: logoScale }],
-        }}
-      >
-        <Image
-          source={require("../assets/hobio-brand-logo.png")}
-          style={{ width: 160, height: 160 }}
-          resizeMode="contain"
-        />
-      </Animated.View>
-      <Animated.View style={{ opacity: subtitleOpacity, alignItems: "center", gap: 4 }}>
-        <Text
-          style={{
-            fontSize: 14,
-            color: "rgba(255,255,255,0.7)",
-            fontWeight: "500",
-          }}
-        >
-          {t("splash.tagline")}
-        </Text>
+    <View style={styles.container}>
+      <Animated.View style={[styles.glow, glowStyle]} />
+
+      <View style={styles.stage}>
+        <Animated.View style={[styles.halo, haloStyle]} />
+        <Animated.View style={logoStyle}>
+          <Image
+            source={require("../assets/hobio-intro-logo.png")}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+        </Animated.View>
+      </View>
+
+      <Animated.View style={[styles.taglineWrap, taglineStyle]}>
+        <Text style={styles.tagline}>{t("splash.tagline")}</Text>
       </Animated.View>
     </View>
   );
 }
+
+const LOGO_SIZE = 220;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#000000",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  glow: {
+    position: "absolute",
+    width: GLOW_SIZE,
+    height: GLOW_SIZE,
+    borderRadius: GLOW_SIZE / 2,
+    backgroundColor: "#D97758",
+    opacity: 0,
+    // Soft, diffused bloom behind the logo.
+    shadowColor: "#D97758",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.9,
+    shadowRadius: 120,
+    elevation: 0,
+  },
+  stage: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: LOGO_SIZE,
+    height: LOGO_SIZE,
+  },
+  halo: {
+    position: "absolute",
+    width: LOGO_SIZE * 1.4,
+    height: LOGO_SIZE * 1.4,
+    borderRadius: LOGO_SIZE,
+    backgroundColor: "#D97758",
+    opacity: 0,
+  },
+  logo: {
+    width: LOGO_SIZE,
+    height: LOGO_SIZE,
+  },
+  taglineWrap: {
+    position: "absolute",
+    bottom: 120,
+    alignItems: "center",
+    paddingHorizontal: 32,
+  },
+  tagline: {
+    color: "rgba(255,255,255,0.72)",
+    fontSize: 15,
+    fontWeight: "500",
+    letterSpacing: 0.3,
+    textAlign: "center",
+  },
+});
