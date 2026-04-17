@@ -91,7 +91,7 @@ function RootLayout() {
   const fontsPending = !fontsLoaded && !fontError;
   if (fontsPending || !i18nReady) {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#FBF6F3" }}>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#000000" }}>
         <ActivityIndicator size="large" color="#D97758" />
       </View>
     );
