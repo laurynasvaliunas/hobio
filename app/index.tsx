@@ -1,13 +1,7 @@
 import React, { useEffect } from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  Dimensions,
-  StatusBar,
-} from "react-native";
+import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
 import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
