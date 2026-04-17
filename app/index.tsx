@@ -215,8 +215,8 @@ const styles = StyleSheet.create({
   },
   halo: {
     position: "absolute",
-    width: LOGO_SIZE * 1.35,
-    height: LOGO_SIZE * 1.35,
+    width: LOGO_SIZE * 1.6,
+    height: LOGO_SIZE * 1.6,
     borderRadius: LOGO_SIZE,
     backgroundColor: "#D97758",
     opacity: 0,
