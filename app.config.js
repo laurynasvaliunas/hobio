@@ -9,9 +9,9 @@ module.exports = ({ config }) => ({
   newArchEnabled: true,
   scheme: "hobio",
   splash: {
-    image: "./assets/hobio-logo.png",
+    image: "./assets/hobio-intro-logo.png",
     resizeMode: "contain",
-    backgroundColor: "#FBF6F3",
+    backgroundColor: "#000000",
   },
   ios: {
     supportsTablet: false,
