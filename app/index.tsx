@@ -145,7 +145,7 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#000000" />
+      <StatusBar style="light" backgroundColor="#000000" />
 
       <Animated.View style={[styles.glowWrap, glowStyle]} pointerEvents="none">
         <Svg width={SCREEN_WIDTH} height={SCREEN_HEIGHT}>
