@@ -132,9 +132,10 @@ export default function Index() {
   }));
 
   const haloStyle = useAnimatedStyle(() => {
-    const intensity = interpolate(breathing.value, [1, 1.03], [0.35, 0.55]);
+    const intensity = interpolate(breathing.value, [1, 1.03], [0.12, 0.22]);
     return {
       opacity: logoOpacity.value * intensity,
+      transform: [{ scale: breathing.value }],
     };
   });
 
