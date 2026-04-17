@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Dimensions,
+  StatusBar,
+} from "react-native";
 import { useRouter } from "expo-router";
 import Animated, {
   useSharedValue,
@@ -12,20 +19,25 @@ import Animated, {
   Easing,
   interpolate,
 } from "react-native-reanimated";
+import Svg, {
+  Defs,
+  RadialGradient,
+  Stop,
+  Rect,
+} from "react-native-svg";
 import { useAuthStore } from "../src/stores/authStore";
 import { useTranslation } from "react-i18next";
 
-const { width: SCREEN_WIDTH } = Dimensions.get("window");
-const GLOW_SIZE = SCREEN_WIDTH * 1.4;
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 /**
  * Hobio — branded intro / splash screen.
  *
  * Sequence (≈1.4s total):
- *   1. Warm terracotta glow blooms behind the stage.
- *   2. Logo stamps in: slight rotation + spring scale + fade.
- *   3. A single breathing pulse keeps the logo "alive" while auth resolves.
- *   4. Tagline slides up and fades in.
+ *   1. Warm terracotta radial glow blooms from behind the stage.
+ *   2. Logo "stamps" in: slight rotation + spring scale + fade.
+ *   3. Tagline slides up and fades in.
+ *   4. A subtle breathing pulse keeps the logo alive while auth resolves.
  * Once the auth store settles, the user is routed to the correct entry screen.
  */
 export default function Index() {
@@ -34,16 +46,16 @@ export default function Index() {
   const { session, profile, isLoading, isOnboarded } = useAuthStore();
 
   const logoOpacity = useSharedValue(0);
-  const logoScale = useSharedValue(0.5);
+  const logoScale = useSharedValue(0.55);
   const logoRotate = useSharedValue(-8);
   const glowOpacity = useSharedValue(0);
-  const glowScale = useSharedValue(0.6);
+  const glowScale = useSharedValue(0.5);
   const taglineOpacity = useSharedValue(0);
-  const taglineTranslate = useSharedValue(12);
+  const taglineTranslate = useSharedValue(14);
   const breathing = useSharedValue(1);
 
   useEffect(() => {
-    glowOpacity.value = withTiming(0.55, {
+    glowOpacity.value = withTiming(1, {
       duration: 700,
       easing: Easing.out(Easing.quad),
     });
@@ -114,7 +126,7 @@ export default function Index() {
 
   const glowStyle = useAnimatedStyle(() => ({
     opacity: glowOpacity.value,
-    transform: [{ scale: glowScale.value }],
+    transform: [{ scale: glowScale.value * breathing.value }],
   }));
 
   const logoStyle = useAnimatedStyle(() => ({
@@ -126,10 +138,9 @@ export default function Index() {
   }));
 
   const haloStyle = useAnimatedStyle(() => {
-    const intensity = interpolate(breathing.value, [1, 1.03], [0.25, 0.45]);
+    const intensity = interpolate(breathing.value, [1, 1.03], [0.35, 0.55]);
     return {
       opacity: logoOpacity.value * intensity,
-      transform: [{ scale: breathing.value * 1.15 }],
     };
   });
 
@@ -140,10 +151,37 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.glow, glowStyle]} />
+      <StatusBar barStyle="light-content" backgroundColor="#000000" />
+
+      <Animated.View style={[styles.glowWrap, glowStyle]} pointerEvents="none">
+        <Svg width={SCREEN_WIDTH} height={SCREEN_HEIGHT}>
+          <Defs>
+            <RadialGradient
+              id="hobioGlow"
+              cx="50%"
+              cy="50%"
+              rx="55%"
+              ry="55%"
+              fx="50%"
+              fy="50%"
+            >
+              <Stop offset="0%" stopColor="#D97758" stopOpacity="0.55" />
+              <Stop offset="45%" stopColor="#D97758" stopOpacity="0.18" />
+              <Stop offset="100%" stopColor="#D97758" stopOpacity="0" />
+            </RadialGradient>
+          </Defs>
+          <Rect
+            x="0"
+            y="0"
+            width={SCREEN_WIDTH}
+            height={SCREEN_HEIGHT}
+            fill="url(#hobioGlow)"
+          />
+        </Svg>
+      </Animated.View>
 
       <View style={styles.stage}>
-        <Animated.View style={[styles.halo, haloStyle]} />
+        <Animated.View style={[styles.halo, haloStyle]} pointerEvents="none" />
         <Animated.View style={logoStyle}>
           <Image
             source={require("../assets/hobio-intro-logo.png")}
@@ -169,19 +207,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  glow: {
-    position: "absolute",
-    width: GLOW_SIZE,
-    height: GLOW_SIZE,
-    borderRadius: GLOW_SIZE / 2,
-    backgroundColor: "#D97758",
-    opacity: 0,
-    // Soft, diffused bloom behind the logo.
-    shadowColor: "#D97758",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.9,
-    shadowRadius: 120,
-    elevation: 0,
+  glowWrap: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: "center",
+    justifyContent: "center",
   },
   stage: {
     alignItems: "center",
@@ -191,8 +220,8 @@ const styles = StyleSheet.create({
   },
   halo: {
     position: "absolute",
-    width: LOGO_SIZE * 1.4,
-    height: LOGO_SIZE * 1.4,
+    width: LOGO_SIZE * 1.35,
+    height: LOGO_SIZE * 1.35,
     borderRadius: LOGO_SIZE,
     backgroundColor: "#D97758",
     opacity: 0,
@@ -208,10 +237,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
   },
   tagline: {
-    color: "rgba(255,255,255,0.72)",
+    color: "rgba(255,255,255,0.75)",
     fontSize: 15,
     fontWeight: "500",
-    letterSpacing: 0.3,
+    letterSpacing: 0.4,
     textAlign: "center",
   },
 });
