@@ -43,7 +43,7 @@ export default function AccountSettingsScreen() {
 
   const handleSaveProfile = async () => {
     if (!profile || !fullName.trim()) {
-      toast.show("Name cannot be empty", "warning");
+      toast.show(t("profile.nameEmpty"), "warning");
       return;
     }
     setSaving(true);
@@ -60,9 +60,9 @@ export default function AccountSettingsScreen() {
 
       setProfile({ ...profile, ...updates });
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-      toast.show("Profile saved!");
+      toast.show(t("profile.profileSaved"));
     } catch {
-      toast.show("Failed to save", "error");
+      toast.show(t("profile.saveFailed"), "error");
     } finally {
       setSaving(false);
     }
@@ -70,11 +70,11 @@ export default function AccountSettingsScreen() {
 
   const handleChangePassword = async () => {
     if (!newPassword || newPassword.length < 6) {
-      toast.show("Password must be at least 6 characters", "warning");
+      toast.show(t("profile.passwordMin"), "warning");
       return;
     }
     if (newPassword !== confirmNew) {
-      toast.show("Passwords don't match", "warning");
+      toast.show(t("profile.passwordsMismatch"), "warning");
       return;
     }
     setChangingPassword(true);
@@ -83,13 +83,13 @@ export default function AccountSettingsScreen() {
       if (error) throw error;
 
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-      toast.show("Password changed!");
+      toast.show(t("profile.passwordChanged"));
       setShowPassword(false);
       setCurrentPassword("");
       setNewPassword("");
       setConfirmNew("");
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "Failed to change password";
+      const msg = err instanceof Error ? err.message : t("profile.passwordChangeFailed");
       toast.show(msg, "error");
     } finally {
       setChangingPassword(false);
