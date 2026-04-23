@@ -115,9 +115,9 @@ export default function AccountSettingsScreen() {
           <TouchableOpacity
             onPress={() => {
               if (isDirty) {
-                Alert.alert("Unsaved Changes", "You have unsaved changes. Discard?", [
-                  { text: "Keep Editing", style: "cancel" },
-                  { text: "Discard", style: "destructive", onPress: () => router.back() },
+                Alert.alert(t("profile.unsavedTitle"), t("profile.unsavedBody"), [
+                  { text: t("common.keepEditing"), style: "cancel" },
+                  { text: t("profile.discard"), style: "destructive", onPress: () => router.back() },
                 ]);
               } else {
                 router.back();
@@ -127,7 +127,7 @@ export default function AccountSettingsScreen() {
             <ArrowLeft size={24} color={Colors.text.primary} />
           </TouchableOpacity>
           <Text style={{ fontSize: 20, fontWeight: "700", color: Colors.text.primary }}>
-            Account
+            {t("profile.accountScreen")}
           </Text>
         </View>
 
