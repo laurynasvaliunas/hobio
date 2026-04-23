@@ -6,12 +6,12 @@ import {
   Fingerprint,
   ScanFace,
   LogOut,
-  Monitor,
   Smartphone,
 } from "lucide-react-native";
 import * as Haptics from "expo-haptics";
+import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Card, Button } from "../../../src/components/ui";
+import { Card } from "../../../src/components/ui";
 import { useToast } from "../../../src/components/ui/Toast";
 import { Colors } from "../../../src/constants/colors";
 import { useAuthStore } from "../../../src/stores/authStore";
@@ -20,6 +20,7 @@ import { supabase } from "../../../src/lib/supabase";
 
 export default function SecuritySettingsScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { profile, setProfile, signOut } = useAuthStore();
   const toast = useToast();
 
@@ -34,7 +35,12 @@ export default function SecuritySettingsScreen() {
   const [biometricToggling, setBiometricToggling] = useState(false);
   const [signingOutAll, setSigningOutAll] = useState(false);
 
-  const biometricLabel = biometricType === "facial" ? "Face ID" : biometricType === "fingerprint" ? "Fingerprint" : "Biometric";
+  const biometricLabel =
+    biometricType === "facial"
+      ? t("profile.biometricFaceId")
+      : biometricType === "fingerprint"
+      ? t("profile.biometricFingerprint")
+      : t("profile.biometricGeneric");
   const BiometricIcon = biometricType === "facial" ? ScanFace : Fingerprint;
 
   const handleBiometricToggle = async (value: boolean) => {
@@ -44,7 +50,7 @@ export default function SecuritySettingsScreen() {
         const success = await enroll();
         if (success) {
           Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-          toast.show(`${biometricLabel} enabled!`);
+          toast.show(t("profile.biometricEnabled", { type: biometricLabel }));
           if (profile) {
             await supabase.from("profiles").update({ biometrics_enabled: true }).eq("id", profile.id);
             setProfile({ ...profile, biometrics_enabled: true });
@@ -53,14 +59,14 @@ export default function SecuritySettingsScreen() {
       } else {
         await unenroll();
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-        toast.show(`${biometricLabel} disabled`);
+        toast.show(t("profile.biometricDisabled", { type: biometricLabel }));
         if (profile) {
           await supabase.from("profiles").update({ biometrics_enabled: false }).eq("id", profile.id);
           setProfile({ ...profile, biometrics_enabled: false });
         }
       }
     } catch {
-      toast.show("Failed to update", "error");
+      toast.show(t("profile.biometricUpdateFailed"), "error");
     } finally {
       setBiometricToggling(false);
     }
@@ -68,12 +74,12 @@ export default function SecuritySettingsScreen() {
 
   const handleSignOutAll = () => {
     Alert.alert(
-      "Sign Out Everywhere",
-      "This will sign you out of all devices, including this one. You'll need to sign in again.",
+      t("profile.signOutEverywhere"),
+      t("profile.signOutEverywhereBody"),
       [
-        { text: "Cancel", style: "cancel" },
+        { text: t("common.cancel"), style: "cancel" },
         {
-          text: "Sign Out All",
+          text: t("profile.signOutAll"),
           style: "destructive",
           onPress: async () => {
             setSigningOutAll(true);
@@ -81,10 +87,10 @@ export default function SecuritySettingsScreen() {
               const { error } = await supabase.auth.signOut({ scope: "global" });
               if (error) throw error;
               Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-              toast.show("Signed out of all devices");
+              toast.show(t("profile.signedOutAll"));
               await signOut();
             } catch {
-              toast.show("Failed to sign out", "error");
+              toast.show(t("profile.signOutAllFailed"), "error");
             } finally {
               setSigningOutAll(false);
             }
