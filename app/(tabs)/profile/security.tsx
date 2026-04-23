@@ -138,7 +138,7 @@ export default function SecuritySettingsScreen() {
                 marginLeft: 4,
               }}
             >
-              Biometric Lock
+              {t("profile.biometricLock")}
             </Text>
             <Card style={{ marginBottom: 20 }}>
               <View style={{ flexDirection: "row", alignItems: "center", gap: 14 }}>
