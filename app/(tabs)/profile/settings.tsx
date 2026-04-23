@@ -157,7 +157,7 @@ export default function SettingsScreen() {
             marginLeft: 4,
           }}
         >
-          Alerts
+          {t("settings.sections.alerts")}
         </Text>
         <Card style={{ marginBottom: 20 }}>
           <SettingsItem
