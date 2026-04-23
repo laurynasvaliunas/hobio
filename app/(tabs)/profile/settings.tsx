@@ -239,7 +239,7 @@ export default function SettingsScreen() {
             marginLeft: 4,
           }}
         >
-          Data & Privacy
+          {t("settings.sections.dataPrivacy")}
         </Text>
         <Card>
           <SettingsItem
