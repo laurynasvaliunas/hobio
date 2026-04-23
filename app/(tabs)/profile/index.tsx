@@ -155,13 +155,11 @@ export default function ProfileScreen() {
         >
           <Card style={{ marginBottom: 20, alignItems: "center", paddingVertical: 28 }}>
             {/* Tap-on-avatar opens the picker directly so users don't have to
-                drill into the Account screen to change their photo. */}
+                drill into the Account screen to change their photo. In RN's
+                responder system, the inner touchable claims the touch so the
+                parent card's onPress won't fire for presses on the avatar. */}
             <TouchableOpacity
-              onPress={(e) => {
-                // Stop bubbling so the parent card doesn't navigate to Account.
-                e.stopPropagation();
-                pickAndUpload();
-              }}
+              onPress={pickAndUpload}
               disabled={uploadingAvatar}
               activeOpacity={0.7}
               style={{ position: "relative" }}
