@@ -154,11 +154,41 @@ export default function ProfileScreen() {
           activeOpacity={0.7}
         >
           <Card style={{ marginBottom: 20, alignItems: "center", paddingVertical: 28 }}>
-            <Avatar
-              name={profile?.full_name ?? "User"}
-              imageUrl={profile?.avatar_url}
-              size={80}
-            />
+            {/* Tap-on-avatar opens the picker directly so users don't have to
+                drill into the Account screen to change their photo. */}
+            <TouchableOpacity
+              onPress={(e) => {
+                // Stop bubbling so the parent card doesn't navigate to Account.
+                e.stopPropagation();
+                pickAndUpload();
+              }}
+              disabled={uploadingAvatar}
+              activeOpacity={0.7}
+              style={{ position: "relative" }}
+            >
+              <Avatar
+                name={profile?.full_name ?? "User"}
+                imageUrl={profile?.avatar_url}
+                size={80}
+              />
+              <View
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  right: 0,
+                  width: 28,
+                  height: 28,
+                  borderRadius: 14,
+                  backgroundColor: colors.primary.DEFAULT,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderWidth: 2,
+                  borderColor: colors.surface,
+                }}
+              >
+                <Camera size={14} color="#FFF" />
+              </View>
+            </TouchableOpacity>
             <Text
               style={{
                 fontSize: 22,
