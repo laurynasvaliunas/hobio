@@ -205,10 +205,10 @@ export default function SecuritySettingsScreen() {
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={{ fontSize: 15, fontWeight: "600", color: Colors.text.primary }}>
-                  This Device
+                  {t("profile.thisDevice")}
                 </Text>
                 <Text style={{ fontSize: 12, color: Colors.secondary.DEFAULT, fontWeight: "500" }}>
-                  Active now
+                  {t("profile.activeNow")}
                 </Text>
               </View>
               <View
