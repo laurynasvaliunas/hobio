@@ -43,9 +43,13 @@ export default function AppearanceSettingsScreen() {
   const router = useRouter();
   const profile = useAuthStore((s) => s.profile);
   const toast = useToast();
-  const { colors, shadows, isDark } = useTheme();
-  const { theme: currentTheme, updateTheme } = usePreferences(profile?.id ?? "");
+  const { colors } = useTheme();
+  const { updateTheme } = usePreferences(profile?.id ?? "");
   const setThemeMode = useThemeStore((s) => s.setMode);
+  // Drive the selection indicator from the actually-applied store mode, not
+  // the DB value, so the checkmark reflects the real theme state even while
+  // the DB write is in flight or usePreferences is still loading.
+  const currentMode = useThemeStore((s) => s.mode);
 
   const handleSelect = async (mode: ThemeMode) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
