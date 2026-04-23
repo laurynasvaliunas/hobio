@@ -118,8 +118,7 @@ export default function AppearanceSettingsScreen() {
             marginBottom: 20,
           }}
         >
-          Choose how Hobio looks on your device. "Night Camp" mode uses a deep navy-charcoal palette
-          that's easier on the eyes at night.
+          {t("profile.appearanceDescription")}
         </Text>
 
         {/* Preview swatch */}
