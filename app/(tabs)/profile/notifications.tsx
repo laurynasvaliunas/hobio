@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, Switch } from "react-native";
 import { useRouter } from "expo-router";
 import { ArrowLeft, Bell, Clock, Mail, Smartphone } from "lucide-react-native";
 import * as Haptics from "expo-haptics";
+import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Card, Input } from "../../../src/components/ui";
 import { useToast } from "../../../src/components/ui/Toast";
