@@ -12,6 +12,7 @@ import {
   RefreshCw,
   FileText,
   Lock,
+  Camera,
 } from "lucide-react-native";
 import { ScreenWrapper, Card, Avatar, Badge } from "../../../src/components/ui";
 import { useTheme } from "../../../src/hooks/useTheme";
@@ -19,6 +20,7 @@ import { Fonts } from "../../../src/constants/fonts";
 import { useAuthStore } from "../../../src/stores/authStore";
 import { useChildren } from "../../../src/hooks/useChildren";
 import { usePreferences } from "../../../src/hooks/usePreferences";
+import { useAvatarUpload } from "../../../src/hooks/useAvatarUpload";
 import { useTranslation } from "react-i18next";
 
 interface MenuItemProps {
