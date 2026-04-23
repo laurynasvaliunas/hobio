@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { ArrowLeft, Sun, Moon, Monitor, Check } from "lucide-react-native";
 import * as Haptics from "expo-haptics";
+import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Card } from "../../../src/components/ui";
 import { useToast } from "../../../src/components/ui/Toast";
@@ -13,34 +14,9 @@ import { useThemeStore } from "../../../src/stores/themeStore";
 import { Fonts } from "../../../src/constants/fonts";
 import type { ThemeMode } from "../../../src/types/database.types";
 
-const THEME_OPTIONS: {
-  mode: ThemeMode;
-  label: string;
-  subtitle: string;
-  icon: React.ComponentType<{ size: number; color: string; strokeWidth?: number }>;
-}[] = [
-  {
-    mode: "light",
-    label: "Light",
-    subtitle: "Bright & vibrant — classic Hobio",
-    icon: Sun,
-  },
-  {
-    mode: "dark",
-    label: "Night Camp",
-    subtitle: "Easy on the eyes — deep navy charcoal",
-    icon: Moon,
-  },
-  {
-    mode: "system",
-    label: "System",
-    subtitle: "Match your device settings",
-    icon: Monitor,
-  },
-];
-
 export default function AppearanceSettingsScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const profile = useAuthStore((s) => s.profile);
   const toast = useToast();
   const { colors } = useTheme();
@@ -51,14 +27,48 @@ export default function AppearanceSettingsScreen() {
   // the DB write is in flight or usePreferences is still loading.
   const currentMode = useThemeStore((s) => s.mode);
 
+  // THEME_OPTIONS is declared inside the component so label/subtitle can call
+  // `t()`. The icon references are stable across renders.
+  const THEME_OPTIONS: {
+    mode: ThemeMode;
+    label: string;
+    subtitle: string;
+    icon: React.ComponentType<{ size: number; color: string; strokeWidth?: number }>;
+  }[] = [
+    {
+      mode: "light",
+      label: t("profile.themeLight"),
+      subtitle: t("profile.themeLightSub"),
+      icon: Sun,
+    },
+    {
+      mode: "dark",
+      label: t("profile.themeDark"),
+      subtitle: t("profile.themeDarkSub"),
+      icon: Moon,
+    },
+    {
+      mode: "system",
+      label: t("profile.themeSystem"),
+      subtitle: t("profile.themeSystemSub"),
+      icon: Monitor,
+    },
+  ];
+
   const handleSelect = async (mode: ThemeMode) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setThemeMode(mode);
     try {
       await updateTheme(mode);
-      toast.show(`Theme set to ${mode === "dark" ? "Night Camp" : mode}`);
+      const toastKey =
+        mode === "dark"
+          ? "profile.themeSetDark"
+          : mode === "light"
+          ? "profile.themeSetLight"
+          : "profile.themeSetSystem";
+      toast.show(t(toastKey));
     } catch {
-      toast.show("Failed to save", "error");
+      toast.show(t("profile.saveFailed"), "error");
     }
   };
 
