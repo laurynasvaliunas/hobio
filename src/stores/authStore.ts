@@ -197,6 +197,27 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       profile: data as Profile,
       isOnboarded: (data as Profile).onboarding_completed,
     });
+
+    // Hydrate the local theme store from the user's persisted DB preference.
+    // themeStore is AsyncStorage-backed (device-local); on a fresh install or
+    // after clearing app data, it defaults to "system" even if the user had
+    // previously picked "light" or "dark". Pull the DB value as the source of
+    // truth so Appearance stays consistent across devices and reinstalls.
+    try {
+      const { data: prefs } = await supabase
+        .from("user_preferences")
+        .select("theme")
+        .eq("profile_id", session.user.id)
+        .single();
+
+      const dbTheme = (prefs?.theme ?? null) as ThemeMode | null;
+      if (dbTheme && dbTheme !== useThemeStore.getState().mode) {
+        useThemeStore.getState().setMode(dbTheme);
+      }
+    } catch (err) {
+      // Non-fatal: theme falls back to whatever's in AsyncStorage.
+      log.warn("theme_hydrate_failed", { name: (err as Error)?.name });
+    }
   },
 
   ensureProfile: async (user) => {
