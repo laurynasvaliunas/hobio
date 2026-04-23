@@ -232,10 +232,10 @@ export default function AccountSettingsScreen() {
                 <Lock size={18} color={Colors.warning.dark} />
               </View>
               <Text style={{ fontSize: 16, fontWeight: "600", color: Colors.text.primary, flex: 1 }}>
-                Change Password
+                {t("profile.changePassword")}
               </Text>
               <Text style={{ fontSize: 13, color: Colors.primary.DEFAULT, fontWeight: "600" }}>
-                {showPassword ? "Hide" : "Show"}
+                {showPassword ? t("profile.hide") : t("profile.show")}
               </Text>
             </TouchableOpacity>
 
@@ -243,21 +243,21 @@ export default function AccountSettingsScreen() {
               <Card>
                 <View style={{ gap: 14 }}>
                   <Input
-                    label="New Password"
-                    placeholder="At least 6 characters"
+                    label={t("profile.newPassword")}
+                    placeholder={t("profile.passwordMinPh")}
                     value={newPassword}
                     onChangeText={setNewPassword}
                     secureTextEntry
                   />
                   <Input
-                    label="Confirm New Password"
-                    placeholder="Repeat new password"
+                    label={t("profile.confirmNewPassword")}
+                    placeholder={t("profile.repeatNewPassword")}
                     value={confirmNew}
                     onChangeText={setConfirmNew}
                     secureTextEntry
                   />
                   <Button
-                    title="Update Password"
+                    title={t("profile.updatePassword")}
                     onPress={handleChangePassword}
                     loading={changingPassword}
                     variant="secondary"
