@@ -120,11 +120,14 @@ export default function Index() {
 
   // Safety net: if auth takes longer than 3s (e.g., network issues, Supabase
   // token refresh hanging), drop the user onto the welcome screen rather than
-  // stranding them on an infinite splash. Once auth does resolve, the effect
-  // above will redirect them to the correct destination.
+  // stranding them on an infinite splash. Once auth does resolve normally, the
+  // effect above will redirect them to the correct destination first.
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      if (isLoading || (session && !profile)) {
+      // Read the latest state directly from the store — the closure would
+      // otherwise see stale values because this effect has empty deps.
+      const state = useAuthStore.getState();
+      if (state.isLoading || (state.session && !state.profile)) {
         router.replace("/(auth)/welcome");
       }
     }, 3000);
