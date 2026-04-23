@@ -213,7 +213,7 @@ export default function SettingsScreen() {
                 marginLeft: 4,
               }}
             >
-              Workspace
+              {t("settings.sections.workspace")}
             </Text>
             <Card style={{ marginBottom: 20 }}>
               <SettingsItem
