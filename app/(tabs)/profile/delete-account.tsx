@@ -195,24 +195,26 @@ export default function DeleteAccountScreen() {
               marginBottom: 8,
             }}
           >
-            Type <Text style={{ fontWeight: "800", color: Colors.danger.DEFAULT }}>DELETE</Text> to confirm
+            {t("profile.typeDeleteToConfirm").split("<1>")[0]}
+            <Text style={{ fontWeight: "800", color: Colors.danger.DEFAULT }}>DELETE</Text>
+            {t("profile.typeDeleteToConfirm").split("</1>")[1] ?? ""}
           </Text>
           <Input
-            placeholder='Type "DELETE" here'
+            placeholder={t("profile.deletePlaceholder")}
             value={confirmation}
             onChangeText={setConfirmation}
             autoCapitalize="characters"
             containerStyle={{ marginBottom: 20 }}
             error={
               confirmation.length > 0 && !canDelete
-                ? `Type "DELETE" exactly to proceed`
+                ? t("profile.typeDeleteError")
                 : undefined
             }
-            success={canDelete ? "Ready to proceed" : undefined}
+            success={canDelete ? t("profile.readyToProceed") : undefined}
           />
 
           <Button
-            title="Permanently Delete My Account"
+            title={t("profile.deleteConfirm")}
             onPress={handleDelete}
             loading={deleting}
             disabled={!canDelete}
