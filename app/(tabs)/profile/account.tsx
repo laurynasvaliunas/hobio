@@ -11,6 +11,7 @@ import {
 import { useRouter } from "expo-router";
 import { ArrowLeft, Camera, Save, Lock } from "lucide-react-native";
 import * as Haptics from "expo-haptics";
+import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Card, Button, Input, Avatar } from "../../../src/components/ui";
 import { useToast } from "../../../src/components/ui/Toast";
@@ -21,6 +22,7 @@ import { useAvatarUpload } from "../../../src/hooks/useAvatarUpload";
 
 export default function AccountSettingsScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { profile, setProfile } = useAuthStore();
   const toast = useToast();
   const { pickAndUpload: handlePickAvatar, uploading: uploadingAvatar } = useAvatarUpload();
