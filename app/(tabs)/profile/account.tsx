@@ -39,59 +39,6 @@ export default function AccountSettingsScreen() {
   const isDirty =
     fullName !== (profile?.full_name ?? "") || phone !== (profile?.phone ?? "");
 
-  const handlePickAvatar = async () => {
-    try {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== "granted") {
-        Alert.alert("Permission Required", "Please grant photo library access.");
-        return;
-      }
-
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ["images"],
-        allowsEditing: true,
-        aspect: [1, 1],
-        quality: 0.8,
-      });
-
-      if (result.canceled || !result.assets?.[0]) return;
-
-      setUploadingAvatar(true);
-      const asset = result.assets[0];
-
-      // Resize/crop to 300x300
-      const manipulated = await ImageManipulator.manipulateAsync(
-        asset.uri,
-        [{ resize: { width: 300, height: 300 } }],
-        { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG }
-      );
-
-      // Upload to Supabase Storage
-      const path = `${profile!.id}/${Date.now()}.jpg`;
-      const publicUrl = await uploadFile("avatars", path, manipulated.uri, "image/jpeg");
-
-      // Update profile
-      const { error } = await supabase
-        .from("profiles")
-        .update({ avatar_url: publicUrl })
-        .eq("id", profile!.id);
-
-      if (error) throw error;
-
-      setProfile({ ...profile!, avatar_url: publicUrl });
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-      toast.show("Profile picture updated!");
-    } catch (err) {
-      if (__DEV__) {
-        // eslint-disable-next-line no-console
-        console.error("Avatar upload error", err);
-      }
-      toast.show("Failed to upload photo", "error");
-    } finally {
-      setUploadingAvatar(false);
-    }
-  };
-
   const handleSaveProfile = async () => {
     if (!profile || !fullName.trim()) {
       toast.show("Name cannot be empty", "warning");
