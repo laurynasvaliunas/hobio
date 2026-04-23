@@ -171,29 +171,29 @@ export default function AccountSettingsScreen() {
                 marginTop: 10,
               }}
             >
-              {uploadingAvatar ? "Uploading..." : "Tap to change photo"}
+              {uploadingAvatar ? t("profile.uploadingPhoto") : t("profile.tapChangePhoto")}
             </Text>
           </Card>
 
           {/* Profile fields */}
           <Input
-            label="Full Name"
-            placeholder="Your name"
+            label={t("profile.fullNameLabel")}
+            placeholder={t("profile.yourNamePh")}
             value={fullName}
             onChangeText={setFullName}
             autoCapitalize="words"
             containerStyle={{ marginBottom: 14 }}
           />
           <Input
-            label="Email"
+            label={t("profile.emailLabel")}
             value={profile?.email ?? ""}
             editable={false}
-            hint="Contact support to change email"
+            hint={t("profile.emailHint")}
             containerStyle={{ marginBottom: 14 }}
           />
           <Input
-            label="Phone"
-            placeholder="+1 555-000-0000"
+            label={t("profile.phone")}
+            placeholder={t("profile.phonePh")}
             value={phone}
             onChangeText={setPhone}
             keyboardType="phone-pad"
@@ -201,7 +201,7 @@ export default function AccountSettingsScreen() {
           />
 
           <Button
-            title="Save Changes"
+            title={t("profile.saveChanges")}
             onPress={handleSaveProfile}
             loading={saving}
             disabled={!isDirty}
