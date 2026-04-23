@@ -118,6 +118,19 @@ export default function Index() {
     }
   }, [isLoading, session, profile, isOnboarded]);
 
+  // Safety net: if auth takes longer than 3s (e.g., network issues, Supabase
+  // token refresh hanging), drop the user onto the welcome screen rather than
+  // stranding them on an infinite splash. Once auth does resolve, the effect
+  // above will redirect them to the correct destination.
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (isLoading || (session && !profile)) {
+        router.replace("/(auth)/welcome");
+      }
+    }, 3000);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
   const glowStyle = useAnimatedStyle(() => ({
     opacity: glowOpacity.value,
     transform: [{ scale: glowScale.value * breathing.value }],
