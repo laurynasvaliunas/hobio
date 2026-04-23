@@ -186,7 +186,7 @@ export default function SecuritySettingsScreen() {
             marginLeft: 4,
           }}
         >
-          Sessions
+          {t("profile.sectionSessions")}
         </Text>
         <Card style={{ marginBottom: 20 }}>
           <View style={{ gap: 12 }}>
