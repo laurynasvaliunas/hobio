@@ -93,7 +93,7 @@ export default function DeleteAccountScreen() {
             <ArrowLeft size={24} color={Colors.text.primary} />
           </TouchableOpacity>
           <Text style={{ fontSize: 20, fontWeight: "700", color: Colors.danger.DEFAULT }}>
-            Delete Account
+            {t("profile.deleteAccountScreen")}
           </Text>
         </View>
 
