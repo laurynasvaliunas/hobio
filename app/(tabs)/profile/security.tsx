@@ -249,10 +249,10 @@ export default function SecuritySettingsScreen() {
             </View>
             <View style={{ flex: 1 }}>
               <Text style={{ fontSize: 16, fontWeight: "600", color: Colors.danger.DEFAULT }}>
-                Sign Out All Devices
+                {t("profile.signOutAllDevices")}
               </Text>
               <Text style={{ fontSize: 13, color: Colors.text.secondary, marginTop: 2 }}>
-                Revokes all active sessions
+                {t("profile.signOutAllDevicesSub")}
               </Text>
             </View>
           </TouchableOpacity>
