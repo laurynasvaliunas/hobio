@@ -101,7 +101,7 @@ export default function NotificationSettingsScreen() {
           <ArrowLeft size={24} color={Colors.text.primary} />
         </TouchableOpacity>
         <Text style={{ fontSize: 20, fontWeight: "700", color: Colors.text.primary }}>
-          Notifications
+          {t("profile.notificationsScreen")}
         </Text>
       </View>
 
@@ -121,29 +121,29 @@ export default function NotificationSettingsScreen() {
             marginLeft: 4,
           }}
         >
-          Alert Types
+          {t("profile.alertTypes")}
         </Text>
         <Card style={{ marginBottom: 20 }}>
           <ToggleRow
             icon={<Bell size={18} color={Colors.primary.DEFAULT} />}
-            title="Session Reminders"
-            subtitle="Get notified before scheduled sessions"
+            title={t("profile.sessionReminders")}
+            subtitle={t("profile.sessionRemindersSub")}
             value={notifications.session_reminders}
             onToggle={(v) => handleToggle("session_reminders", v)}
           />
           <View style={{ height: 1, backgroundColor: Colors.border, marginVertical: 2 }} />
           <ToggleRow
             icon={<Bell size={18} color={Colors.warning.dark} />}
-            title="Billing Alerts"
-            subtitle="Invoices, payment due dates"
+            title={t("profile.billingAlerts")}
+            subtitle={t("profile.billingAlertsSub")}
             value={notifications.billing_alerts}
             onToggle={(v) => handleToggle("billing_alerts", v)}
           />
           <View style={{ height: 1, backgroundColor: Colors.border, marginVertical: 2 }} />
           <ToggleRow
             icon={<Bell size={18} color={Colors.secondary.DEFAULT} />}
-            title="Coach Announcements"
-            subtitle="Group announcements and updates"
+            title={t("profile.coachAnnouncements")}
+            subtitle={t("profile.coachAnnouncementsSub")}
             value={notifications.announcements}
             onToggle={(v) => handleToggle("announcements", v)}
           />
@@ -161,21 +161,21 @@ export default function NotificationSettingsScreen() {
             marginLeft: 4,
           }}
         >
-          Channels
+          {t("profile.channels")}
         </Text>
         <Card style={{ marginBottom: 20 }}>
           <ToggleRow
             icon={<Mail size={18} color={Colors.primary.DEFAULT} />}
-            title="Email Notifications"
-            subtitle="Receive alerts via email"
+            title={t("profile.emailNotifications")}
+            subtitle={t("profile.emailNotificationsSub")}
             value={notifications.email_notifications}
             onToggle={(v) => handleToggle("email_notifications", v)}
           />
           <View style={{ height: 1, backgroundColor: Colors.border, marginVertical: 2 }} />
           <ToggleRow
             icon={<Smartphone size={18} color={Colors.primary.DEFAULT} />}
-            title="Push Notifications"
-            subtitle="Receive alerts on your device"
+            title={t("profile.pushNotifications")}
+            subtitle={t("profile.pushNotificationsSub")}
             value={notifications.push_notifications}
             onToggle={(v) => handleToggle("push_notifications", v)}
           />
@@ -193,27 +193,27 @@ export default function NotificationSettingsScreen() {
             marginLeft: 4,
           }}
         >
-          Quiet Hours
+          {t("profile.quietHours")}
         </Text>
         <Card>
           <ToggleRow
             icon={<Clock size={18} color={Colors.text.secondary} />}
-            title="Quiet Hours"
-            subtitle="Mute notifications during set times"
+            title={t("profile.quietHours")}
+            subtitle={t("profile.quietHoursSub")}
             value={notifications.quiet_hours_enabled}
             onToggle={(v) => handleToggle("quiet_hours_enabled", v)}
           />
           {notifications.quiet_hours_enabled && (
             <View style={{ flexDirection: "row", gap: 12, marginTop: 8 }}>
               <Input
-                label="From"
+                label={t("profile.from")}
                 value={notifications.quiet_hours_start}
                 onChangeText={(v) => updateNotifications({ quiet_hours_start: v })}
                 placeholder="22:00"
                 containerStyle={{ flex: 1 }}
               />
               <Input
-                label="To"
+                label={t("profile.to")}
                 value={notifications.quiet_hours_end}
                 onChangeText={(v) => updateNotifications({ quiet_hours_end: v })}
                 placeholder="07:00"
