@@ -72,13 +72,28 @@ function RootLayout() {
     const onInitialized = () => setI18nReady(true);
     i18n.on("initialized", onInitialized);
     if (i18n.isInitialized) setI18nReady(true);
+
+    // Safety timeout: never block the UI on i18n for more than 2s. If the
+    // "initialized" event never fires (e.g., init promise rejected), we still
+    // want the app to proceed — translation keys will fall back to the key
+    // string, which is far better than an infinite splash.
+    const timeoutId = setTimeout(() => {
+      setI18nReady(true);
+    }, 2000);
+
     return () => {
       i18n.off("initialized", onInitialized);
+      clearTimeout(timeoutId);
     };
   }, []);
 
   useEffect(() => {
-    initialize();
+    initialize().catch((err) => {
+      // authStore.initialize() already has its own try/catch and sets
+      // isLoading=false in finally, but guard against any unhandled rejection
+      // bubbling up here so the app never gets stuck on the splash.
+      log.error("auth_initialize_failed", { name: (err as Error)?.name });
+    });
   }, []);
 
   useEffect(() => {
