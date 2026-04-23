@@ -132,7 +132,7 @@ export default function DeleteAccountScreen() {
                   textAlign: "center",
                 }}
               >
-                This action is irreversible
+                {t("profile.deleteIrreversible")}
               </Text>
               <Text
                 style={{
@@ -143,7 +143,7 @@ export default function DeleteAccountScreen() {
                   paddingHorizontal: 8,
                 }}
               >
-                Deleting your account will permanently remove all your data, including profile information, group memberships, invoices, contracts, and notifications.
+                {t("profile.deleteDescription")}
               </Text>
             </View>
           </Card>
