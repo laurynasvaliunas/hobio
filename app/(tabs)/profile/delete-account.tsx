@@ -11,6 +11,7 @@ import {
 import { useRouter } from "expo-router";
 import { ArrowLeft, AlertTriangle, Trash2 } from "lucide-react-native";
 import * as Haptics from "expo-haptics";
+import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Card, Button, Input } from "../../../src/components/ui";
 import { useToast } from "../../../src/components/ui/Toast";
@@ -20,6 +21,7 @@ import { supabase } from "../../../src/lib/supabase";
 
 export default function DeleteAccountScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { profile, signOut } = useAuthStore();
   const toast = useToast();
 
@@ -32,12 +34,12 @@ export default function DeleteAccountScreen() {
     if (!canDelete || !profile) return;
 
     Alert.alert(
-      "Final Confirmation",
-      "This is your last chance. Once deleted, ALL your data will be permanently removed. This cannot be reversed.",
+      t("profile.finalConfirmation"),
+      t("profile.finalConfirmationBody"),
       [
-        { text: "Cancel", style: "cancel" },
+        { text: t("common.cancel"), style: "cancel" },
         {
-          text: "Delete Forever",
+          text: t("profile.deleteForever"),
           style: "destructive",
           onPress: async () => {
             setDeleting(true);
@@ -53,7 +55,7 @@ export default function DeleteAccountScreen() {
 
               // Sign out after deletion
               Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-              toast.show("Account deleted");
+              toast.show(t("profile.accountDeleted"));
               await signOut();
             } catch (err) {
               if (__DEV__) {
@@ -61,7 +63,7 @@ export default function DeleteAccountScreen() {
                 console.error("Delete account error", err);
               }
               Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-              toast.show("Failed to delete account", "error");
+              toast.show(t("profile.deleteAccountFailed"), "error");
             } finally {
               setDeleting(false);
             }
