@@ -10,26 +10,24 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { ArrowLeft, Camera, Save, Lock } from "lucide-react-native";
-import * as ImagePicker from "expo-image-picker";
-import * as ImageManipulator from "expo-image-manipulator";
 import * as Haptics from "expo-haptics";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Card, Button, Input, Avatar } from "../../../src/components/ui";
 import { useToast } from "../../../src/components/ui/Toast";
-import { Colors, Shadows } from "../../../src/constants/colors";
+import { Colors } from "../../../src/constants/colors";
 import { useAuthStore } from "../../../src/stores/authStore";
 import { supabase } from "../../../src/lib/supabase";
-import { uploadFile } from "../../../src/lib/storage";
+import { useAvatarUpload } from "../../../src/hooks/useAvatarUpload";
 
 export default function AccountSettingsScreen() {
   const router = useRouter();
   const { profile, setProfile } = useAuthStore();
   const toast = useToast();
+  const { pickAndUpload: handlePickAvatar, uploading: uploadingAvatar } = useAvatarUpload();
 
   const [fullName, setFullName] = useState(profile?.full_name ?? "");
   const [phone, setPhone] = useState(profile?.phone ?? "");
   const [saving, setSaving] = useState(false);
-  const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
   // Change password state
   const [showPassword, setShowPassword] = useState(false);
