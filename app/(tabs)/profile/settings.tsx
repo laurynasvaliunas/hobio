@@ -116,7 +116,7 @@ export default function SettingsScreen() {
             marginLeft: 4,
           }}
         >
-          Identity
+          {t("settings.sections.identity")}
         </Text>
         <Card style={{ marginBottom: 20 }}>
           <SettingsItem
