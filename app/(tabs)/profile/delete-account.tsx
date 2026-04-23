@@ -160,16 +160,16 @@ export default function DeleteAccountScreen() {
               marginLeft: 4,
             }}
           >
-            What Will Be Deleted
+            {t("profile.whatWillBeDeleted")}
           </Text>
           <Card style={{ marginBottom: 24 }}>
             {[
-              "Your profile and personal information",
-              "All children/dependent profiles",
-              "Group memberships and history",
-              "Invoices and payment records",
-              "Signed contracts and documents",
-              "All notifications",
+              t("profile.deleteItemProfile"),
+              t("profile.deleteItemChildren"),
+              t("profile.deleteItemGroups"),
+              t("profile.deleteItemInvoices"),
+              t("profile.deleteItemContracts"),
+              t("profile.deleteItemNotifications"),
             ].map((item, i) => (
               <View
                 key={i}
