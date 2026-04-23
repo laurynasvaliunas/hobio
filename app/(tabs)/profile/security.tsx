@@ -156,10 +156,10 @@ export default function SecuritySettingsScreen() {
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={{ fontSize: 16, fontWeight: "600", color: Colors.text.primary }}>
-                    {biometricLabel} Lock
+                    {t("profile.biometricLockTitle", { type: biometricLabel })}
                   </Text>
                   <Text style={{ fontSize: 13, color: Colors.text.secondary, marginTop: 2 }}>
-                    Require {biometricLabel} to open Hobio. 2-min grace period when minimized.
+                    {t("profile.biometricLockDesc", { type: biometricLabel })}
                   </Text>
                 </View>
                 <Switch
