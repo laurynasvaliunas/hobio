@@ -181,7 +181,7 @@ export default function SettingsScreen() {
             marginLeft: 4,
           }}
         >
-          Security
+          {t("settings.sections.security")}
         </Text>
         <Card style={{ marginBottom: 20 }}>
           <SettingsItem
