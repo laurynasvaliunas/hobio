@@ -145,7 +145,7 @@ export default function AppearanceSettingsScreen() {
 
         <View style={{ gap: 12 }}>
           {THEME_OPTIONS.map((option) => {
-            const isSelected = currentTheme === option.mode;
+            const isSelected = currentMode === option.mode;
             const iconColor = getIconColor(option.mode, isSelected);
             return (
               <TouchableOpacity
