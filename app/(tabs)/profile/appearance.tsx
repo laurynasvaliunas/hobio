@@ -101,7 +101,7 @@ export default function AppearanceSettingsScreen() {
           <ArrowLeft size={24} color={colors.text.primary} />
         </TouchableOpacity>
         <Text style={{ fontSize: 20, fontFamily: Fonts.bold, color: colors.text.primary }}>
-          Appearance
+          {t("profile.appearance")}
         </Text>
       </View>
 
