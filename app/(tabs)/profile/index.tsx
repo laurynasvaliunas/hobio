@@ -94,6 +94,7 @@ export default function ProfileScreen() {
   const { profile, signOut } = useAuthStore();
   const router = useRouter();
   const { t } = useTranslation();
+  const { pickAndUpload, uploading: uploadingAvatar } = useAvatarUpload();
 
   const isParent = profile?.role === "parent";
   const isOrganizer = profile?.role === "organizer";
