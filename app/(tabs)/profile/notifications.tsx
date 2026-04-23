@@ -68,6 +68,7 @@ function ToggleRow({ icon, title, subtitle, value, onToggle }: ToggleRowProps) {
 
 export default function NotificationSettingsScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const profile = useAuthStore((s) => s.profile);
   const toast = useToast();
   const { notifications, updateNotifications } = usePreferences(profile?.id ?? "");
@@ -78,9 +79,9 @@ export default function NotificationSettingsScreen() {
   ) => {
     try {
       await updateNotifications({ [key]: value });
-      toast.show("Preference saved");
+      toast.show(t("profile.prefSaved"));
     } catch {
-      toast.show("Failed to save", "error");
+      toast.show(t("profile.saveFailed"), "error");
     }
   };
 
