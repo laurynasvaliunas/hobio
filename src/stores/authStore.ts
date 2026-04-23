@@ -1,9 +1,10 @@
 import { create } from "zustand";
 import { Platform } from "react-native";
 import * as AppleAuthentication from "expo-apple-authentication";
-import type { Profile, UserRole } from "../types/database.types";
+import type { Profile, ThemeMode, UserRole } from "../types/database.types";
 import { supabase } from "../lib/supabase";
 import { createLogger } from "../lib/logger";
+import { useThemeStore } from "./themeStore";
 
 const log = createLogger("Auth");
 
