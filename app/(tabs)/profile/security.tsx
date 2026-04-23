@@ -116,7 +116,7 @@ export default function SecuritySettingsScreen() {
           <ArrowLeft size={24} color={Colors.text.primary} />
         </TouchableOpacity>
         <Text style={{ fontSize: 20, fontWeight: "700", color: Colors.text.primary }}>
-          Security
+          {t("profile.securityScreen")}
         </Text>
       </View>
 
