@@ -35,7 +35,10 @@ if (!__DEV__) {
   Sentry = require("@sentry/react-native");
   Sentry!.init({
     dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
-    tracesSampleRate: 0.2,
+    tracesSampleRate: 0.5,
+    enableNative: true,
+    enableNativeCrashHandling: true,
+    enableAutoSessionTracking: true,
     // Strip PII before sending events to Sentry.
     beforeSend(event) {
       if (event.user) {
