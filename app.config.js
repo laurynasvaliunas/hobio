@@ -22,6 +22,33 @@ module.exports = ({ config }) => ({
         "Hobio uses your location to show nearby groups on the map.",
       ITSAppUsesNonExemptEncryption: false,
     },
+    // Apple Privacy Manifest (required May 2024+).
+    // Reasons cover Required Reason API categories triggered by our deps:
+    // expo-file-system / image-manipulator (FileTimestamp), AsyncStorage (UserDefaults),
+    // Sentry (SystemBootTime), expo-file-system (DiskSpace).
+    privacyManifests: {
+      NSPrivacyTracking: false,
+      NSPrivacyTrackingDomains: [],
+      NSPrivacyCollectedDataTypes: [],
+      NSPrivacyAccessedAPITypes: [
+        {
+          NSPrivacyAccessedAPIType: "NSPrivacyAccessedAPICategoryFileTimestamp",
+          NSPrivacyAccessedAPITypeReasons: ["C617.1"],
+        },
+        {
+          NSPrivacyAccessedAPIType: "NSPrivacyAccessedAPICategoryUserDefaults",
+          NSPrivacyAccessedAPITypeReasons: ["CA92.1"],
+        },
+        {
+          NSPrivacyAccessedAPIType: "NSPrivacyAccessedAPICategorySystemBootTime",
+          NSPrivacyAccessedAPITypeReasons: ["35F9.1"],
+        },
+        {
+          NSPrivacyAccessedAPIType: "NSPrivacyAccessedAPICategoryDiskSpace",
+          NSPrivacyAccessedAPITypeReasons: ["E174.1"],
+        },
+      ],
+    },
   },
   android: {
     adaptiveIcon: {
