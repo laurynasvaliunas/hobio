@@ -25,6 +25,16 @@ export function useAvatarUpload() {
   const toast = useToast();
   const [uploading, setUploading] = useState(false);
 
+  // Tracks whether the component is still mounted. If the user navigates away
+  // mid-upload we skip the post-upload state writes (toast, setProfile,
+  // setUploading) — those would no-op but also leak warnings.
+  const mountedRef = useRef(true);
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+
   const pickAndUpload = useCallback(async () => {
     if (!profile?.id) return;
 
@@ -46,6 +56,7 @@ export function useAvatarUpload() {
       });
 
       if (result.canceled || !result.assets?.[0]) return;
+      if (!mountedRef.current) return;
 
       setUploading(true);
       const asset = result.assets[0];
@@ -72,14 +83,19 @@ export function useAvatarUpload() {
 
       if (error) throw error;
 
+      if (!mountedRef.current) return;
       setProfile({ ...profile, avatar_url: publicUrl });
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       toast.show(t("avatar.updated", "Profile picture updated!"));
     } catch (err) {
       log.error("avatar_upload_failed", { name: (err as Error)?.name });
-      toast.show(t("avatar.uploadFailed", "Failed to upload photo"), "error");
+      if (mountedRef.current) {
+        toast.show(t("avatar.uploadFailed", "Failed to upload photo"), "error");
+      }
     } finally {
-      setUploading(false);
+      if (mountedRef.current) {
+        setUploading(false);
+      }
     }
   }, [profile, setProfile, t, toast]);
 
