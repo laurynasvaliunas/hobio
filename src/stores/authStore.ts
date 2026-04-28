@@ -40,8 +40,15 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   isOnboarded: false,
 
   initialize: async () => {
+    // Tear down any previous listener before registering a new one — protects
+    // against duplicate handlers on HMR or repeated initialize() calls.
+    if (authStateSubscription) {
+      authStateSubscription.unsubscribe();
+      authStateSubscription = null;
+    }
+
     // Set up the listener FIRST to avoid missing events that fire during getSession()
-    supabase.auth.onAuthStateChange(async (event, session) => {
+    const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session?.user) {
         set({
           session: {
@@ -56,6 +63,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         set({ session: null, profile: null, isOnboarded: false });
       }
     });
+    authStateSubscription = data.subscription;
 
     try {
       log.debug("initializing");
