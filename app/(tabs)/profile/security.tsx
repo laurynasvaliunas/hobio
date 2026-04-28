@@ -49,21 +49,39 @@ export default function SecuritySettingsScreen() {
       if (value) {
         const success = await enroll();
         if (success) {
-          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-          toast.show(t("profile.biometricEnabled", { type: biometricLabel }));
           if (profile) {
-            await supabase.from("profiles").update({ biometrics_enabled: true }).eq("id", profile.id);
+            const { error } = await supabase
+              .from("profiles")
+              .update({ biometrics_enabled: true })
+              .eq("id", profile.id);
+            if (error) {
+              // DB write failed — undo local enrollment so device + DB stay in sync.
+              await unenroll();
+              throw error;
+            }
             setProfile({ ...profile, biometrics_enabled: true });
           }
+          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+          toast.show(t("profile.biometricEnabled", { type: biometricLabel }));
         }
       } else {
         await unenroll();
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-        toast.show(t("profile.biometricDisabled", { type: biometricLabel }));
         if (profile) {
-          await supabase.from("profiles").update({ biometrics_enabled: false }).eq("id", profile.id);
+          const { error } = await supabase
+            .from("profiles")
+            .update({ biometrics_enabled: false })
+            .eq("id", profile.id);
+          if (error) {
+            // DB write failed — re-enroll locally so the user is not in a
+            // half-disabled state where the device no longer asks for biometrics
+            // but the server still expects them.
+            await enroll();
+            throw error;
+          }
           setProfile({ ...profile, biometrics_enabled: false });
         }
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        toast.show(t("profile.biometricDisabled", { type: biometricLabel }));
       }
     } catch {
       toast.show(t("profile.biometricUpdateFailed"), "error");
