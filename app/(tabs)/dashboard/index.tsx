@@ -40,6 +40,9 @@ import { ExceptionsCard } from "../../../src/components/dashboard/ExceptionsCard
 import { getSportEmoji } from "../../../src/constants/sports";
 import type { Group } from "../../../src/types/database.types";
 import { useTranslation } from "react-i18next";
+import { createLogger } from "../../../src/lib/logger";
+
+const log = createLogger("Dashboard");
 
 // ── Revenue hook ──
 function useRevenueSummary(groups: Group[]) {
