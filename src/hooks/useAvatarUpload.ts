@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Alert } from "react-native";
 import { useTranslation } from "react-i18next";
 import * as ImagePicker from "expo-image-picker";
