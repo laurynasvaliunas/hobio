@@ -50,22 +50,26 @@ function useRevenueSummary(groups: Group[]) {
   const [paidCount, setPaidCount] = useState(0);
   const [overdueCount, setOverdueCount] = useState(0);
   const [memberCount, setMemberCount] = useState(0);
+  const [error, setError] = useState<Error | null>(null);
 
   const fetchSummary = useCallback(async () => {
     if (groups.length === 0) return;
     const ids = groups.map((g) => g.id);
     try {
-      const { count: members } = await supabase
+      setError(null);
+      const { count: members, error: memErr } = await supabase
         .from("group_members")
         .select("id", { count: "exact", head: true })
         .in("group_id", ids)
         .eq("status", "active");
+      if (memErr) throw memErr;
       setMemberCount(members ?? 0);
 
-      const { data: invoices } = await supabase
+      const { data: invoices, error: invErr } = await supabase
         .from("invoices")
         .select("status, amount")
         .in("group_id", ids);
+      if (invErr) throw invErr;
 
       if (invoices) {
         const paid    = invoices.filter((i) => i.status === "paid");
@@ -74,11 +78,16 @@ function useRevenueSummary(groups: Group[]) {
         setOverdueCount(overdue.length);
         setTotalRevenue(paid.reduce((s, i) => s + (i.amount ?? 0), 0));
       }
-    } catch (e) { /* silent */ }
+    } catch (e) {
+      // Log to Sentry (via our logger) and surface to the UI so a silent
+      // permissions/network failure doesn't show "$0 revenue" indefinitely.
+      log.error("revenue_summary_failed", { name: (e as Error)?.name });
+      setError(e as Error);
+    }
   }, [groups]);
 
   useEffect(() => { fetchSummary(); }, [fetchSummary]);
-  return { totalRevenue, paidCount, overdueCount, memberCount, refresh: fetchSummary };
+  return { totalRevenue, paidCount, overdueCount, memberCount, error, refresh: fetchSummary };
 }
 
 export default function StudioDashboard() {
