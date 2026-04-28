@@ -89,7 +89,9 @@ export default function HomeScreen() {
     }
   }, [profile?.id]);
 
-  const groupIds = groups.map((g) => g.id);
+  // Stable identity across renders — useSessions uses this as a dependency,
+  // so a fresh array on every render would refetch on every render.
+  const groupIds = useMemo(() => groups.map((g) => g.id), [groups]);
   const { sessions, fetchSessions } = useSessions({
     groupIds: groupIds.length > 0 ? groupIds : undefined,
   });
