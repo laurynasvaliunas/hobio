@@ -1,6 +1,25 @@
 import * as DocumentPicker from "expo-document-picker";
 import { supabase } from "./supabase";
 
+const MAX_UPLOAD_BYTES = 10 * 1024 * 1024; // 10 MB
+
+const ALLOWED_CONTENT_TYPES: ReadonlySet<string> = new Set([
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/heic",
+  "image/heif",
+  "image/webp",
+  "application/pdf",
+]);
+
+export class UploadValidationError extends Error {
+  constructor(message: string, public readonly code: "size" | "type") {
+    super(message);
+    this.name = "UploadValidationError";
+  }
+}
+
 /**
  * Pick a document using the system file picker.
  */
@@ -27,12 +46,23 @@ export async function uploadFile(
   uri: string,
   contentType: string
 ): Promise<string> {
-  // Fetch file as blob
+  if (!ALLOWED_CONTENT_TYPES.has(contentType.toLowerCase())) {
+    throw new UploadValidationError(
+      `Unsupported file type: ${contentType}`,
+      "type"
+    );
+  }
+
   const response = await fetch(uri);
   const blob = await response.blob();
-
-  // Convert blob to arraybuffer
   const arrayBuffer = await new Response(blob).arrayBuffer();
+
+  if (arrayBuffer.byteLength > MAX_UPLOAD_BYTES) {
+    throw new UploadValidationError(
+      `File exceeds 10 MB limit (${arrayBuffer.byteLength} bytes)`,
+      "size"
+    );
+  }
 
   const { error } = await supabase.storage
     .from(bucket)
