@@ -103,8 +103,11 @@ export default function HomeScreen() {
     setRefreshing(false);
   }, [fetchMyGroups, fetchMyOrganizations, fetchNotifications, fetchSessions]);
 
-  const todaySessions = getSessionsForDate(sessions, new Date()).filter((s) => !s.is_cancelled);
-  const groupMap = new Map(groups.map((g) => [g.id, g]));
+  const todaySessions = useMemo(
+    () => getSessionsForDate(sessions, new Date()).filter((s) => !s.is_cancelled),
+    [sessions]
+  );
+  const groupMap = useMemo(() => new Map(groups.map((g) => [g.id, g])), [groups]);
 
   const greeting = () => {
     const h = new Date().getHours();
