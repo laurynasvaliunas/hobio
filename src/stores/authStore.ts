@@ -8,6 +8,11 @@ import { useThemeStore } from "./themeStore";
 
 const log = createLogger("Auth");
 
+// Holds the active onAuthStateChange subscription so a second `initialize()`
+// call (HMR, navigation re-mount) doesn't stack listeners and fire duplicate
+// SIGNED_IN events that race the profile fetch.
+let authStateSubscription: { unsubscribe: () => void } | null = null;
+
 export type SignUpResult = "signed_in" | "email_confirmation_required";
 
 interface AuthState {
