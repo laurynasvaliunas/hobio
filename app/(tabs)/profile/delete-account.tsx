@@ -44,18 +44,19 @@ export default function DeleteAccountScreen() {
           onPress: async () => {
             setDeleting(true);
             try {
-              // Delete user data (cascades from profiles)
-              // The Supabase RLS + CASCADE should handle children, memberships, etc.
-              const { error } = await supabase
-                .from("profiles")
-                .delete()
-                .eq("id", profile.id);
+              // Call the delete-user Edge Function. It:
+              //   1. Removes all Storage files (avatars, documents, contracts)
+              //   2. Deletes auth.users via admin API, which cascades to
+              //      profiles and every child table (Apple compliance).
+              const { error } = await supabase.functions.invoke("delete-user", {
+                method: "POST",
+              });
 
               if (error) throw error;
 
-              // Sign out after deletion
               Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
               toast.show(t("profile.accountDeleted"));
+              // Session is already gone server-side; sign out clears local state.
               await signOut();
             } catch (err) {
               if (__DEV__) {
