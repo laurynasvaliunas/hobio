@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { Alert } from "react-native";
 import * as Haptics from "expo-haptics";
+import { useStripe } from "@stripe/stripe-react-native";
 import { supabase } from "../lib/supabase";
 import { createLogger } from "../lib/logger";
 
@@ -20,21 +21,24 @@ interface PaymentIntentResponse {
  * Hook for managing Stripe Payment Sheet interactions.
  *
  * Flow:
- *  1. Call `createPaymentIntent(groupId, memberId)` to get the intent from the backend.
- *  2. The hook initializes the Stripe Payment Sheet.
- *  3. Call `presentPaymentSheet()` to open the native Stripe UI.
+ *  1. Call `createPaymentIntent(params)` — fetches a PaymentIntent from the
+ *     backend Edge Function and initialises the Stripe Payment Sheet.
+ *  2. Call `presentPaymentSheet()` — opens the native Stripe UI.
+ *     Only available after step 1 succeeds (`paymentReady === true`).
  *
- * Note: In production, the backend Edge Function creates the PaymentIntent via
- * the Stripe API and returns the client secret. For development, this hook
- * provides a mock flow that can be swapped out.
+ * In Expo Go the Stripe native module is absent; a dev-mode alert is shown
+ * **but success is NOT faked** — callers receive `success: false` so no
+ * client-side invoice is recorded without a real payment.
  */
 export function usePaymentSheet() {
+  const { initPaymentSheet, presentPaymentSheet: stripePresent } = useStripe();
+
   const [isLoading, setIsLoading] = useState(false);
   const [paymentReady, setPaymentReady] = useState(false);
-  const [clientSecret, setClientSecret] = useState<string | null>(null);
 
   /**
-   * Step 1: Request a payment intent from the backend.
+   * Step 1: Request a payment intent from the backend and initialise the
+   * Stripe Payment Sheet so it is ready to present.
    */
   const createPaymentIntent = useCallback(
     async (params: {
@@ -45,6 +49,7 @@ export function usePaymentSheet() {
       description?: string;
     }) => {
       setIsLoading(true);
+      setPaymentReady(false);
       try {
         const { data, error } = await supabase.functions.invoke<PaymentIntentResponse>(
           "create-payment-intent",
@@ -62,45 +67,58 @@ export function usePaymentSheet() {
         if (error) throw error;
         if (!data) throw new Error("No payment data returned");
 
-        setClientSecret(data.paymentIntent);
-        setPaymentReady(true);
+        // Initialise the native Payment Sheet BEFORE presenting it.
+        // Skipping this step causes presentPaymentSheet to throw in production.
+        const { error: initError } = await initPaymentSheet({
+          paymentIntentClientSecret: data.paymentIntent,
+          customerEphemeralKeySecret: data.ephemeralKey,
+          customerId: data.customer,
+          merchantDisplayName: "Hobio",
+          returnURL: "hobio://payment-return",
+          defaultBillingDetails: {},
+        });
 
+        if (initError) throw new Error(initError.message);
+
+        setPaymentReady(true);
         return data;
       } catch (err) {
-        log.error("Create payment intent failed", { err });
+        log.error("Create payment intent failed", { name: (err as Error)?.name });
         throw err;
       } finally {
         setIsLoading(false);
       }
     },
-    [],
+    [initPaymentSheet],
   );
 
   /**
    * Step 2: Present the Stripe Payment Sheet (native UI).
-   *
-   * This attempts to use @stripe/stripe-react-native's `presentPaymentSheet`.
-   * Falls back gracefully in Expo Go where native modules aren't available.
+   * Must be called after `createPaymentIntent` completes successfully.
    */
   const presentPaymentSheet = useCallback(async (): Promise<{
     success: boolean;
     error?: string;
   }> => {
-    if (!clientSecret) {
+    if (!paymentReady) {
       return { success: false, error: "No payment intent. Call createPaymentIntent first." };
+    }
+
+    // stripePresent may be undefined when the native Stripe module is not
+    // available (Expo Go). We guard here rather than crashing.
+    if (!stripePresent) {
+      Alert.alert(
+        "Payment (Dev Mode)",
+        "Stripe is not available in Expo Go. Use a production build to process real payments.",
+        [{ text: "OK" }],
+      );
+      // Return false — do NOT simulate success, so no invoice is recorded.
+      return { success: false, error: "Stripe not available in Expo Go" };
     }
 
     setIsLoading(true);
     try {
-      // Dynamically import to avoid crashes in Expo Go
-      const Stripe = await import("@stripe/stripe-react-native");
-
-      if (!Stripe.presentPaymentSheet) {
-        // Stripe native module not available (Expo Go)
-        throw new Error("STRIPE_NOT_AVAILABLE");
-      }
-
-      const { error } = await Stripe.presentPaymentSheet();
+      const { error } = await stripePresent();
 
       if (error) {
         if (error.code === "Canceled") {
@@ -113,25 +131,12 @@ export function usePaymentSheet() {
       return { success: true };
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Payment failed";
-
-      if (msg === "STRIPE_NOT_AVAILABLE") {
-        // In Expo Go — show a mock success for development
-        Alert.alert(
-          "Payment (Dev Mode)",
-          "Stripe is not available in Expo Go. In a production build, the native Payment Sheet would appear here.\n\nSimulating successful payment...",
-          [{ text: "OK" }],
-        );
-        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-        return { success: true };
-      }
-
       return { success: false, error: msg };
     } finally {
       setIsLoading(false);
       setPaymentReady(false);
-      setClientSecret(null);
     }
-  }, [clientSecret]);
+  }, [paymentReady, stripePresent]);
 
   /**
    * Convenience: Create intent + present sheet in one call.
@@ -156,7 +161,10 @@ export function usePaymentSheet() {
   );
 
   /**
-   * Record a successful payment in our invoices table.
+   * Record a confirmed payment in the invoices table.
+   * Only call this after `presentPaymentSheet` returns `{ success: true }`.
+   * The status "paid" here represents the client acknowledging the Stripe
+   * success — a server-side webhook should be the authoritative confirmation.
    */
   const recordPayment = useCallback(
     async (params: {
@@ -182,8 +190,8 @@ export function usePaymentSheet() {
         billing_period: params.billingPeriod,
         period_start: now.toISOString(),
         period_end: periodEnd.toISOString(),
-        status: "paid",
-        paid_at: now.toISOString(),
+        status: "pending_confirmation", // Stripe webhook will flip this to "paid"
+        paid_at: null,
         paid_marked_by: params.profileId,
       });
 
