@@ -38,9 +38,14 @@ export const useNotificationStore = create<NotificationState>((set, get) => ({
   fetchNotifications: async () => {
     set({ isLoading: true });
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
       const { data, error } = await supabase
-        .from("notifications")
+        .from("app_notifications")
         .select("*")
+        // Client-side defence-in-depth alongside RLS policy app_notifications_self.
+        .eq("recipient_id", user.id)
         .order("created_at", { ascending: false })
         .limit(50);
 
@@ -67,7 +72,7 @@ export const useNotificationStore = create<NotificationState>((set, get) => ({
     }));
 
     await supabase
-      .from("notifications")
+      .from("app_notifications")
       .update({ is_read: true })
       .eq("id", notificationId);
   },
@@ -86,13 +91,13 @@ export const useNotificationStore = create<NotificationState>((set, get) => ({
     }));
 
     await supabase
-      .from("notifications")
+      .from("app_notifications")
       .update({ is_read: true })
       .in("id", unreadIds);
   },
 
   sendNotification: async (recipientId, type, title, body, data = {}) => {
-    await supabase.from("notifications").insert({
+    await supabase.from("app_notifications").insert({
       recipient_id: recipientId,
       type,
       title,
@@ -112,6 +117,6 @@ export const useNotificationStore = create<NotificationState>((set, get) => ({
       data,
     }));
 
-    await supabase.from("notifications").insert(records);
+    await supabase.from("app_notifications").insert(records);
   },
 }));
